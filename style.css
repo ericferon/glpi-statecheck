@@ -1,0 +1,9 @@
+.statecheck-warning,.select2-choice.statecheck-warning {
+  border-color: red !important;
+}
+.statecheck-error,.select2-choice.statecheck-error {
+  border-color: #f2dede !important;
+}
+.statecheck-success,.select2-choice.statecheck-success {
+  border-color: #dff0d8 !important;
+}
