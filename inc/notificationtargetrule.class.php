@@ -238,6 +238,7 @@ function getEvents() {
             $this->data[$tag] = $values['label'];
          }
       }
+	  Toolbox:logInFile("statecheck", print_r($this->data,true));
    }
 
 
