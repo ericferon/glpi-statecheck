@@ -98,10 +98,10 @@ class PluginStatecheckRule extends Rule {
 
 
    // Temproray hack for this class
-   static function getTable($classname = NULL) {
+/*   static function getTable($classname = NULL) {
       return 'glpi_plugin_statecheck_rules';
    }
-
+*/
 
    static function getTypeName($nb=0) {
       return _n('StatecheckRule', 'StatecheckRules', $nb);
