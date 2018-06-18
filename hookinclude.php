@@ -74,7 +74,6 @@ function plugin_pre_item_statecheck($item)
 			"and frontname = '$frontname' ".
 			"and (plugin_statecheck_targetstates_id = $targetstates_id or plugin_statecheck_targetstates_id = 0)".
 			"and is_active = true";
-	file_put_contents("../adebug.log",$queryrule,FILE_APPEND);
 	if ($resultrule=$DB->query($queryrule)) {
 		if (is_array($item)) {
 			$item['hookerror'] = false;

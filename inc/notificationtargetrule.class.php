@@ -211,14 +211,16 @@ function getEvents() {
 			$itemobj = new $classinfo[0];
 			$searchfields = $itemobj->getsearchOptions();
 			foreach($searchfields as $fieldlabel) {
+				Toolbox::logInFile("Statecheck", "notificationtargetrule - fieldlabel=".print_r($fieldlabel,true));
 				if (isset($fieldlabel['table']) && isset($fieldlabel['name'])) {
 					$fieldtable = $fieldlabel['table'];
-					$fielddisplay = isset($fieldlabel['displaytype'])?$fieldlabel['displaytype']:"text";
+					$fielddisplay = isset($fieldlabel['datatype'])?$fieldlabel['datatype']:"text";
 					if (substr($fielddisplay,-4) == "text") {
 						$fieldname = $fieldlabel['field'];
 					} else {
 						$fieldname = substr($fieldtable,5)."_id";
 					}
+				Toolbox::logInFile("Statecheck", "notificationtargetrule - fieldname=".$fieldname);
 					$fielddescr = $fieldlabel['name'];
 					$tagname = "##lang.statecheck.".$frontname.".".$fieldname."##";
 					$this->data[$tagname] = $fielddescr;
