@@ -98,10 +98,10 @@ class PluginStatecheckRule extends Rule {
 
 
    // Temproray hack for this class
-/*   static function getTable($classname = NULL) {
+   static function getTable($classname = NULL) {
       return 'glpi_plugin_statecheck_rules';
    }
-*/
+
 
    static function getTypeName($nb=0) {
       return _n('StatecheckRule', 'StatecheckRules', $nb);
@@ -3139,7 +3139,7 @@ function plugin_pre_item_statecheck($item)
 				$eventtype = "_failure";
 			if (is_object($item)) {
 				$itemobj = new PluginStatecheckRule;
-				cast($item,$itemobj);
+				cast($item,get_class($itemobj));
 				NotificationEvent::raiseEvent($itemtype."_".$targetstates_id.$eventtype,$itemobj);
 			} else {
 				$itemobj = new PluginStatecheckRule;
