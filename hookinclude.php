@@ -281,7 +281,9 @@ function plugin_pre_item_statecheck($item)
 				$eventtype = "_failure";
 			if (is_object($item)) {
 				$itemobj = new PluginStatecheckRule;
-				cast($item,$itemobj);
+				$itemobj->fields = $item->fields;
+				$itemobj->hookerror = $item->hookerror;
+//				$itemobj = cast($item,get_class($itemobj));
 				NotificationEvent::raiseEvent($itemtype."_".$targetstates_id.$eventtype,$itemobj);
 			} else {
 				$itemobj = new PluginStatecheckRule;
