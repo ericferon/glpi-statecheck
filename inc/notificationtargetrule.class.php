@@ -49,8 +49,8 @@ function getEvents() {
 			$querystate = "select * from $statetable";
 			if ($resultstate=$DB->query($querystate)) {
 				while ($datastate=$DB->fetch_assoc($resultstate)) {
-					$events[$dataclass['class'].'_'.$datastate['id'].'_success'] = $dataclass['comment']." ".$LANG['plugin_statecheck']['mailing'][4]."'".$datastate['name']."'";
-					$events[$dataclass['class'].'_'.$datastate['id'].'_failure'] = $dataclass['comment']." ".$LANG['plugin_statecheck']['mailing'][5]."'".$datastate['name']."'";
+					$events[$dataclass['class'].'_'.$datastate['id'].'_success'] = $dataclass['comment']." ".__('Statecheck succeeded for ')."'".$datastate['name']."'";
+					$events[$dataclass['class'].'_'.$datastate['id'].'_failure'] = $dataclass['comment']." ".__('Statecheck failed for ')."'".$datastate['name']."'";
 				}
 			}
 		}
@@ -62,7 +62,7 @@ function getEvents() {
    /**
     * Get additionnals targets for Tickets
     */
-	function getAdditionalTargets($event='') {
+	function addAdditionalTargets($event='') {
       global $LANG, $DB;
       
 	$eventparts = explode("_",$event);
@@ -71,10 +71,10 @@ function getEvents() {
 	if ($resultclass=$DB->query($queryclass)) {
 		$dataclass=$DB->fetch_assoc($resultclass);
 		$frontname = $dataclass['frontname'];
-		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_GROUP_MANAGER,$LANG['common'][64].' '.$LANG['plugin_statecheck']['mailing'][11].$frontname,Notification::SUPERVISOR_GROUP_TYPE);
-		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_USER,$LANG['plugin_statecheck']['mailing'][12].$frontname);
-		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_LOGGED_USER,$LANG['plugin_statecheck'][24]);
-		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_LOGGED_GROUP,$LANG['plugin_statecheck'][25],Notification::SUPERVISOR_GROUP_TYPE);
+		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_GROUP_MANAGER,__("Manager").' '.__("Group responsible of the ").$frontname,Notification::SUPERVISOR_GROUP_TYPE);
+		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_USER,__("User responsible of the ").$frontname);
+		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_LOGGED_USER,__("Logged user"));
+		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_LOGGED_GROUP,__("Logged user's group"),Notification::SUPERVISOR_GROUP_TYPE);
       }
    }
 
@@ -177,7 +177,7 @@ function getEvents() {
       }
    }
 
-   function getDatasForTemplate($event, $options=array()) {
+   function addDataForTemplate($event, $options=array()) {
      global $LANG,$CFG_GLPI,$DB,$_SESSION;
 
 		$classinfo = explode("_",$this->raiseevent);
@@ -190,7 +190,7 @@ function getEvents() {
 			$dataclass=$DB->fetch_assoc($resultclass);
 			$statetable = $dataclass['statetable'];
 			$this->data['##statecheck.classname##'] = $dataclass['comment'];
-			$this->data['##lang.statecheck.status##'] = $LANG['plugin_statecheck'][19];
+			$this->data['##lang.statecheck.status##'] = __('Mail to user');
 			$this->data['##statecheck.status##'] =  Dropdown::getDropdownName($statetable, $classinfo[1]);
 			$frontname = $dataclass['frontname'];
 			$tablename = $dataclass['name'];
@@ -211,16 +211,18 @@ function getEvents() {
 			$itemobj = new $classinfo[0];
 			$searchfields = $itemobj->getsearchOptions();
 			foreach($searchfields as $fieldlabel) {
-				$fieldtable = $fieldlabel['table'];
-				$fielddisplay = isset($fieldlabel['displaytype'])?$fieldlabel['displaytype']:"text";
-				if (substr($fielddisplay,-4) == "text") {
-					$fieldname = $fieldlabel['field'];
-				} else {
-					$fieldname = substr($fieldtable,5)."_id";
+				if (isset($fieldlabel['table']) && isset($fieldlabel['name'])) {
+					$fieldtable = $fieldlabel['table'];
+					$fielddisplay = isset($fieldlabel['displaytype'])?$fieldlabel['displaytype']:"text";
+					if (substr($fielddisplay,-4) == "text") {
+						$fieldname = $fieldlabel['field'];
+					} else {
+						$fieldname = substr($fieldtable,5)."_id";
+					}
+					$fielddescr = $fieldlabel['name'];
+					$tagname = "##lang.statecheck.".$frontname.".".$fieldname."##";
+					$this->data[$tagname] = $fielddescr;
 				}
-				$fielddescr = $fieldlabel['name'];
-				$tagname = "##lang.statecheck.".$frontname.".".$fieldname."##";
-				$this->data[$tagname] = $fielddescr;
 			}
 		}
 		$this->data['##statecheck.action##'] = $events[$event];
@@ -228,7 +230,7 @@ function getEvents() {
 		$this->data['##lang.statecheck.title##'] = $events[$event];
 		$this->data['##statecheck.id##'] = $this->obj->getField("id");
 		$this->data['##statecheck.loggeduser##'] = $_SESSION['glpiname'];
-		$this->data['##lang.statecheck.errormessage##'] = $LANG['plugin_statecheck'][8];
+		$this->data['##lang.statecheck.errormessage##'] = __('On failure message');
 		$this->data['##statecheck.errormessage##'] = Html::clean(stripslashes(str_replace(array('\r\n', '\n', '\r', ';'), "<br/>",$this->obj->getField('hookmessage'))));
 
          
@@ -238,15 +240,14 @@ function getEvents() {
             $this->data[$tag] = $values['label'];
          }
       }
-	  Toolbox:logInFile("statecheck", print_r($this->data,true));
    }
 
 
    function getTags() {
       global $LANG;
 
-      $tags = array('statecheck.name'           => $LANG['common'][16],
-                    'statecheck.entity'         => $LANG['entity'][0]);
+      $tags = array('statecheck.name'           => __('Name'),
+                    'statecheck.entity'         => __('Entity'));
 
       foreach ($tags as $tag => $label) {
          $this->addTagToList(array('tag'   => $tag,
