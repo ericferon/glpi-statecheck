@@ -403,11 +403,11 @@ class PluginStatecheckRule extends Rule {
       $tab[3]['datatype']        = 'number';
       $tab[3]['massiveaction']   = false;
 
-      $tab[4]['table']           = $this->getTable();
+/*      $tab[4]['table']           = $this->getTable();
       $tab[4]['field']           = 'description';
       $tab[4]['name']            = __('Description');
       $tab[4]['datatype']        = 'text';
-
+*/
       $tab[5]['table']           = $this->getTable();
       $tab[5]['field']           = 'match';
       $tab[5]['name']            = __('Logical operator');
@@ -536,10 +536,11 @@ class PluginStatecheckRule extends Rule {
       echo "<td>";
       Html::autocompletionTextField($this, "name");
       echo "</td>";
-      echo "<td>".__('Description')."</td>";
+/*      echo "<td>".__('Description')."</td>";
       echo "<td>";
       Html::autocompletionTextField($this, "description");
-      echo "</td></tr>\n";
+      echo "</td>
+*/	  echo "</tr>\n";
 
       echo "<tr class='tab_bg_1'>";
       //table of class to be checked
