@@ -220,6 +220,7 @@ function getEvents() {
 					} else {
 						$fieldname = substr($fieldtable,5)."_id";
 					}
+				Toolbox::logInFile("Statecheck", "notificationtargetrule - fieldname=".$fieldname);
 					$fielddescr = $fieldlabel['name'];
 					$tagname = "##lang.statecheck.".$frontname.".".$fieldname."##";
 					$this->data[$tagname] = $fielddescr;
