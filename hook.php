@@ -110,7 +110,7 @@ function plugin_statecheck_uninstall() {
 	include_once (GLPI_ROOT."/plugins/statecheck/inc/profile.class.php");
 	include_once (GLPI_ROOT."/plugins/statecheck/inc/menu.class.php");
    
-/*	$tables = array("glpi_plugin_statecheck_rules",
+	$tables = array("glpi_plugin_statecheck_rules",
 					"glpi_plugin_statecheck_tables",
 					"glpi_plugin_statecheck_targetstates",
 					"glpi_plugin_statecheck_rulecriterias",
@@ -167,7 +167,7 @@ function plugin_statecheck_uninstall() {
    }
    PluginStatecheckMenu::removeRightsFromSession();
    PluginStatecheckProfile::removeRightsFromSession();
-*/   
+   
    return true;
 }
 
@@ -194,8 +194,7 @@ function plugin_statecheck_getDropdown() {
 
    $plugin = new Plugin();
    if ($plugin->isActivated("statecheck"))
-		return array('PluginStatecheckTable'=>_n('Table', 'Tables', Session::getPluralNumber()),
-                'PluginStatecheckTargetstate'=>_n('Target State', 'Target States', Session::getPluralNumber()),
+		return array('PluginStatecheckTable'=>_n('Table', 'Tables', Session::getPluralNumber())
                 );
    else
       return array();

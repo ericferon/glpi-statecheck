@@ -46,6 +46,49 @@ class PluginStatecheckTable extends CommonDropdown {
 
       return _n('Table','Tables',$nb);
    }
+   public function getAdditionalFields() {
+      return [
+            [
+                  'name'      => 'class',
+                  'type'      => 'text',
+                  'label'     => __('Class', 'statecheck'),
+                  'list'      => false
+            ],
+			[
+                  'name'      => 'statetable',
+                  'type'      => 'text',
+                  'label'     => __('State table', 'statecheck'),
+                  'list'      => false
+            ],
+            [
+                  'name'      => 'stateclass',
+                  'type'      => 'text',
+                  'label'     => __('State class', 'statecheck'),
+                  'list'      => false
+            ]
+		];
+   }
+   function getSearchOptions() {
+	  $opt = CommonDropdown::getSearchOptions();
+//      $sopt['common'] = __("App structures", "archisw");
+
+      $opt[2400]['table']       = $this->getTable();
+      $opt[2400]['field']       = 'class';
+      $opt[2400]['name']        = __("Class");
+      $opt[2400]['datatype']    = 'text';
+
+	  $opt[2401]['table']       = $this->getTable();
+      $opt[2401]['field']       = 'statetable';
+      $opt[2401]['name']        = __("State table");
+      $opt[2401]['datatype']    = 'text';
+
+	  $opt[2402]['table']       = $this->getTable();
+      $opt[2402]['field']       = 'stateclass';
+      $opt[2402]['name']        = __("State class");
+      $opt[2402]['datatype']    = 'text';
+
+      return $opt;
+   }
 }
 
 ?>
