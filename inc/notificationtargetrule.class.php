@@ -196,8 +196,6 @@ function getEvents() {
 			$tableid = $dataclass['id'];
 			$queryfield = "show columns from $tablename";
 			if ($resultfield=$DB->query($queryfield)) {
-				Toolbox::logInFile("Statecheck", "notificationtargetrule - this=".print_r($this,true));
-				Toolbox::logInFile("Statecheck", "notificationtargetrule - options=".print_r($options,true));
 				while ($datafield=$DB->fetch_assoc($resultfield)) {
 					$fieldname = $datafield['Field'];
 					$tagname = "##statecheck.".$frontname.".".$fieldname."##";
