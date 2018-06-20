@@ -214,7 +214,7 @@ function getEvents() {
 				if (isset($fieldlabel['table']) && isset($fieldlabel['name'])) {
 					$fieldtable = $fieldlabel['table'];
 					$fielddisplay = isset($fieldlabel['datatype'])?$fieldlabel['datatype']:"text";
-					if (substr($fielddisplay,-4) == "text") {
+					if (substr($fielddisplay,-8) != "dropdown") {
 						$fieldname = $fieldlabel['field'];
 					} else {
 						$fieldname = substr($fieldtable,5)."_id";
