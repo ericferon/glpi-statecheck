@@ -76,9 +76,10 @@ function getEvents() {
 		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_LOGGED_USER,__("Logged user"));
 		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_LOGGED_GROUP,__("Logged user's group"),Notification::SUPERVISOR_GROUP_TYPE);
       }
+
    }
 
-   function getSpecificTargets($data,$options) {
+   function addSpecificTargets($data,$options) {
 
       //Look for all targets whose type is Notification::ITEM_USER
       switch ($data['items_id']) {
@@ -89,12 +90,10 @@ function getEvents() {
          case PluginStatecheckNotificationTargetRule::STATECHECK_LOGGED_USER :
             $this->getLoggedUserAddress($options);
             break;
-         case PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_GROUP_MANGER :
-			echo "<pre>notificationtargetstatecheck - getSpecificTargets";print_r($this);echo "</pre>";
+         case PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_GROUP_MANAGER :
             $this->getItemGroupAddress($options);
             break;
          case PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_GROUP :
-			echo "<pre>notificationtargetstatecheck - getSpecificTargets";print_r($this);echo "</pre>";
             $this->getItemGroupAddress($options);
             break;
          case PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_USER :
