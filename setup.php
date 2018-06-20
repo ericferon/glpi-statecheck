@@ -41,6 +41,7 @@ function plugin_init_statecheck() {
    Plugin::registerClass('PluginStatecheckRule', array(
 //         'linkgroup_tech_types'   => true,
 //         'linkuser_tech_types'    => true,
+         'notificationtemplates_types' => true,
          'document_types'         => true,
          'ticket_types'           => true,
          'helpdesk_visible_types' => true//,
