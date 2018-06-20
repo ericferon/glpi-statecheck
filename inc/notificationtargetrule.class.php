@@ -196,6 +196,8 @@ function getEvents() {
 			$tableid = $dataclass['id'];
 			$queryfield = "show columns from $tablename";
 			if ($resultfield=$DB->query($queryfield)) {
+				Toolbox::logInFile("Statecheck", "notificationtargetrule - this=".print_r($this,true));
+				Toolbox::logInFile("Statecheck", "notificationtargetrule - options=".print_r($options,true));
 				while ($datafield=$DB->fetch_assoc($resultfield)) {
 					$fieldname = $datafield['Field'];
 					$tagname = "##statecheck.".$frontname.".".$fieldname."##";
@@ -210,16 +212,14 @@ function getEvents() {
 			$itemobj = new $classinfo[0];
 			$searchfields = $itemobj->getsearchOptions();
 			foreach($searchfields as $fieldlabel) {
-				Toolbox::logInFile("Statecheck", "notificationtargetrule - fieldlabel=".print_r($fieldlabel,true));
 				if (isset($fieldlabel['table']) && isset($fieldlabel['name'])) {
 					$fieldtable = $fieldlabel['table'];
 					$fielddisplay = isset($fieldlabel['datatype'])?$fieldlabel['datatype']:"text";
-					if (substr($fielddisplay,-4) == "text") {
+					if (substr($fielddisplay,-8) != "dropdown") {
 						$fieldname = $fieldlabel['field'];
 					} else {
 						$fieldname = substr($fieldtable,5)."_id";
 					}
-				Toolbox::logInFile("Statecheck", "notificationtargetrule - fieldname=".$fieldname);
 					$fielddescr = $fieldlabel['name'];
 					$tagname = "##lang.statecheck.".$frontname.".".$fieldname."##";
 					$this->data[$tagname] = $fielddescr;
