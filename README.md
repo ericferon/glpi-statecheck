@@ -1,3 +1,15 @@
+# Statecheck
+Statecheck Plugin for GLPI
+
+This plugin let you check the validity of form fields.
+For instance you can make a field mandatory or not, depending on some value in another field
+
+For that purpose, you define one or more rules :
+- a rule is related to 1 inventory class (computer, dataflow, ...) and depends on the value of 1 field (= 1 state) in this class (f.i a type or category value)
+- for each rule, you can specify other conditions for a rule to be fired (f.i the value of another field must contain or start with a certain value)
+- for each rule, you specify which check is performed (f.i yet another field may not be empty, or must comply with a regular expression)
+Several rules may be defined for 1 state, with different supplementary conditions.
+
 To use the statecheck plugin :
 1. Modify the file GLPI_ROOT/inc/plugin.class.php, function doHook :
 - line 1124 and 1143 : change to : $retcode = call_user_func(...
@@ -11,7 +23,7 @@ To use the statecheck plugin :
 		function add(array $input,& $options=array(), $history=true) {
 		function update(array $input, $history=1,& $options=array()) {
 	* modify the line 'Plugin::doHook("pre_item_... into '$ret=Plugin::doHook("pre_item_...'
-	* add just after this lines :
+	* add just after these lines :
 		if (isset($ret['hookerror']) && $ret['hookerror']) {
 			$options['message']['plugin_statecheck'] = $ret['hookmessage'];
 			return 0;
@@ -79,4 +91,9 @@ include_once(GLPI_ROOT . "/plugins/statecheck/hookinclude.php");
 				}
 				Html::back();
 			}
-5. Create some rules in glpi via the menu Plugins->Statecheck Rules
+5. In the menu Dropdowns->Statecheck->Tables, define the object class on which you want to perform checks :
+- Name : the DB table name in which your objects are stored
+- Class : the PHP class name
+- State table: the DB table name in which the "states" are defined
+- State class : the PHP class name of this State table
+6. Create some rules in glpi via the menu Administration->Statecheck Rules
