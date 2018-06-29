@@ -1,31 +1,29 @@
 <?php
 /*
- * @version $Id: HEADER 15930 2011-10-30 15:47:55Z tsmr $
  -------------------------------------------------------------------------
- statecheck plugin for GLPI
- Copyright (C) 2009-2016 by the statecheck Development Team.
-
- https://github.com/InfotelGLPI/statecheck
+ Statecheck plugin for GLPI
+ Copyright (C) 2009-2018 by Eric Feron.
  -------------------------------------------------------------------------
 
  LICENSE
       
- This file is part of statecheck.
+ This file is part of Statecheck.
 
- statecheck is free software; you can redistribute it and/or modify
+ Statecheck is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
+ at your option any later version.
 
- statecheck is distributed in the hope that it will be useful,
+ Statecheck is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with statecheck. If not, see <http://www.gnu.org/licenses/>.
+ along with Statecheck. If not, see <http://www.gnu.org/licenses/>.
  --------------------------------------------------------------------------
  */
+
  
 class PluginStatecheckMenu extends CommonGLPI {
    static $rightname = 'plugin_statecheck';
