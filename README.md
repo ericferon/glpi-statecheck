@@ -7,15 +7,8 @@ For instance you can make a field mandatory or not, depending on some value in a
 For that purpose, you define one or more rules :
 - a rule is related to 1 inventory class (computer, dataflow, ...) and depends on the value of 1 field (= 1 state) in this class (f.i a type or category value)
 - for each rule, you can specify other conditions for a rule to be fired (f.i the value of another field must contain or start with a certain value)
-<<<<<<< HEAD
 - for each rule, you specify which check is performed (f.i yet another field may not be empty, or must comply with a regular expression)<br/>
-=======
-<<<<<<< HEAD:README.md
-- for each rule, you specify which check is performed (f.i yet another field may not be empty, or must comply with a regular expression)<br/>
-=======
-- for each rule, you specify which check is performed (f.i yet another field may not be empty, or must comply with a regular expression)
->>>>>>> 437179bbdc148e782e729652b2e6645220f68f9b:README.md
->>>>>>> dcc6df7a4d83a527e817f6e9bb07bd4e54bf3bdf
+
 Several rules may be defined for 1 state, with different supplementary conditions.
 
 To use the statecheck plugin :
