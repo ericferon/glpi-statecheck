@@ -92,9 +92,9 @@ include_once(GLPI_ROOT . "/plugins/statecheck/hookinclude.php");
 				}
 				Html::back();
 			}
-5. In the menu Dropdowns->Statecheck->Tables, define the object class on which you want to perform checks :
+6. In the menu Dropdowns->Statecheck->Tables, define the object class on which you want to perform checks :
 - Name : the DB table name in which your objects are stored
 - Class : the PHP class name
 - State table: the DB table name in which the "states" are defined
 - State class : the PHP class name of this State table
-6. Create some rules in glpi via the menu Administration->Statecheck Rules
+7. Create some rules in glpi via the menu Administration->Statecheck Rules
