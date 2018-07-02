@@ -6,7 +6,7 @@
             <description>
                <short>
                   <en>This plugin let you check the validity of form fields.<br/>For instance you can make a field mandatory or not, depending on some value in another field.</en>
-                  <fr>Ce plugin vous permet de contrôler la validité des champs d'un formulaire<br/>Par exemple, vous pouvez rendre un champ obligatoire ou pas, en fonction de certaines valeurs dans un autre champ.</fr>
+                  <fr>Ce plugin vous permet de contrôler la validité des champs d'un formulaire. Par exemple, vous pouvez rendre un champ obligatoire ou pas, en fonction de certaines valeurs dans un autre champ.</fr>
                </short>
                <long>
                   <en>This plugin let you check the validity of form fields.<br/>For instance you can make a field mandatory or not, depending on some value in another field<br/>For that purpose, you define one or more rules :<br/>- a rule is related to 1 inventory class (computer, dataflow, ...) and depends on the value of 1 field (= 1 state) in this class (f.i a type or category value)<br/>- for each rule, you can specify other conditions for a rule to be fired (f.i the value of another field must contain or start with a certain value)<br/>- for each rule, you specify which check is performed (f.i yet another field may not be empty, or must comply with a regular expression)<br/>Several rules may be defined for 1 state, with different supplementary conditions.</en>
@@ -37,12 +37,10 @@
                   <tag>Forms</tag>
                   <tag>Validation</tag>
                   <tag>Form Validation</tag>
-                  <tag>Architecture</tag>
                </en>
                <fr>
                   <tag>Formulaires</tag>
                   <tag>Validation</tag>
-                  <tag>Architecture</tag>
                   <tag>Validation Formulaire</tag>
               </fr>
             </tags>
