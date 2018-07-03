@@ -2,7 +2,7 @@
             <name>Statecheck</name>
             <key>statecheck</key>
             <state>stable</state> <!-- stable | unstable | beta | alpha -->
-            <logo>https://github.com/ericferon/glpi-statecheck/blob/master/statecheck.png</logo>
+            <logo>https://raw.githubusercontent.com/ericferon/glpi-statecheck/master/statecheck.png</logo>
             <description>
                <short>
                   <en>This plugin let you check the validity of form fields.<br/>For instance you can make a field mandatory or not, depending on some value in another field.</en>
