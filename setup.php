@@ -24,7 +24,6 @@
  --------------------------------------------------------------------------
  */
 
-
 // Init the hooks of the plugins -Needed
 function plugin_init_statecheck() {
    global $PLUGIN_HOOKS, $DB;

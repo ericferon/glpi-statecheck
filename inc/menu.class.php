@@ -23,7 +23,6 @@
  along with Statecheck. If not, see <http://www.gnu.org/licenses/>.
  --------------------------------------------------------------------------
  */
-
  
 class PluginStatecheckMenu extends CommonGLPI {
    static $rightname = 'plugin_statecheck';

@@ -24,6 +24,9 @@
  --------------------------------------------------------------------------
  */
 
+/** @file
+* @brief
+*/
 
 // Direct access to file
 if (strpos($_SERVER['PHP_SELF'],"rulecriteria.php")) {

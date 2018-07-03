@@ -23,7 +23,6 @@
  along with Statecheck. If not, see <http://www.gnu.org/licenses/>.
  --------------------------------------------------------------------------
  */
-
 //define('GLPI_ROOT', '../..');
 
 // Hook done on purge item case
