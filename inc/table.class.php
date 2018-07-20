@@ -56,6 +56,12 @@ class PluginStatecheckTable extends CommonDropdown {
                   'type'      => 'text',
                   'label'     => __('State class', 'statecheck'),
                   'list'      => false
+            ],
+            [
+                  'name'      => 'frontname',
+                  'type'      => 'text',
+                  'label'     => __('Frontname', 'statecheck'),
+                  'list'      => false
             ]
 		];
    }
