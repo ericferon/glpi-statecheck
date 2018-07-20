@@ -37,13 +37,13 @@ $rulecriteria = new PluginStatecheckRuleCriteria("PluginStatecheckRule");
 $ruleaction   = new PluginStatecheckRuleAction("PluginStatecheckRule");
 
 if (isset($_POST["add_action"])) {
-   $rule->check(CREATE);
+   $rule->check(-1, CREATE, $_POST);
    $ruleaction->add($_POST);
 
    Html::back();
 
 } else if (isset($_POST["update"])) {
-   $rule->check(UPDATE);
+   $rule->check($_POST['id'], UPDATE);
    $rule->update($_POST);
 
    Event::log($_POST['id'], "rules", 4, "setup",
@@ -52,7 +52,7 @@ if (isset($_POST["add_action"])) {
    Html::back();
 
 } else if (isset($_POST["add"])) {
-   $rule->check(CREATE);
+   $rule->check(-1, CREATE, $_POST);
 
    $newID = $rule->add($_POST);
    Event::log($newID, "rules", 4, "setup",
@@ -60,7 +60,7 @@ if (isset($_POST["add_action"])) {
    Html::redirect($_SERVER['HTTP_REFERER']."?id=$newID");
 
 } else if (isset($_POST["purge"])) {
-   $rule->check(PURGE);
+   $rule->check($_POST['id'], PURGE);
    $rule->deleteRuleOrder($_POST["ranking"]);
    $rule->delete($_POST, 1);
 

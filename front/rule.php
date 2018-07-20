@@ -33,12 +33,12 @@ if (!isset($_GET["id"])) {
 }
 
 if (isset($_POST["action"])) {
-   $rule->check(UPDATE);
+   $rule->check($_POST["id"], UPDATE);
    $rule->changeRuleOrder($_POST["id"],$_POST["action"], $_POST['condition']);
    Html::back();
 // POST and GET needed to manage reload
 } else if (isset($_POST["replay_rule"]) || isset($_GET["replay_rule"])) {
-   $rule->check(UPDATE);
+   $rule->check($_POST["id"], UPDATE);
 
    // Current time
    $start = explode(" ",microtime());
