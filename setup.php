@@ -71,9 +71,7 @@ function plugin_init_statecheck() {
 	   
    if (Session::getLoginUserID()) {
 
-      $plugin = new Plugin();
-      if (!$plugin->isActivated('environment')
-         && Session::haveRight("plugin_statecheck", READ)) {
+      if (Session::haveRight("plugin_statecheck", READ)) {
 
          $PLUGIN_HOOKS['menu_toadd']['statecheck'] = array('admin'   => 'PluginStatecheckMenu');
       }
