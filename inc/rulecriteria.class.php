@@ -82,7 +82,7 @@ class PluginStatecheckRuleCriteria extends CommonDBChild {
     * @return Title of the rule
    **/
    static function getTypeName($nb=0) {
-      return _n('Criterion', 'Criteria', $nb);
+      return _n('Criterion', 'Criteria', $nb, 'statecheck');
    }
 
 
@@ -167,21 +167,21 @@ class PluginStatecheckRuleCriteria extends CommonDBChild {
 
       $tab[1]['table']            = $this->getTable();
       $tab[1]['field']            = 'criteria';
-      $tab[1]['name']             = __('Name');
+      $tab[1]['name']             = __('Name', 'statecheck');
       $tab[1]['massiveaction']    = false;
       $tab[1]['datatype']         = 'specific';
       $tab[1]['additionalfields'] = array('plugin_statecheck_rules_id');
 
       $tab[2]['table']            = $this->getTable();
       $tab[2]['field']            = 'condition';
-      $tab[2]['name']             = __('Condition');
+      $tab[2]['name']             = __('Condition', 'statecheck');
       $tab[2]['massiveaction']    = false;
       $tab[2]['datatype']         = 'specific';
       $tab[2]['additionalfields'] = array('plugin_statecheck_rules_id', 'criteria');
 
       $tab[3]['table']            = $this->getTable();
       $tab[3]['field']            = 'pattern';
-      $tab[3]['name']             = __('Reason');
+      $tab[3]['name']             = __('Reason', 'statecheck');
       $tab[3]['massiveaction']    = false;
       $tab[3]['datatype']         = 'specific';
       $tab[3]['additionalfields'] = array('plugin_statecheck_rules_id', 'criteria', 'condition');
@@ -516,16 +516,16 @@ class PluginStatecheckRuleCriteria extends CommonDBChild {
    **/
    static function getConditions($itemtype, $criterion='') {
 
-      $criteria =  array(Rule::PATTERN_IS              => __('is'),
-                         Rule::PATTERN_IS_NOT          => __('is not'),
-                         Rule::PATTERN_CONTAIN         => __('contains'),
-                         Rule::PATTERN_NOT_CONTAIN     => __('does not contain'),
-                         Rule::PATTERN_BEGIN           => __('starting with'),
-                         Rule::PATTERN_END             => __('finished by'),
-                         Rule::REGEX_MATCH             => __('regular expression matches'),
-                         Rule::REGEX_NOT_MATCH         => __('regular expression does not match'),
-                         Rule::PATTERN_EXISTS          => __('exists'),
-                         Rule::PATTERN_DOES_NOT_EXISTS => __('does not exist'));
+      $criteria =  array(Rule::PATTERN_IS              => __('is', 'statecheck'),
+                         Rule::PATTERN_IS_NOT          => __('is not', 'statecheck'),
+                         Rule::PATTERN_CONTAIN         => __('contains', 'statecheck'),
+                         Rule::PATTERN_NOT_CONTAIN     => __('does not contain', 'statecheck'),
+                         Rule::PATTERN_BEGIN           => __('starting with', 'statecheck'),
+                         Rule::PATTERN_END             => __('finished by', 'statecheck'),
+                         Rule::REGEX_MATCH             => __('regular expression matches', 'statecheck'),
+                         Rule::REGEX_NOT_MATCH         => __('regular expression does not match', 'statecheck'),
+                         Rule::PATTERN_EXISTS          => __('exists', 'statecheck'),
+                         Rule::PATTERN_DOES_NOT_EXISTS => __('does not exist', 'statecheck'));
 
       $extra_criteria = call_user_func(array($itemtype, 'addMoreCriteria'), $criterion);
 
@@ -542,8 +542,8 @@ class PluginStatecheckRuleCriteria extends CommonDBChild {
 
             if (($item = getItemForItemtype($crititemtype))
                 && $item instanceof CommonTreeDropdown) {
-               $criteria[Rule::PATTERN_UNDER]     = __('under');
-               $criteria[Rule::PATTERN_NOT_UNDER] = __('not under');
+               $criteria[Rule::PATTERN_UNDER]     = __('under', 'statecheck');
+               $criteria[Rule::PATTERN_NOT_UNDER] = __('not under', 'statecheck');
             }
          }
       }
@@ -608,7 +608,7 @@ class PluginStatecheckRuleCriteria extends CommonDBChild {
       $this->showFormHeader($options);
 
       echo "<tr class='tab_bg_1'>";
-      echo "<td class='center'>"._n('Criterion', 'Criteria', 1) . "</td><td colspan='3'>";
+      echo "<td class='center'>"._n('Criterion', 'Criteria', 1, 'statecheck') . "</td><td colspan='3'>";
       echo "<input type='hidden' name='".$rule->getStatecheckRuleIdField()."' value='".
              $this->fields[$rule->getStatecheckRuleIdField()]."'>";
 

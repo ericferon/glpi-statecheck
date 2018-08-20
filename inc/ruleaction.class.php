@@ -79,7 +79,7 @@ class PluginStatecheckRuleAction extends RuleAction {
     * @return Title of the rule
    **/
    static function getTypeName($nb=0) {
-      return _n('Action', 'Actions', $nb);
+      return _n('Action', 'Actions', $nb, 'statecheck');
    }
 
 
@@ -171,14 +171,14 @@ class PluginStatecheckRuleAction extends RuleAction {
 
       $tab[2]['table']            = $this->getTable();
       $tab[2]['field']            = 'field';
-      $tab[2]['name']             = _n('Field', 'Fields', Session::getPluralNumber());
+      $tab[2]['name']             = _n('Field', 'Fields', Session::getPluralNumber(), 'statecheck');
       $tab[2]['massiveaction']    = false;
       $tab[2]['datatype']         = 'specific';
       $tab[2]['additionalfields'] = array('plugin_statecheck_rules_id');
 
       $tab[3]['table']            = $this->getTable();
       $tab[3]['field']            = 'value';
-      $tab[3]['name']             = __('Value');
+      $tab[3]['name']             = __('Value', 'statecheck');
       $tab[3]['massiveaction']    = false;
       $tab[3]['datatype']         = 'specific';
       $tab[3]['additionalfields'] = array('plugin_statecheck_rules_id');
@@ -394,25 +394,25 @@ class PluginStatecheckRuleAction extends RuleAction {
 
    static function getActions() {
 
-      return array('assign'              => __('Assign'),
-                   'append'              => __('Add'),
-                   'regex_result'        => __('Assign the value from regular expression'),
-                   'append_regex_result' => __('Add the result of regular expression'),
-                   'affectbyip'          => __('Assign: equipment by IP address'),
-                   'affectbyfqdn'        => __('Assign: equipment by name + domain'),
-                   'affectbymac'         => __('Assign: equipment by MAC address'),
-                   'compute'             => __('Recalculate'),
-                   'send'                => __('Send'),
-                   'add_validation'      => __('Send'),
-                   'is'					 => __('is'),
-				   'isnot'				 => __('is not'),
-				   'isempty'			 => __('is empty'),
-				   'isnotempty'			 => __('is not empty'),
-				   'regex_check'         => __('is regexp'),
-				   'isuser'				 => __('is the user'),
-				   'ismemberof'			 => __('is member of the group'),
-                   'fromuser'            => __('Copy from user'),
-                   'fromitem'            => __('Copy from item'));
+      return array('assign'              => __('Assign', 'statecheck'),
+                   'append'              => __('Add', 'statecheck'),
+                   'regex_result'        => __('Assign the value from regular expression', 'statecheck'),
+                   'append_regex_result' => __('Add the result of regular expression', 'statecheck'),
+                   'affectbyip'          => __('Assign: equipment by IP address', 'statecheck'),
+                   'affectbyfqdn'        => __('Assign: equipment by name + domain', 'statecheck'),
+                   'affectbymac'         => __('Assign: equipment by MAC address', 'statecheck'),
+                   'compute'             => __('Recalculate', 'statecheck'),
+                   'send'                => __('Send', 'statecheck'),
+                   'add_validation'      => __('Send', 'statecheck'),
+                   'is'					 => __('is', 'statecheck'),
+				   'isnot'				 => __('is not', 'statecheck'),
+				   'isempty'			 => __('is empty', 'statecheck'),
+				   'isnotempty'			 => __('is not empty', 'statecheck'),
+				   'regex_check'         => __('is regexp', 'statecheck'),
+				   'isuser'				 => __('is the user', 'statecheck'),
+				   'ismemberof'			 => __('is member of the group', 'statecheck'),
+                   'fromuser'            => __('Copy from user', 'statecheck'),
+                   'fromitem'            => __('Copy from item', 'statecheck'));
    }
 
 
@@ -689,7 +689,7 @@ class PluginStatecheckRuleAction extends RuleAction {
       $this->showFormHeader($options);
 
       echo "<tr class='tab_bg_1 center'>";
-      echo "<td>"._n('Check value of', 'Check values of', 1) . "</td><td colspan='3'>";
+      echo "<td>"._n('Check value of', 'Check values of', 1, 'statecheck') . "</td><td colspan='3'>";
       echo "<input type='hidden' name='".$rule->getStatecheckRuleIdField()."' value='".
              $this->fields[static::$items_id]."'>";
       $used = $this->getAlreadyUsedForRuleID($this->fields[static::$items_id], $rule->getType());

@@ -47,8 +47,8 @@ function getEvents() {
 			$querystate = "select * from $statetable";
 			if ($resultstate=$DB->query($querystate)) {
 				while ($datastate=$DB->fetch_assoc($resultstate)) {
-					$events[$dataclass['class'].'_'.$datastate['id'].'_success'] = $dataclass['comment']." ".__('Statecheck succeeded for ')."'".$datastate['name']."'";
-					$events[$dataclass['class'].'_'.$datastate['id'].'_failure'] = $dataclass['comment']." ".__('Statecheck failed for ')."'".$datastate['name']."'";
+					$events[$dataclass['class'].'_'.$datastate['id'].'_success'] = $dataclass['comment']." ".__('Statecheck succeeded for ', 'statecheck')."'".$datastate['name']."'";
+					$events[$dataclass['class'].'_'.$datastate['id'].'_failure'] = $dataclass['comment']." ".__('Statecheck failed for ', 'statecheck')."'".$datastate['name']."'";
 				}
 			}
 		}
@@ -69,10 +69,10 @@ function getEvents() {
 	if ($resultclass=$DB->query($queryclass)) {
 		$dataclass=$DB->fetch_assoc($resultclass);
 		$frontname = $dataclass['frontname'];
-		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_GROUP_MANAGER,__("Manager").' '.__("Group responsible of the ").$frontname,Notification::SUPERVISOR_GROUP_TYPE);
-		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_USER,__("User responsible of the ").$frontname);
-		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_LOGGED_USER,__("Logged user"));
-		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_LOGGED_GROUP,__("Logged user's group"),Notification::SUPERVISOR_GROUP_TYPE);
+		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_GROUP_MANAGER,__("Manager", 'statecheck').' '.__("Group responsible of the ", 'statecheck').$frontname,Notification::SUPERVISOR_GROUP_TYPE);
+		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_USER,__("User responsible of the ", 'statecheck').$frontname);
+		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_LOGGED_USER,__("Logged user", 'statecheck'));
+		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_LOGGED_GROUP,__("Logged user's group", 'statecheck'),Notification::SUPERVISOR_GROUP_TYPE);
       }
 
    }
@@ -187,7 +187,7 @@ function getEvents() {
 			$dataclass=$DB->fetch_assoc($resultclass);
 			$statetable = $dataclass['statetable'];
 			$this->data['##statecheck.classname##'] = $dataclass['comment'];
-			$this->data['##lang.statecheck.status##'] = __('Mail to user');
+			$this->data['##lang.statecheck.status##'] = __('Mail to user', 'statecheck');
 			$this->data['##statecheck.status##'] =  Dropdown::getDropdownName($statetable, $classinfo[1]);
 			$frontname = $dataclass['frontname'];
 			$tablename = $dataclass['name'];
@@ -227,7 +227,7 @@ function getEvents() {
 		$this->data['##lang.statecheck.title##'] = $events[$event];
 		$this->data['##statecheck.id##'] = $this->obj->getField("id");
 		$this->data['##statecheck.loggeduser##'] = $_SESSION['glpiname'];
-		$this->data['##lang.statecheck.errormessage##'] = __('On failure message');
+		$this->data['##lang.statecheck.errormessage##'] = __('On failure message', 'statecheck');
 		$this->data['##statecheck.errormessage##'] = Html::clean(stripslashes(str_replace(array('\r\n', '\n', '\r', ';'), "<br/>",$this->obj->getField('hookmessage'))));
 
          
@@ -243,8 +243,8 @@ function getEvents() {
    function getTags() {
       global $LANG;
 
-      $tags = array('statecheck.name'           => __('Name'),
-                    'statecheck.entity'         => __('Entity'));
+      $tags = array('statecheck.name'           => __('Name', 'statecheck'),
+                    'statecheck.entity'         => __('Entity', 'statecheck'));
 
       foreach ($tags as $tag => $label) {
          $this->addTagToList(array('tag'   => $tag,

@@ -94,7 +94,7 @@ class PluginStatecheckRule extends Rule {
 
 
    static function getTypeName($nb=0) {
-      return _n('StatecheckRule', 'StatecheckRules', $nb);
+      return _n('StatecheckRule', 'StatecheckRules', $nb, 'statecheck');
    }
 
 
@@ -221,7 +221,7 @@ class PluginStatecheckRule extends Rule {
     * @return Title of the rule
    **/
    function getTitle() {
-      return __('StatecheckRules management');
+      return __('StatecheckRules management', 'statecheck');
    }
 
 
@@ -247,7 +247,7 @@ class PluginStatecheckRule extends Rule {
       if ($collection = getItemForItemtype($collectiontype)) {
          if ($isadmin
              && ($collection->orderby == "ranking")) {
-            $actions[__CLASS__.MassiveAction::CLASS_ACTION_SEPARATOR.'move_rule'] = __('Move');
+            $actions[__CLASS__.MassiveAction::CLASS_ACTION_SEPARATOR.'move_rule'] = __('Move', 'statecheck');
          }
          $actions[__CLASS__.MassiveAction::CLASS_ACTION_SEPARATOR.'duplicate'] = _x('button', 'Duplicate');
          $actions[__CLASS__.MassiveAction::CLASS_ACTION_SEPARATOR.'export']    = _x('button', 'Export');
@@ -283,8 +283,8 @@ class PluginStatecheckRule extends Rule {
 
          case 'move_rule' :
             $input = $ma->getInput();
-            $values = array('after'  => __('After'),
-                            'before' => __('Before'));
+            $values = array('after'  => __('After', 'statecheck'),
+                            'before' => __('Before', 'statecheck'));
             Dropdown::showFromArray('move_type', $values, array('width' => '20%'));
 
             if (isset($input['entity'])) {
@@ -383,13 +383,13 @@ class PluginStatecheckRule extends Rule {
 
       $tab[1]['table']           = $this->getTable();
       $tab[1]['field']           = 'name';
-      $tab[1]['name']            = __('Name');
+      $tab[1]['name']            = __('Name', 'statecheck');
       $tab[1]['datatype']        = 'itemlink';
       $tab[1]['massiveaction']   = false;
 
       $tab[3]['table']           = $this->getTable();
       $tab[3]['field']           = 'ranking';
-      $tab[3]['name']            = __('Position');
+      $tab[3]['name']            = __('Position', 'statecheck');
       $tab[3]['datatype']        = 'number';
       $tab[3]['massiveaction']   = false;
 
@@ -400,41 +400,41 @@ class PluginStatecheckRule extends Rule {
 */
       $tab[5]['table']           = $this->getTable();
       $tab[5]['field']           = 'match';
-      $tab[5]['name']            = __('Logical operator');
+      $tab[5]['name']            = __('Logical operator', 'statecheck');
       $tab[5]['datatype']        = 'specific';
       $tab[5]['massiveaction']   = false;
 
       $tab[8]['table']           = $this->getTable();
       $tab[8]['field']           = 'is_active';
-      $tab[8]['name']            = __('Active');
+      $tab[8]['name']            = __('Active', 'statecheck');
       $tab[8]['datatype']        = 'bool';
 
       $tab[16]['table']          = $this->getTable();
       $tab[16]['field']          = 'comment';
-      $tab[16]['name']           = __('Comments');
+      $tab[16]['name']           = __('Comments', 'statecheck');
       $tab[16]['datatype']       = 'text';
 
       $tab[80]['table']          = 'glpi_entities';
       $tab[80]['field']          = 'completename';
-      $tab[80]['name']           = __('Entity');
+      $tab[80]['name']           = __('Entity', 'statecheck');
       $tab[80]['massiveaction']  = false;
       $tab[80]['datatype']       = 'dropdown';
 
       $tab[86]['table']          = $this->getTable();
       $tab[86]['field']          = 'is_recursive';
-      $tab[86]['name']           = __('Child entities');
+      $tab[86]['name']           = __('Child entities', 'statecheck');
       $tab[86]['datatype']       = 'bool';
       $tab[86]['massiveaction']  = false;
 
       $tab[19]['table']          = $this->getTable();
       $tab[19]['field']          = 'date_mod';
-      $tab[19]['name']           = __('Last update');
+      $tab[19]['name']           = __('Last update', 'statecheck');
       $tab[19]['datatype']       = 'datetime';
       $tab[19]['massiveaction']  = false;
 
       $tab[121]['table']          = $this->getTable();
       $tab[121]['field']          = 'date_creation';
-      $tab[121]['name']           = __('Creation date');
+      $tab[121]['name']           = __('Creation date', 'statecheck');
       $tab[121]['datatype']       = 'datetime';
       $tab[121]['massiveaction']  = false;
 
@@ -458,10 +458,10 @@ class PluginStatecheckRule extends Rule {
          case 'match' :
             switch ($values[$field]) {
                case self::AND_MATCHING :
-                  return __('and');
+                  return __('and', 'statecheck');
 
                case self::OR_MATCHING :
-                  return __('or');
+                  return __('or', 'statecheck');
 
                default :
                   return NOT_AVAILABLE;
@@ -522,11 +522,11 @@ class PluginStatecheckRule extends Rule {
       $this->showFormHeader($options);
 
       echo "<tr class='tab_bg_1'>";
-      echo "<td>".__('Name')."</td>";
+      echo "<td>".__('Name', 'statecheck')."</td>";
       echo "<td>";
       Html::autocompletionTextField($this, "name");
       echo "</td>";
-/*      echo "<td>".__('Description')."</td>";
+/*      echo "<td>".__('Description', 'statecheck')."</td>";
       echo "<td>";
       Html::autocompletionTextField($this, "description");
       echo "</td>
@@ -534,12 +534,12 @@ class PluginStatecheckRule extends Rule {
 
       echo "<tr class='tab_bg_1'>";
       //table of class to be checked
-      echo "<td>".__('Table')."</td>";
+      echo "<td>".__('Table', 'statecheck')."</td>";
       echo "<td>";
       Dropdown::show('PluginStatecheckTable', array('value' => $this->fields["plugin_statecheck_tables_id"]));
       echo "</td>";
       //state to be checked
-      echo "<td>".__('Target State ("----"=All)')."</td>";
+      echo "<td>".__('Target State ("----"=All)', 'statecheck')."</td>";
       echo "<td>";
 //	  echo "<pre>".print_r($this,true)."</pre>";
 	  if ($this->fields["plugin_statecheck_tables_id"])
@@ -551,18 +551,18 @@ class PluginStatecheckRule extends Rule {
       echo "</tr>";
 
       echo "<tr class='tab_bg_1'>";
-      echo "<td>".__('Logical operator')."</td>";
+      echo "<td>".__('Logical operator', 'statecheck')."</td>";
       echo "<td>";
       $this->dropdownStatecheckRulesMatch(array('value' => $this->fields["match"]));
       echo "</td>";
-      echo "<td>".__('Active')."</td>";
+      echo "<td>".__('Active', 'statecheck')."</td>";
       echo "<td>";
       Dropdown::showYesNo("is_active", $this->fields["is_active"]);
       echo "</td></tr>\n";
 
       if ($this->useConditions()) {
          echo "<tr class='tab_bg_1'>";
-         echo "<td>".__('Use rule for')."</td>";
+         echo "<td>".__('Use rule for', 'statecheck')."</td>";
          echo "<td>";
          $this->dropdownConditions(array('value' => $this->fields["condition"]));
          echo "</td>";
@@ -571,14 +571,14 @@ class PluginStatecheckRule extends Rule {
       }
 
       echo "<tr class='tab_bg_1'>";
-      echo "<td>".__('Comments')."</td>";
+      echo "<td>".__('Comments', 'statecheck')."</td>";
       echo "<td class='middle' colspan='3'>";
       echo "<textarea cols='110' rows='3' name='comment' >".$this->fields["comment"]."</textarea>";
 
       if (!$this->isNewID($ID)) {
          if ($this->fields["date_mod"]) {
             echo "<br>";
-            printf(__('Last update on %s'), Html::convDateTime($this->fields["date_mod"]));
+            printf(__('Last update on %s', 'statecheck'), Html::convDateTime($this->fields["date_mod"]));
          }
       }
       if ($canedit) {
@@ -614,11 +614,11 @@ class PluginStatecheckRule extends Rule {
       }
 
       if (!$p['restrict'] || ($p['restrict'] == self::AND_MATCHING)) {
-         $elements[self::AND_MATCHING] = __('and');
+         $elements[self::AND_MATCHING] = __('and', 'statecheck');
       }
 
       if (!$p['restrict'] || ($p['restrict'] == self::OR_MATCHING)) {
-         $elements[self::OR_MATCHING]  = __('or');
+         $elements[self::OR_MATCHING]  = __('or', 'statecheck');
       }
 
       return Dropdown::showFromArray($p['name'], $elements, $p);
@@ -667,7 +667,7 @@ class PluginStatecheckRule extends Rule {
 
             echo "<table class='tab_cadre_fixe'>";
             echo "<tr class='tab_bg_2'><td>".
-                  __('It is possible to affect the result of a regular expression using the string #0').
+                  __('It is possible to affect the result of a regular expression using the string #0', 'statecheck').
                  "</td></tr>\n";
             echo "</table><br>";
             return;
@@ -735,7 +735,7 @@ class PluginStatecheckRule extends Rule {
          echo "</script>\n";
          echo "<div class='center firstbloc'>".
                "<a class='vsubmit' href='javascript:viewAddAction".$rules_id."$rand();'>";
-         echo __('Add a new check')."</a></div>\n";
+         echo __('Add a new check', 'statecheck')."</a></div>\n";
       }
 
       $nb = count($this->actions);
@@ -754,7 +754,7 @@ class PluginStatecheckRule extends Rule {
 
       echo "<table $style>";
       echo "<tr class='noHover'>";
-      echo "<th colspan='".($canedit && $nb?'4':'3')."'>" . __('Check value of') . "</th></tr>";
+      echo "<th colspan='".($canedit && $nb?'4':'3')."'>" . __('Check value of', 'statecheck') . "</th></tr>";
 
       $header_begin  = "<tr>";
       $header_top    = '';
@@ -768,9 +768,9 @@ class PluginStatecheckRule extends Rule {
          $header_bottom .= Html::getCheckAllAsCheckbox('mass'.$this->ruleactionclass.$rand)."</th>";
       }
 
-      $header_end .= "<th class='center b'>".__('Field')."</th>";
-      $header_end .= "<th class='center b'>".__('Check type')."</th>";
-      $header_end .= "<th class='center b'>".__('Value')."</th>";
+      $header_end .= "<th class='center b'>".__('Field', 'statecheck')."</th>";
+      $header_end .= "<th class='center b'>".__('Check type', 'statecheck')."</th>";
+      $header_end .= "<th class='center b'>".__('Value', 'statecheck')."</th>";
       $header_end .= "</tr>\n";
       echo $header_begin.$header_top.$header_end;
 
@@ -837,7 +837,7 @@ class PluginStatecheckRule extends Rule {
          echo "</script>\n";
          echo "<div class='center firstbloc'>".
                "<a class='vsubmit' href='javascript:viewAddCriteria".$rules_id."$rand();'>";
-         echo __('Add a new criteria')."</a></div>\n";
+         echo __('Add a new criteria', 'statecheck')."</a></div>\n";
       }
 
       echo "<div class='spaced'>";
@@ -857,7 +857,7 @@ class PluginStatecheckRule extends Rule {
 
       echo "<table $style>";
       echo "<tr class='noHover'>".
-           "<th colspan='".($canedit&&$nb?" 4 ":"3")."'>". _n('Criterion', 'Criteria', Session::getPluralNumber())."</th>".
+           "<th colspan='".($canedit&&$nb?" 4 ":"3")."'>". _n('Criterion', 'Criteria', Session::getPluralNumber(), 'statecheck')."</th>".
            "</tr>\n";
 
       $header_begin  = "<tr>";
@@ -874,8 +874,8 @@ class PluginStatecheckRule extends Rule {
          $header_bottom .= "</th>";
       }
       $header_end .= "<th class='center b'>"._n('Criterion', 'Criteria', 1)."</th>\n";
-      $header_end .= "<th class='center b'>".__('Condition')."</th>\n";
-      $header_end .= "<th class='center b'>".__('Reason')."</th>\n";
+      $header_end .= "<th class='center b'>".__('Condition', 'statecheck')."</th>\n";
+      $header_end .= "<th class='center b'>".__('Reason', 'statecheck')."</th>\n";
       $header_end .= "</tr>\n";
       echo $header_begin.$header_top.$header_end;
 
@@ -923,7 +923,7 @@ class PluginStatecheckRule extends Rule {
       }
 
       $group      = array();
-      $groupname  = _n('Criterion', 'Criteria', Session::getPluralNumber());
+      $groupname  = _n('Criterion', 'Criteria', Session::getPluralNumber(), 'statecheck');
       foreach ($this->getAllCriteria() as $ID => $crit) {
          // Manage group system
          if (!is_array($crit)) {
@@ -1054,7 +1054,7 @@ class PluginStatecheckRule extends Rule {
       if (isset($criteria['name'])) {
          return $criteria['name'];
       }
-      return __('Unavailable')."&nbsp;";
+      return __('Unavailable', 'statecheck')."&nbsp;";
    }
 
 
@@ -1675,13 +1675,13 @@ class PluginStatecheckRule extends Rule {
 
       echo "<div class='spaced'>";
       echo "<table class='tab_cadrehov'>";
-      echo "<tr><th colspan='4'>" . __('Result details') . "</th></tr>";
+      echo "<tr><th colspan='4'>" . __('Result details', 'statecheck') . "</th></tr>";
 
       echo "<tr class='tab_bg_2'>";
-      echo "<td class='center b'>"._n('Criterion', 'Criteria', 1)."</td>";
-      echo "<td class='center b'>".__('Condition')."</td>";
-      echo "<td class='center b'>".__('Reason')."</td>";
-      echo "<td class='center b'>".__('Validation')."</td>";
+      echo "<td class='center b'>"._n('Criterion', 'Criteria', 1, 'statecheck')."</td>";
+      echo "<td class='center b'>".__('Condition', 'statecheck')."</td>";
+      echo "<td class='center b'>".__('Reason', 'statecheck')."</td>";
+      echo "<td class='center b'>".__('Validation', 'statecheck')."</td>";
       echo "</tr>\n";
 
       foreach ($check_results as $ID => $criteria_result) {
@@ -1700,9 +1700,9 @@ class PluginStatecheckRule extends Rule {
 
       echo "<div class='spaced'>";
       echo "<table class='tab_cadrehov'>";
-      echo "<tr><th colspan='2'>" . __('StatecheckRule results') . "</th></tr>";
+      echo "<tr><th colspan='2'>" . __('StatecheckRule results', 'statecheck') . "</th></tr>";
       echo "<tr class='tab_bg_1'>";
-      echo "<td class='center b'>".__('Validation')."</td><td>";
+      echo "<td class='center b'>".__('Validation', 'statecheck')."</td><td>";
       echo Dropdown::getYesNo($global_result)."</td></tr>";
 
       $output = $this->preProcessPreviewResults($output);
@@ -1724,11 +1724,11 @@ class PluginStatecheckRule extends Rule {
       //If a regular expression was used, and matched, display the results
       if (count($this->regex_results)) {
          echo "<tr class='tab_bg_2'>";
-         echo "<td>".__('Result of the regular expression')."</td>";
+         echo "<td>".__('Result of the regular expression', 'statecheck')."</td>";
          echo "<td>";
          if (!empty($this->regex_results[0])) {
             echo "<table class='tab_cadre'>";
-            echo "<tr><th>".__('Key')."</th><th>".__('Value')."</th></tr>";
+            echo "<tr><th>".__('Key', 'statecheck')."</th><th>".__('Value', 'statecheck')."</th></tr>";
             foreach ($this->regex_results[0] as $key => $value) {
                echo "<tr class='tab_bg_1'>";
                echo "<td>$key</td><td>$value</td></tr>";
@@ -1860,7 +1860,7 @@ class PluginStatecheckRule extends Rule {
                      return $item->getTypeName(1);
                   }
                   if (empty($pattern)) {
-                     return __('General');
+                     return __('General', 'statecheck');
                   }
                   break;
 
@@ -2177,7 +2177,7 @@ class PluginStatecheckRule extends Rule {
          echo "<form name='testrule_form' id='testrule_form' method='post' action='$target'>\n";
          echo "<div class='spaced'>";
          echo "<table class='tab_cadre_fixe'>";
-         echo "<tr><th colspan='3'>" . _n('Criterion', 'Criteria', Session::getPluralNumber()) . "</th></tr>";
+         echo "<tr><th colspan='3'>" . _n('Criterion', 'Criteria', Session::getPluralNumber(), 'statecheck') . "</th></tr>";
 
          $type_match        = (($this->fields["match"] == self::AND_MATCHING) ?__('and') :__('or'));
          $already_displayed = array();
@@ -2351,13 +2351,13 @@ class PluginStatecheckRule extends Rule {
 			}
 		}
       }
-	$criterias['session_users_id']['name'] = _n('Logged user','Logged users', 1);
+	$criterias['session_users_id']['name'] = _n('Logged user','Logged users', 1, 'statecheck');
 	$criterias['session_users_id']['table'] = 'glpi_users';
     $criterias['session_users_id']['field'] = 'name';
     $criterias['session_users_id']['type'] = 'dropdown';
     $criterias['session_users_id']['linkfield'] = 'users_id';
 
-	$criterias['session_groups_id']['name'] = _n("Logged user's group","Logged user's groups", 1);
+	$criterias['session_groups_id']['name'] = _n("Logged user's group","Logged user's groups", 1, 'statecheck');
 	$criterias['session_groups_id']['table'] = 'glpi_groups';
     $criterias['session_groups_id']['field'] = 'name';
     $criterias['session_groups_id']['type'] = 'dropdown';
@@ -2479,13 +2479,13 @@ class PluginStatecheckRule extends Rule {
       echo "<table class='tab_cadre_fixe'>";
       echo "<tr><th colspan='7'>" . $this->getTitle() . "</th></tr>\n";
       echo "<tr class='tab_bg_1'>";
-      echo "<td>".__('Name') . "</td><td>";
+      echo "<td>".__('Name', 'statecheck') . "</td><td>";
       Html::autocompletionTextField($this, "name", array('value' => '',
                                                          'size'  => 33));
-      echo "</td><td>".__('Description') . "</td><td>";
+      echo "</td><td>".__('Description', 'statecheck') . "</td><td>";
       Html::autocompletionTextField($this, "description", array('value' => '',
                                                                 'size'  => 33));
-      echo "</td><td>".__('Logical operator') . "</td><td>";
+      echo "</td><td>".__('Logical operator', 'statecheck') . "</td><td>";
       $this->dropdownStatecheckRulesMatch();
       echo "</td><td class='tab_bg_2 center'>";
       echo "<input type=hidden name='sub_type' value='".get_class($this)."'>";
@@ -2522,7 +2522,7 @@ class PluginStatecheckRule extends Rule {
 
       if (!$nb) {
          echo "<table class='tab_cadre_fixehov'>";
-         echo "<tr><th>" . __('No item found') . "</th>";
+         echo "<tr><th>" . __('No item found', 'statecheck') . "</th>";
          echo "</tr>\n";
          echo "</table>\n";
 
@@ -2551,8 +2551,8 @@ class PluginStatecheckRule extends Rule {
             $header_end    .= "</th>";
          }
          $header_end .= "<th>" . $this->getTitle() . "</th>";
-         $header_end .= "<th>" . __('Description') . "</th>";
-         $header_end .= "<th>" . __('Active') . "</th>";
+         $header_end .= "<th>" . __('Description', 'statecheck') . "</th>";
+         $header_end .= "<th>" . __('Active', 'statecheck') . "</th>";
          $header_end .= "</tr>\n";
          echo $header_begin.$header_top.$header_end;
 
@@ -2688,7 +2688,7 @@ class PluginStatecheckRule extends Rule {
                   $input['id'] = $data[$fieldid];
                   $ruleitem->update($input);
                }
-               Session::addMessageAfterRedirect(__('StatecheckRules using the object have been disabled.'),
+               Session::addMessageAfterRedirect(__('StatecheckRules using the object have been disabled.', 'statecheck'),
                                                 true);
             }
          }

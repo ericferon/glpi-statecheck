@@ -110,14 +110,14 @@ class PluginStatecheckProfile extends Profile {
          $rights = $this->getAllRights();
          $profile->displayRightsChoiceMatrix($rights, array('canedit'       => $canedit,
                                                          'default_class' => 'tab_bg_2',
-                                                         'title'         => __('General')));
+                                                         'title'         => __('General'), 'statecheck'));
       }
       echo "<table class='tab_cadre_fixehov'>";
-      echo "<tr class='tab_bg_1'><th colspan='4'>".__('Helpdesk')."</th></tr>\n";
+      echo "<tr class='tab_bg_1'><th colspan='4'>".__('Helpdesk', 'statecheck')."</th></tr>\n";
 
       $effective_rights = ProfileRight::getProfileRights($profiles_id, array('plugin_statecheck_open_ticket'));
       echo "<tr class='tab_bg_2'>";
-      echo "<td width='20%'>".__('Associable items to a ticket')."</td>";
+      echo "<td width='20%'>".__('Associable items to a ticket', 'statecheck')."</td>";
       echo "<td colspan='5'>";
       Html::showCheckbox(array('name'    => '_plugin_statecheck_open_ticket',
                                'checked' => $effective_rights['plugin_statecheck_open_ticket']));
@@ -145,7 +145,7 @@ class PluginStatecheckProfile extends Profile {
 
       if ($all) {
          $rights[] = array('itemtype' => 'PluginStatecheckRule',
-                           'label'    =>  __('Associable items to a ticket'),
+                           'label'    =>  __('Associable items to a ticket', 'statecheck'),
                            'field'    => 'plugin_statecheck_open_ticket');
       }
 

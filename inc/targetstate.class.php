@@ -32,7 +32,7 @@ class PluginStatecheckTargetstate extends CommonDropdown {
 
    static function getTypeName($nb=0) {
 
-      return _n('Target State','Target States',$nb);
+      return _n('Target State','Target States',$nb, 'statecheck');
    }
 }
 

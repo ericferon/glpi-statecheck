@@ -25,7 +25,11 @@
                   <num>2.0.2</num>
                   <compatibility>9.2</compatibility>
                </version>
-            </versions>
+                <version>
+                  <num>2.0.1</num>
+                  <compatibility>9.2</compatibility>
+               </version>
+           </versions>
             <langs>
                <lang>en_GB</lang>
                <lang>fr_FR</lang>
