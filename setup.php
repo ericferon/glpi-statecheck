@@ -30,7 +30,7 @@ function plugin_init_statecheck() {
 
    $PLUGIN_HOOKS['csrf_compliant']['statecheck'] = true;
    $PLUGIN_HOOKS['change_profile']['statecheck'] = array('PluginStatecheckProfile', 'initProfile');
-   $PLUGIN_HOOKS['assign_to_ticket']['statecheck'] = true;
+//   $PLUGIN_HOOKS['assign_to_ticket']['statecheck'] = true;
    
 // display a warning message, before item display on form : highlighted fields are controlled
    $PLUGIN_HOOKS['pre_item_form']['statecheck'] = 'hook_pre_item_form';
@@ -44,7 +44,7 @@ function plugin_init_statecheck() {
 //         'linkuser_tech_types'    => true,
          'notificationtemplates_types' => true,
          'document_types'         => true,
-         'ticket_types'           => true,
+//         'ticket_types'           => true,
          'helpdesk_visible_types' => true//,
 //         'addtabon'               => 'Supplier'
    ));
