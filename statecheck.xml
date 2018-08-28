@@ -5,11 +5,12 @@
             <logo>https://raw.githubusercontent.com/ericferon/glpi-statecheck/master/statecheck.png</logo>
             <description>
                <short>
+                  <cs>Tento zásuvný modul umožňuje ověřovat platnost kolonek formuláře.<br/>Například je možné udělat kolonku povinnou nebo ne, v závislosti na nějaké hodnotě v jiné kolonce.</cs>
                   <en>This plugin let you check the validity of form fields.<br/>For instance you can make a field mandatory or not, depending on some value in another field.</en>
                   <fr>Ce plugin vous permet de contrôler la validité des champs d'un formulaire. Par exemple, vous pouvez rendre un champ obligatoire ou pas, en fonction de certaines valeurs dans un autre champ.</fr>
                </short>
                <long>
-                  <en>This plugin let you check the validity of form fields.<br/>For instance you can make a field mandatory or not, depending on some value in another field<br/>For that purpose, you define one or more rules :<br/>- a rule is related to 1 inventory class (computer, dataflow, ...) and depends on the value of 1 field (= 1 state) in this class (f.i a type or category value)<br/>- for each rule, you can specify other conditions for a rule to be fired (f.i the value of another field must contain or start with a certain value)<br/>- for each rule, you specify which check is performed (f.i yet another field may not be empty, or must comply with a regular expression)<br/>Several rules may be defined for 1 state, with different supplementary conditions.</en>
+                  <en>Tento zásuvný modul umožňuje ověřovat platnost kolonek formuláře.<br/>Například je možné udělat kolonku povinnou nebo ne, v závislosti na nějaké hodnotě v jiné kolonce<br/>K tomuto účelu určujete jedno nebo více pravidel:<br/>- pravidlo souvisí s 1 třídou inventáře (počítač, tok dat, …) a závisí na hodnotě 1 kolonky (= 1 stav) v této třídě (např. hodnota typu nebo kategorie)<br/>- pro každé pravidlo je třeba zadat ostatní podmínky pro pravidlo, které má být spuštěno (např. je třeba, aby hodnota v jiné kolonce obsahovala nebo začínala na konkrétní hodnotu)<br/>- pro každé pravidlo určujete která kontrola je provedena (např. ještě další kolonka nemůže zůstat nevyplněná, nebo je třeba, aby odpovídala regulárnímu výrazu)<br/>Pro 1 stav je možné určit několik pravidel, s různými podpůrnými podmínkami.</en>
                   <fr>Ce plugin vous permet de contrôler la validité des champs d'un formulaire.<br/>Par exemple, vous pouvez rendre un champ obligatoire ou pas, en fonction de certaines valeurs dans un autre champ.<br/>A cette fin, vous définissez une ou plusieurs règles :<br/>-Une règle est relative à une classe d'inventaire (serveur, flux de données, ...) et dépend de la valeur d'un champ (= 1 état) dans cette classe (p.ex la valeur d'un type ou d'une catégorie) <br/>- Pour chaque règle, vous pouvez spécifier quelles autres conditions doivent être rencontrées pour activer la règle (p.ex la valeur d'un autre champ doit contenir ou démarrer une certaine valeur)<br/>- Pour chaque règle, vous spécifiez quel contrôle doit être exécuté (p.ex un autre champ ne peut être vide, ou doit respecter une expression régulière)<br/>Plusieurs règles peuvent être définies pour un état, avec des conditions supplémentaires différentes</fr>
                </long>
             </description>
@@ -37,13 +38,19 @@
                   <num>2.0.1</num>
                   <compatibility>9.2</compatibility>
                </version>
-           </versions>
+            </versions>
             <langs>
+               <lang>cs_CZ</lang>
                <lang>en_GB</lang>
                <lang>fr_FR</lang>
             </langs>
             <license>GPL v2+</license>
             <tags>
+               <cs>
+                  <tag>Formuláře</tag>
+                  <tag>Ověřování</tag>
+                  <tag>Ověření formuláře</tag>
+               </cs>
                <en>
                   <tag>Forms</tag>
                   <tag>Validation</tag>
