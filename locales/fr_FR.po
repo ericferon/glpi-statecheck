@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GLPI Project - dataflows plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-20 15:12+0200\n"
-"PO-Revision-Date: 2018-08-20 15:14+0200\n"
+"POT-Creation-Date: 2018-08-20 15:06+0200\n"
+"PO-Revision-Date: 2018-08-27 17:03+0200\n"
 "Last-Translator: Eric Feron <ericferon@scarlet.be>\n"
 "Language-Team: French (France) (http://www.transifex.com/tsmr/GLPI_dataflows/"
 "language/fr_FR/)\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.0.8\n"
 
 #: setup.php:99 inc/menu.class.php:31
 msgid "Statecheck Rule"
@@ -28,8 +28,8 @@ msgstr[0] "Régle de vérification d'état"
 msgstr[1] "Régles de vérification d'état"
 
 #: setup.php:112
-msgid "This plugin requires GLPI >= 9.2 and < 9.3"
-msgstr "Ce plugin nécessite une version GLPI >= 9.2 et <9.3"
+msgid "This plugin requires GLPI >= 9.2 and < 9.4"
+msgstr "Ce plugin nécessite une version GLPI >= 9.2 et <9.4"
 
 #: inc/notificationtargetrule.class.php:50
 msgid "Statecheck succeeded for "
