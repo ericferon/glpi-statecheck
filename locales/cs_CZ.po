@@ -1,0 +1,410 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Eric Feron
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Statecheck 2.0.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-20 15:06+0200\n"
+"PO-Revision-Date: 2018-08-28 09:43+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Poedit 2.0.6\n"
+"Last-Translator: \n"
+"Language: cs\n"
+
+#: setup.php:99 inc/menu.class.php:31
+msgid "Statecheck Rule"
+msgid_plural "Statecheck Rules"
+msgstr[0] "Pravidlo kontroly stavu"
+msgstr[1] "Pravidla kontroly stavu"
+msgstr[2] "Pravidel kontroly stavu"
+
+#: setup.php:112
+msgid "This plugin requires GLPI >= 9.2 and < 9.4"
+msgstr "Tento zásuvný modul vyžaduje verzi GLPI >=9.2 a < 9.4"
+
+#: inc/notificationtargetrule.class.php:50
+msgid "Statecheck succeeded for "
+msgstr "Kontrola stavu úspěšná pro "
+
+#: inc/notificationtargetrule.class.php:51
+msgid "Statecheck failed for "
+msgstr "Kontrola stavu neúspěšná pro "
+
+#: inc/notificationtargetrule.class.php:72
+msgid "Manager"
+msgstr "Nadřízený "
+
+#: inc/notificationtargetrule.class.php:72
+msgid "Group responsible of the "
+msgstr "Skupina odpovědná za "
+
+#: inc/notificationtargetrule.class.php:73
+msgid "User responsible of the "
+msgstr "Uživatel odpovědný za "
+
+#: inc/notificationtargetrule.class.php:74 inc/rule.class.php:2354
+msgid "Logged user"
+msgid_plural "Logged users"
+msgstr[0] "Přihlášený uživatel"
+msgstr[1] "Přihlášení uživatelé"
+msgstr[2] "Přihlášených uživatelů"
+
+#: inc/notificationtargetrule.class.php:75 inc/rule.class.php:2360
+msgid "Logged user's group"
+msgid_plural "Logged user's groups"
+msgstr[0] "Skupina přihlášeného uživatele"
+msgstr[1] "Skupiny přihlášeného uživatele"
+msgstr[2] "Skupin přihlášeného uživatele"
+
+#: inc/notificationtargetrule.class.php:190
+msgid "Mail to user"
+msgstr "Poslat e-mail uživateli"
+
+#: inc/notificationtargetrule.class.php:230
+msgid "On failure message"
+msgstr "Zpráva při nezdaru"
+
+#: inc/notificationtargetrule.class.php:246 inc/rule.class.php:386
+#: inc/rule.class.php:525 inc/rule.class.php:2482
+#: inc/rulecriteria.class.php:170
+msgid "Name"
+msgstr "Název"
+
+#: inc/notificationtargetrule.class.php:247 inc/rule.class.php:419
+msgid "Entity"
+msgstr "Entita"
+
+#: inc/profile.class.php:116
+msgid "Helpdesk"
+msgstr "Služba podpory"
+
+#: inc/profile.class.php:120 inc/profile.class.php:148
+msgid "Associable items to a ticket"
+msgstr "Položky přiřaditelné k položkám"
+
+#: inc/profile.class.php:141
+msgid "Dataflow"
+msgid_plural "Statecheck"
+msgstr[0] "Tok dat"
+msgstr[1] "Toky dat"
+msgstr[2] "Toků dat"
+
+#: inc/ruleaction.class.php:82
+msgid "Action"
+msgid_plural "Actions"
+msgstr[0] "Akce"
+msgstr[1] "Akce"
+msgstr[2] "Akcí"
+
+#: inc/ruleaction.class.php:174 inc/rule.class.php:771
+msgid "Field"
+msgid_plural "Fields"
+msgstr[0] "Kolonka"
+msgstr[1] "Kolonky"
+msgstr[2] "Kolonek"
+
+#: inc/ruleaction.class.php:181 inc/rule.class.php:773 inc/rule.class.php:1731
+msgid "Value"
+msgstr "Hodnota"
+
+#: inc/ruleaction.class.php:397
+msgid "Assign"
+msgstr "Přiřadit"
+
+#: inc/ruleaction.class.php:398
+msgid "Add"
+msgstr "Přidat"
+
+#: inc/ruleaction.class.php:399
+msgid "Assign the value from regular expression"
+msgstr "Přiřadit hodnotu z regulárního výrazu"
+
+#: inc/ruleaction.class.php:400
+msgid "Add the result of regular expression"
+msgstr "Přídat výsledek regulárního výrazu"
+
+#: inc/ruleaction.class.php:401
+msgid "Assign: equipment by IP address"
+msgstr "Přiřadit: vybavení podle IP adresy"
+
+#: inc/ruleaction.class.php:402
+msgid "Assign: equipment by name + domain"
+msgstr "Přiřadit: vybavení podle názvu + domény"
+
+#: inc/ruleaction.class.php:403
+msgid "Assign: equipment by MAC address"
+msgstr "Přiřadit: vybavení podle MAC adresy"
+
+#: inc/ruleaction.class.php:404
+msgid "Recalculate"
+msgstr "Přepočítat"
+
+#: inc/ruleaction.class.php:405 inc/ruleaction.class.php:406
+msgid "Send"
+msgstr "Poslat"
+
+#: inc/ruleaction.class.php:407 inc/rulecriteria.class.php:519
+msgid "is"
+msgstr "je"
+
+#: inc/ruleaction.class.php:408 inc/rulecriteria.class.php:520
+msgid "is not"
+msgstr "není"
+
+#: inc/ruleaction.class.php:409
+msgid "is empty"
+msgstr "je prázdné"
+
+#: inc/ruleaction.class.php:410
+msgid "is not empty"
+msgstr "není prázdné"
+
+#: inc/ruleaction.class.php:411
+msgid "is regexp"
+msgstr "je regulární výraz"
+
+#: inc/ruleaction.class.php:412
+msgid "is the user"
+msgstr "je uživatel"
+
+#: inc/ruleaction.class.php:413
+msgid "is member of the group"
+msgstr "je člen skupiny"
+
+#: inc/ruleaction.class.php:414
+msgid "Copy from user"
+msgstr "Zkopírovat z uživatele"
+
+#: inc/ruleaction.class.php:415
+msgid "Copy from item"
+msgstr "Zkopírovat z položky"
+
+#: inc/ruleaction.class.php:692 inc/rule.class.php:757
+msgid "Check value of"
+msgid_plural "Check values of"
+msgstr[0] "Zkontrolovat hodnotu"
+msgstr[1] "Zkontrolovat hodnoty"
+msgstr[2] "Zkontrolovat hodnot"
+
+#: inc/rule.class.php:97
+msgid "StatecheckRule"
+msgid_plural "StatecheckRules"
+msgstr[0] "Pravidlo kontroly stavu"
+msgstr[1] "Pravidla kontroly stavu"
+msgstr[2] "Pravidel kontroly stavu"
+
+#: inc/rule.class.php:224
+msgid "StatecheckRules management"
+msgstr "Správa pravidel kontroly stavu"
+
+#: inc/rule.class.php:250
+msgid "Move"
+msgstr "Přesunout"
+
+#: inc/rule.class.php:286
+msgid "After"
+msgstr "Po"
+
+#: inc/rule.class.php:287
+msgid "Before"
+msgstr "Před"
+
+#: inc/rule.class.php:392
+msgid "Position"
+msgstr "Pozice"
+
+#: inc/rule.class.php:403 inc/rule.class.php:554 inc/rule.class.php:2488
+msgid "Logical operator"
+msgstr "Logický operátor"
+
+#: inc/rule.class.php:409 inc/rule.class.php:558 inc/rule.class.php:2555
+msgid "Active"
+msgstr "Aktivní"
+
+#: inc/rule.class.php:414 inc/rule.class.php:574
+msgid "Comments"
+msgstr "Komentáře"
+
+#: inc/rule.class.php:425
+msgid "Child entities"
+msgstr "Podřízené entitiy"
+
+#: inc/rule.class.php:431
+msgid "Last update"
+msgstr "Naposledy aktualizováno"
+
+#: inc/rule.class.php:437
+msgid "Creation date"
+msgstr "Datum vytvoření"
+
+#: inc/rule.class.php:461 inc/rule.class.php:617
+msgid "and"
+msgstr "a"
+
+#: inc/rule.class.php:464 inc/rule.class.php:621
+msgid "or"
+msgstr "nebo"
+
+#: inc/rule.class.php:537
+msgid "Table"
+msgstr "Tabulka"
+
+#: inc/rule.class.php:542
+msgid "Target State (\"----\"=All)"
+msgstr "Cílový stav (\"----\"=vše)"
+
+#: inc/rule.class.php:565
+msgid "Use rule for"
+msgstr "Použít pravidlo pro"
+
+#: inc/rule.class.php:581
+#, php-format
+msgid "Last update on %s"
+msgstr "Minulá aktualizace %s"
+
+#: inc/rule.class.php:670
+msgid ""
+"It is possible to affect the result of a regular expression using the string "
+"#0"
+msgstr "Použitím řetězce #0 je možné ovlivnit výsledek regulárního výrazu"
+
+#: inc/rule.class.php:738
+msgid "Add a new check"
+msgstr "Přidat novou kontrolu"
+
+#: inc/rule.class.php:772
+msgid "Check type"
+msgstr "Zkontrolovat typ"
+
+#: inc/rule.class.php:840
+msgid "Add a new criteria"
+msgstr "Přidat nová kritéria"
+
+#: inc/rule.class.php:860 inc/rule.class.php:926 inc/rule.class.php:1681
+#: inc/rule.class.php:2180 inc/rulecriteria.class.php:85
+#: inc/rulecriteria.class.php:611
+msgid "Criterion"
+msgid_plural "Criteria"
+msgstr[0] "Kritérium"
+msgstr[1] "Kritéria"
+msgstr[2] "Kritérií"
+
+#: inc/rule.class.php:877 inc/rule.class.php:1682
+#: inc/rulecriteria.class.php:177
+msgid "Condition"
+msgstr "Podmínka"
+
+#: inc/rule.class.php:878 inc/rule.class.php:1683
+#: inc/rulecriteria.class.php:184
+msgid "Reason"
+msgstr "Důvod"
+
+#: inc/rule.class.php:1057
+msgid "Unavailable"
+msgstr "Nedostupné"
+
+#: inc/rule.class.php:1678
+msgid "Result details"
+msgstr "Podrobnosti výsledku"
+
+#: inc/rule.class.php:1684 inc/rule.class.php:1705
+msgid "Validation"
+msgstr "Ověření"
+
+#: inc/rule.class.php:1703
+msgid "StatecheckRule results"
+msgstr "Výsledek pravidla kontroly stavu"
+
+#: inc/rule.class.php:1727
+msgid "Result of the regular expression"
+msgstr "Výsledek regulárního výrazu"
+
+#: inc/rule.class.php:1731
+msgid "Key"
+msgstr "Klíč"
+
+#: inc/rule.class.php:1863
+msgid "General"
+msgstr "Obecné"
+
+#: inc/rule.class.php:2485 inc/rule.class.php:2554
+msgid "Description"
+msgstr "Popis"
+
+#: inc/rule.class.php:2525
+msgid "No item found"
+msgstr "Nebyla nalezena žádná položka"
+
+#: inc/rule.class.php:2691
+msgid "StatecheckRules using the object have been disabled."
+msgstr "Pravidla kontroly stavu pomocí objektu byly vypnuty."
+
+#: inc/rulecriteria.class.php:521
+msgid "contains"
+msgstr "obsahuje"
+
+#: inc/rulecriteria.class.php:522
+msgid "does not contain"
+msgstr "neobsahuje"
+
+#: inc/rulecriteria.class.php:523
+msgid "starting with"
+msgstr "začíná na"
+
+#: inc/rulecriteria.class.php:524
+msgid "finished by"
+msgstr "dokončeno"
+
+#: inc/rulecriteria.class.php:525
+msgid "regular expression matches"
+msgstr "shody s regulárním výrazem"
+
+#: inc/rulecriteria.class.php:526
+msgid "regular expression does not match"
+msgstr "regulární výraz neodpovídá"
+
+#: inc/rulecriteria.class.php:527
+msgid "exists"
+msgstr "existuje"
+
+#: inc/rulecriteria.class.php:528
+msgid "does not exist"
+msgstr "neexistuje"
+
+#: inc/rulecriteria.class.php:545
+msgid "under"
+msgstr "pod"
+
+#: inc/rulecriteria.class.php:546
+msgid "not under"
+msgstr "ne pod"
+
+#: inc/table.class.php:45 inc/table.class.php:74
+msgid "Class"
+msgstr "Třída"
+
+#: inc/table.class.php:51 inc/table.class.php:79
+msgid "State table"
+msgstr "Stavová tabulka"
+
+#: inc/table.class.php:57 inc/table.class.php:84
+msgid "State class"
+msgstr "Třída stavu"
+
+#: inc/table.class.php:63
+msgid "Frontname"
+msgstr "Název popředí"
+
+#: inc/targetstate.class.php:35
+msgid "Target State"
+msgid_plural "Target States"
+msgstr[0] "Cílový stav"
+msgstr[1] "Cílové stavy"
+msgstr[2] "Cílových stavů"
