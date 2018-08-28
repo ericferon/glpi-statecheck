@@ -33,13 +33,13 @@ you must perform the following steps :
 4. Specify the checks, via the tab "Actions" and "Add a new check" : "Name" is not empty and "Flow Group" is not emty ; see screenshot [example4](https://raw.githubusercontent.com/ericferon/glpi-statecheck/master/statecheck-example4.png)
 
 You may define several rules, that will apply to one form.<br/>
-For instance, you may decide that any dataflow in the status "In specification" must have the field "Description" filled (even if the protocol is not "Tibco").<br/>
+For instance, you may decide that any dataflow in the status "In specification" must have the fields "Protocol" and "Description" filled (even if the protocol is not "Tibco").<br/>
 To perform the creation of this rule, you repeat the steps 2 and 4 only, because
 - step 1 must only be performed once per object type (class)
 - step 3 has no additional criteria (the rule applies for all dataflows in status "In specification").
 
 So, 
 - step 2 is not very different than example2 (you change only the name and the comment)
-- in step 4, you create 1 action : "Description" is not empty.
+- in step 4, you create 2 actions : "Protocol" is not empty and "Description" is not empty.
 
-The result is shown in [example5](https://raw.githubusercontent.com/ericferon/glpi-statecheck/master/statecheck-example5.png)
+The final result, applying both rules, is shown in [example5](https://raw.githubusercontent.com/ericferon/glpi-statecheck/master/statecheck-example5.png) : the mandatory fields are highlighted in red
