@@ -97,7 +97,7 @@ function plugin_version_statecheck() {
 
    return array (
       'name' => _n('Statecheck Rule', 'Statecheck Rules', 2, 'statecheck'),
-      'version' => '2.0.6',
+      'version' => '2.0.7',
       'author'  => "Eric Feron",
       'license' => 'GPLv2+',
       'homepage'=> 'https://github.com/ericferon/glpi-statecheck',
@@ -126,21 +126,41 @@ function plugin_datainjection_migratetypes_statecheck($types) {
 }
 
 function hook_pre_item_form(array $params) {
-//      $plugin = new Plugin();
-//	  if ($plugin->isActivated("statecheck")) {
-			Session::addMessageAfterRedirect('<font color="red"><b>'.__('!! Highlighted fields are controlled !!').'</b></font>');
-			Html::displayMessageAfterRedirect();
-//	  }
+	global $DB, $_SERVER;
+// check that the current form is listed for statecheck
+	if (isset($_SERVER['HTTP_REFERER'])) {
+		$start = strpos($_SERVER['HTTP_REFERER'],'/front') + 7;
+		$end = strpos($_SERVER['HTTP_REFERER'],'.',$start);
+		$frontname = substr($_SERVER['HTTP_REFERER'],$start,$end-$start);
+		$query = "select * from glpi_plugin_statecheck_tables where frontname = '".$frontname."'";
+		if ($result=$DB->query($query)) {
+			if ($DB->fetch_assoc($result)) {
+				Session::addMessageAfterRedirect('<font color="red"><b>'.__('!! Highlighted fields are controlled !!').'</b></font>');
+				Html::displayMessageAfterRedirect();
+			}
+		}
+	}
 }
 
 function hook_post_item_form(array $params) {
-	  if ($params['item']->canCreate() 
-//		  && $plugin->isActivated("statecheck")
-	  ) {
-			$classname = get_class($params['item']);
-			$statecheckrule = new PluginStatecheckRule;
-			$statecheckrule->plugin_statecheck_renderfields($classname);
-	  }
+	global $DB, $_SERVER;
+	if ($params['item']->canCreate())
+	{
+// check that the current form is listed for statecheck
+		if (isset($_SERVER['HTTP_REFERER'])) {
+			$start = strpos($_SERVER['HTTP_REFERER'],'/front') + 7;
+			$end = strpos($_SERVER['HTTP_REFERER'],'.',$start);
+			$frontname = substr($_SERVER['HTTP_REFERER'],$start,$end-$start);
+			$query = "select * from glpi_plugin_statecheck_tables where frontname = '".$frontname."'";
+			if ($result=$DB->query($query)) {
+				if ($DB->fetch_assoc($result)) {
+					$classname = get_class($params['item']);
+					$statecheckrule = new PluginStatecheckRule;
+					$statecheckrule->plugin_statecheck_renderfields($classname);
+				}
+			}
+		}
+	}
 }
 
 function plugin_pre_item_statecheck($item)
