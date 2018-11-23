@@ -1,6 +1,6 @@
 language: php
 php:
-    - '7.2'
+- '7.2'
 sudo: false
 branches:
   only:
@@ -14,10 +14,10 @@ env:
 # "git for-each-ref --sort=-taggerdate --count=1 --format '%(contents:subject)' refs/tags" displays the last tag's first line
 # "git for-each-ref --sort=-taggerdate --count=1 --format '%(contents:body)' refs/tags" displays the last tag's 3d line and following ones
 >
-    - GLPI_PLUGIN_NAME=`echo $TRAVIS_BUILD_DIR | sed -e 's/^.*-//'`
-      TRAVIS_TAG=`git for-each-ref --sort=-taggerdate --count=1 --format '%(refname:short)' refs/tags`
-      RELEASE_NAME=`git for-each-ref --sort=-taggerdate --count=1 --format '%(contents:subject)' refs/tags`
-      RELEASE_BODY=`git for-each-ref --sort=-taggerdate --count=1 --format '%(contents:body)' refs/tags`
+  - GLPI_PLUGIN_NAME=`echo $TRAVIS_BUILD_DIR | sed -e 's/^.*-//'`
+    TRAVIS_TAG=`git for-each-ref --sort=-taggerdate --count=1 --format '%(refname:short)' refs/tags`
+    RELEASE_NAME=`git for-each-ref --sort=-taggerdate --count=1 --format '%(contents:subject)' refs/tags`
+    RELEASE_BODY=`git for-each-ref --sort=-taggerdate --count=1 --format '%(contents:body)' refs/tags`
 install: true
 script: true
 after_success:
@@ -25,7 +25,7 @@ after_success:
 deploy:
   provider: releases
   api_key:
-    secure: PKgVwm0sUJgxGZt6vW2ZUYZwknsaVJTy+EJzoLRHfSlgSjz/vYc/03XjERO1c6zDNi9tqnt2sIlN37US9WBZhjc6QnXBliUMJWKMz36DUttLMlD1kebLenYhYh/WW0Jo9A0t8QRFIQFsj7rH6z3FnGY5ZPgTaqi/G8YqN9ORwP+gP3gdOmCJ9SLhCH+WkhabPA3nz74GcKu+hN6In9aWq6h9+I5UP+3ICyx+/Jo6TdThk5L8fu6yPYGBvlCRLEaMGm4MZFcOQrag4pwDu8pRq4hpaQ3KJRIkbncTWXHh4NNliWhe1CT4T+aXEeVHrc5gMc0Tp7MD/9yCPaavzVMbYn06yVTEUes7oRww1etI4LD8NxosxS8m/qnbWIMz7UYORANIJwTiGsIkhZFipxcFVavGe1GZBvfagwd22txAQOMV4JAfYk8xu6KGB5UoBk4Jl/zwsSE75VMV7t2UUnMAXG2in0K7cBMSkmsBYDxwFDoISgmjbuhdqEkjwZiL/YFCwis/cjGbOy0HEUXlWPfoRBup53JzbHJ7yr+nC03jUQX2KGGnXs/500URPC5RrOF3uASeaS/Ep9FBuCnhGLJjdfu52kzR2aek3VXS4KKWG/ylSPUTp8Ln4C8iFnnCj0vkvjvkUOKzv175gs8upAEnu8+EsIXy4Y1gllJmiD6byXA=
+    secure: NL6/dm5xRR1AjqU6t09fETcGtdsiQHJvjq3G+agjc8uxn5LT237OMPvGotebmeZXJgYZ49gDGd88QZU3/NO8mf8N5UH5qllhmks8RsOV/3NoEPstAMj21GZDIzNSuQkCk25Kgub0nLNzxotFvnEz+GA/7ukJnCe0hFd2w1c7Bxz6X4pn5eXqKcH7Ia3PpJzid4WEL4t6E5s+4sTqB2WmBYEuleU0hDeFxivS8Pz+GJM9/XvYuRXsfFb7sfIHyq18tIEIizhtcpCdUMICMNqMmcfozItw5jESReaLG0rS6MwdADZZxki4ypPu8yOQBGnsA/d+N5Tv9kODDXsuSYk9SVhxW1jWO36MDpzKycvtEU3vLVNyO98bXmjWAJ3nmQM8AU6evF2gh1lHQZkybGgv6NBoEbRjzte21DNe1gP4wN1uLolBQNUPBwucked8jBMKkwa/LVWRw55RXnsoAUQEP6PJzVD6AWNafwqg06aFItkVkorPYTDjtDMP4N5ouOD99CKRpKtLXo4Aju0UEhcqmQ9E2LH7fLR9pi2MRKbztIs0mhLk77YWwhP1tGgjftBR53Hp+er93zcHGLGLlYo/5mChVsIYRu2B9iRulZhrHreVNGKu1S85Urim1A/KQsN7GPfFn+hFM0u+G2E8BvHDMmfIASZdNuBCjFRz19wQldI=
   skip_cleanup: true
   file: $GLPI_PLUGIN_NAME-$TRAVIS_TAG.tar.gz
   name: $RELEASE_NAME
