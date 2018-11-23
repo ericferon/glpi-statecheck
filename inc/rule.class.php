@@ -2927,9 +2927,18 @@ function plugin_statecheck_renderfields($classname) {
 //				foreach tuple returned in the JSON response, find the DOM element
 				echo '$.each(response, function(i, row){';
 				echo 'var element = document.getElementsByName(row.field)[0];';
-//				but for dropdown, take the "a" html element just before
-				echo 'if (element.getAttribute("type") != "text") {element = element.previousSibling.getElementsByTagName("a")[0]};';
-//				change css class of "statechecked" fields
+//				but for dropdown,
+				switch(substr(GLPI_VERSION, 0, 3)) {
+					case "9.2":
+//						take the "a" html element just before
+						echo 'if (element && element.getAttribute("type") != "text") {element = element.previousSibling.getElementsByTagName("a")[0]};';
+						break;
+					case "9.3":
+//						take the "span" html element just after, with role "combobox"
+						echo 'if (element && element.getAttribute("type") != "text") {element = element.nextSibling.querySelectorAll("[role=combobox]")[0]};';
+						break;
+				}
+///				change css class of "statechecked" fields
 				echo 'if (element) {element.className += " statecheck-warning";}';
 				echo '})';
 				echo '}';
@@ -2943,8 +2952,17 @@ function plugin_statecheck_renderfields($classname) {
 //				foreach tuple returned in the JSON response, find the DOM element
 				echo '$.each(response, function(i, row){';
 				echo 'var element = document.getElementsByName(row.field)[0];';
-//				but for dropdown, take the "a" html element just before
-				echo 'if (element.getAttribute("type") != "text") {element = element.previousSibling.getElementsByTagName("a")[0]};';
+//				but for dropdown,
+				switch(substr(GLPI_VERSION, 0, 3)) {
+					case "9.2":
+//						take the "a" html element just before
+						echo 'if (element && element.getAttribute("type") != "text") {element = element.previousSibling.getElementsByTagName("a")[0]};';
+						break;
+					case "9.3":
+//						take the "span" html element just after, with role "combobox"
+						echo 'if (element && element.getAttribute("type") != "text") {element = element.nextSibling.querySelectorAll("[role=combobox]")[0]};';
+						break;
+				}
 //				add the class "statecheck-warning" (defined in style.css file) to change the display of the field
 				echo 'if (element) {element.className += " statecheck-warning";}';
 				echo '});';
