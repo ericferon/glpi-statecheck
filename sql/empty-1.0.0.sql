@@ -43,9 +43,9 @@ CREATE  TABLE `glpi_plugin_statecheck_tables` (
   UNIQUE INDEX `plugin_statecheck_tables_name` (`name` ASC) )
 ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---- -------------------------------------------------------------------------------------
---- Insert 1 notification template for successful and failed check, per 'Database' status
---- -------------------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------------
+-- Insert 1 notification template for successful and failed check, per 'Database' status
+-- -------------------------------------------------------------------------------------
 INSERT INTO `glpi_plugin_statecheck_tables` ( `id` , `name` , `comment`, `statetable`, `stateclass`, `class`, `frontname`)  
 		VALUES (1,'glpi_plugin_databases_databases','Databases','glpi_plugin_databases_databasetypes','PluginDatabasesDatabaseType','PluginDatabasesDatabase','database');
 INSERT INTO `glpi_notificationtemplates` (`id` , `name` , `itemtype`, `date_mod` , `comment` , `css`)
@@ -59,9 +59,9 @@ FROM glpi_plugin_statecheck_tables, glpi_plugin_dataflows_states
 WHERE glpi_plugin_statecheck_tables.class = 'PluginDatabasesDatabase'
 ORDER BY name;
 
---- -------------------------------------------------------------------------------------------
---- Insert 1 notification template for successful and failed check, per 'Apps Structure' status
---- -------------------------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------------------
+-- Insert 1 notification template for successful and failed check, per 'Apps Structure' status
+-- -------------------------------------------------------------------------------------------
 INSERT INTO `glpi_plugin_statecheck_tables` ( `id` , `name` , `comment`, `statetable`, `stateclass`, `class`, `frontname` )  
 		VALUES (2,'glpi_plugin_archisw_swcomponents','Apps Structure','glpi_plugin_archisw_swcomponentstates','PluginArchiswSwcomponentState','PluginArchiswSwcomponent','swcomponent');
 INSERT INTO `glpi_notificationtemplates` (`id` , `name` , `itemtype`, `date_mod` , `comment` , `css`)
@@ -75,9 +75,9 @@ FROM glpi_plugin_statecheck_tables, glpi_plugin_dataflows_states
 WHERE glpi_plugin_statecheck_tables.class = 'PluginArchiswSwcomponent'
 ORDER BY name;
 
---- -------------------------------------------------------------------------------------
---- Insert 1 notification template for successful and failed check, per 'Dataflow' status
---- -------------------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------------
+-- Insert 1 notification template for successful and failed check, per 'Dataflow' status
+-- -------------------------------------------------------------------------------------
 INSERT INTO `glpi_plugin_statecheck_tables` ( `id` , `name` , `comment`, `statetable`, `stateclass`, `class`, `frontname` )  
 		VALUES (3,'glpi_plugin_dataflows_dataflows','Dataflows','glpi_plugin_dataflows_states','PluginDataflowsState','PluginDataflowsDataflow','dataflow');
 INSERT INTO `glpi_notificationtemplates` (`id` , `name` , `itemtype`, `date_mod` , `comment` , `css`)
