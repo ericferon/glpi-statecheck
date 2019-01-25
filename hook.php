@@ -87,7 +87,7 @@ function plugin_statecheck_install() {
 
       Plugin::migrateItemType(
          array(2400=>'PluginStatecheckRule'),
-         array("glpi_bookmarks", "glpi_bookmarks_users", "glpi_displaypreferences",
+         array("glpi_savedsearches", "glpi_savedsearches_users", "glpi_displaypreferences",
                "glpi_documents_items", "glpi_infocoms", "glpi_logs", "glpi_items_tickets"),
          array("glpi_plugin_statecheck_rules_items"));
 
@@ -119,7 +119,7 @@ function plugin_statecheck_uninstall() {
 
 	$tables_glpi = array("glpi_displaypreferences",
 					"glpi_documents_items",
-					"glpi_bookmarks",
+					"glpi_savedsearches",
 					"glpi_logs");
 
 	foreach($tables_glpi as $table_glpi)

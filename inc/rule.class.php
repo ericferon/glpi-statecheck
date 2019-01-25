@@ -2730,6 +2730,7 @@ class PluginStatecheckRule extends Rule {
    **/
    function getTabNameForItem(CommonGLPI $item, $withtemplate=0) {
 
+      $dbu = new DbUtils();
       if (!$withtemplate) {
          $nb = 0;
          switch ($item->getType()) {
@@ -2749,7 +2750,7 @@ class PluginStatecheckRule extends Rule {
                      $types[] = 'StatecheckRuleMailCollector';
                   }
                   if (count($types)) {
-                     $nb = countElementsInTable(array('glpi_rules', 'glpi_ruleactions'),
+                     $nb = $dbu->countElementsInTable(array('glpi_rules', 'glpi_ruleactions'),
                                                 "`glpi_ruleactions`.`rules_id` = `glpi_rules`.`id`
                                                   AND `glpi_rules`.`sub_type`
                                                          IN ('".implode("','",$types)."')
@@ -2762,7 +2763,7 @@ class PluginStatecheckRule extends Rule {
 
             case 'SLA' :
                if ($_SESSION['glpishow_count_on_tabs']) {
-                  $nb = countElementsInTable('glpi_ruleactions',
+                  $nb = $dbu->countElementsInTable('glpi_ruleactions',
                                              "`field` = 'slas_id'
                                                 AND `value` = '".$item->getID()."'");
                }
@@ -2774,9 +2775,9 @@ class PluginStatecheckRule extends Rule {
                   $nbcriteria = 0;
                   $nbaction   = 0;
                   if ($_SESSION['glpishow_count_on_tabs']) {
-                     $nbcriteria = countElementsInTable(getTableForItemType($item->getStatecheckRuleCriteriaClass()),
+                     $nbcriteria = $dbu->countElementsInTable(getTableForItemType($item->getStatecheckRuleCriteriaClass()),
                                                         "`".$item->getStatecheckRuleIdField()."` = '".$item->getID()."'");
-                     $nbaction   = countElementsInTable(getTableForItemType($item->getStatecheckRuleActionClass()),
+                     $nbaction   = $dbu->countElementsInTable(getTableForItemType($item->getStatecheckRuleActionClass()),
                                                         "`".$item->getStatecheckRuleIdField()."` = '".$item->getID()."'");
 
                   }
