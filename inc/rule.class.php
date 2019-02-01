@@ -1398,7 +1398,7 @@ class PluginStatecheckRule extends Rule {
     *
     * @return output parameters array updated
     */
-   function executePluginsActions($action, $output, $params) {
+/*   function executePluginsActions($action, $output, $params) {
       global $PLUGIN_HOOKS;
 
       if (isset($PLUGIN_HOOKS['use_rules'])) {
@@ -1406,9 +1406,9 @@ class PluginStatecheckRule extends Rule {
          $params['rule_itemtype']     = $this->getType();
          foreach ($PLUGIN_HOOKS['use_rules'] as $plugin => $val) {
             if (is_array($val) && in_array($this->getType(), $val)) {
-               $results = Plugin::doOneHook($plugin, "executeActions", array('output' => $output,
+               $results = Plugin::doOneHook($plugin, "executeActions", ['output' => $output,
                                                                              'params' => $params,
-                                                                             'action' => $action));
+                                                                             'action' => $action]);
                if (is_array($results)) {
                   foreach ($results as $id => $result) {
                      $output[$id] = $result;
@@ -1420,7 +1420,7 @@ class PluginStatecheckRule extends Rule {
       }
       return $output;
    }
-
+*/
 
    /**
     * Execute the actions as defined in the rule
