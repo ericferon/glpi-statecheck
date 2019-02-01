@@ -25,7 +25,8 @@ CREATE  TABLE `glpi_plugin_statecheck_rules` (
   KEY `name` (`name`),
   KEY `date_mod` (`date_mod`),
   KEY `is_recursive` (`is_recursive`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
+) AUTO_INCREMENT=34 
+DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 
 -- -----------------------------------------------------
 -- Table `glpi_plugin_statecheck_tables`
@@ -41,7 +42,7 @@ CREATE  TABLE `glpi_plugin_statecheck_tables` (
   `frontname` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `plugin_statecheck_tables_name` (`name` ASC) )
-ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- -------------------------------------------------------------------------------------
 -- Insert 1 notification template for successful and failed check, per 'Database' status
@@ -115,7 +116,8 @@ CREATE TABLE `glpi_plugin_statecheck_rulecriterias` (
   PRIMARY KEY (`id`),
   KEY `plugin_statecheck_rules_id` (`plugin_statecheck_rules_id`),
   KEY `condition` (`condition`)
-) ENGINE=MyISAM AUTO_INCREMENT=110 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
+) AUTO_INCREMENT=110 
+DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 
 
 -- ----------------------------------------------------------------
@@ -130,7 +132,8 @@ CREATE TABLE `glpi_plugin_statecheck_ruleactions` (
   `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `plugin_statecheck_rules_id` (`plugin_statecheck_rules_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
+) AUTO_INCREMENT=46 
+DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 
 -- -----------------------------------------------------
 -- Table `glpi_plugin_statecheck_profiles`
@@ -143,7 +146,8 @@ CREATE TABLE `glpi_plugin_statecheck_profiles` (
 	`open_ticket` char(1) collate utf8_unicode_ci default NULL,
 	PRIMARY KEY  (`id`),
 	KEY `profiles_id` (`profiles_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+)  
+DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginStatecheckRule','2','2','0');
 INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginStatecheckRule','6','3','0');
