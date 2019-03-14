@@ -380,6 +380,7 @@ class PluginStatecheckRule extends Rule {
    function getSearchOptions() {
 
       $tab                       = array();
+      if (version_compare(GLPI_VERSION,'9.3','ge')) return $tab;
 
       $tab[1]['table']           = $this->getTable();
       $tab[1]['field']           = 'name';
@@ -441,6 +442,96 @@ class PluginStatecheckRule extends Rule {
       return $tab;
    }
 
+
+   // search fields from GLPI 9.3 on
+   function rawSearchOptions() {
+
+      $tab = [];
+      if (version_compare(GLPI_VERSION,'9.2','le')) return $tab;
+
+      $tab[] = [
+         'id'   => 'common',
+         'name' => self::getTypeName(2)
+      ];
+
+      $tab[] = [
+         'id'            => '1',
+         'table'         => $this->getTable(),
+         'field'         => 'name',
+         'name'          => __('Name'),
+         'datatype'      => 'itemlink',
+         'itemlink_type' => $this->getType()
+      ];
+
+      $tab[] = [
+         'id'       => '3',
+         'table'    => $this->getTable(),
+         'field'    => 'ranking',
+         'name'     => __('Position', 'statecheck'),
+         'datatype' => 'number'
+      ];
+
+      $tab[] = [
+         'id'       => '5',
+         'table'    => $this->getTable(),
+         'field'    => 'match',
+         'name'     => __('Logical operator', 'statecheck'),
+         'datatype' => 'specific'
+      ];
+
+      $tab[] = [
+         'id'       => '8',
+         'table'    => $this->getTable(),
+         'field'    => 'is_active',
+         'name'     => __('Active', 'statecheck'),
+         'datatype' => 'bool'
+      ];
+
+      $tab[] = [
+         'id'       => '16',
+         'table'    => $this->getTable(),
+         'field'    => 'comment',
+         'name'     => __('Comments', 'statecheck'),
+         'datatype' => 'text'
+      ];
+
+      $tab[] = [
+         'id'            => '19',
+         'table'         => $this->getTable(),
+         'field'         => 'date_mod',
+         'massiveaction' => false,
+         'name'          => __('Last update'),
+         'datatype'      => 'datetime'
+      ];
+
+      $tab[] = [
+         'id'            => '20',
+         'table'         => $this->getTable(),
+         'field'         => 'date_creation',
+         'massiveaction' => false,
+         'name'          => __('Creation date', 'statecheck'),
+         'datatype'      => 'datetime'
+      ];
+
+      $tab[] = [
+         'id'           => '80',
+         'table'        => 'glpi_entities',
+         'field'        => 'completename',
+         'name'         => __('Entity'),
+         'datatype'     => 'dropdown'
+      ];
+
+      $tab[] = [
+         'id'            => '86',
+         'table'         => $this->getTable(),
+         'field'         => 'is_recursive',
+         'massiveaction' => false,
+         'name'          => __('Child entities', 'statecheck'),
+         'datatype'      => 'bool'
+      ];
+
+      return $tab;
+   }
 
    /**
     * @param  $field
