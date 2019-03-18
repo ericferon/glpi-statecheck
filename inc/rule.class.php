@@ -394,11 +394,6 @@ class PluginStatecheckRule extends Rule {
       $tab[3]['datatype']        = 'number';
       $tab[3]['massiveaction']   = false;
 
-/*      $tab[4]['table']           = $this->getTable();
-      $tab[4]['field']           = 'description';
-      $tab[4]['name']            = __('Description');
-      $tab[4]['datatype']        = 'text';
-*/
       $tab[5]['table']           = $this->getTable();
       $tab[5]['field']           = 'match';
       $tab[5]['name']            = __('Logical operator', 'statecheck');
@@ -432,12 +427,6 @@ class PluginStatecheckRule extends Rule {
       $tab[19]['name']           = __('Last update', 'statecheck');
       $tab[19]['datatype']       = 'datetime';
       $tab[19]['massiveaction']  = false;
-
-      $tab[121]['table']          = $this->getTable();
-      $tab[121]['field']          = 'date_creation';
-      $tab[121]['name']           = __('Creation date', 'statecheck');
-      $tab[121]['datatype']       = 'datetime';
-      $tab[121]['massiveaction']  = false;
 
       return $tab;
    }
@@ -501,15 +490,6 @@ class PluginStatecheckRule extends Rule {
          'field'         => 'date_mod',
          'massiveaction' => false,
          'name'          => __('Last update'),
-         'datatype'      => 'datetime'
-      ];
-
-      $tab[] = [
-         'id'            => '20',
-         'table'         => $this->getTable(),
-         'field'         => 'date_creation',
-         'massiveaction' => false,
-         'name'          => __('Creation date', 'statecheck'),
          'datatype'      => 'datetime'
       ];
 

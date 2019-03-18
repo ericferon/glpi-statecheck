@@ -23,11 +23,15 @@
 	<authors>
 		<author>Eric Feron</author>
 	</authors>
+	<versions>
+		<version>
+			<num>2.0.14</num>
+			<compatibility>9.3</compatibility>
+		</version>
 		<version>
 			<num>2.0.13</num>
 			<compatibility>9.3</compatibility>
 		</version>
-	<versions>
 		<version>
 			<num>2.0.12</num>
 			<compatibility>9.3</compatibility>
