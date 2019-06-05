@@ -39,7 +39,7 @@ class PluginStatecheckNotificationTargetRule extends NotificationTarget {
    
 function getEvents() {
 	global $LANG, $DB;
-	$events = array();
+	$events = [];
 	$queryclass = "select * from glpi_plugin_statecheck_tables";
 	if ($resultclass=$DB->query($queryclass)) {
 		while ($dataclass=$DB->fetch_assoc($resultclass)) {
@@ -119,7 +119,7 @@ function getEvents() {
          }
       }
    }
-   function getLoggedUserAddress($options=array()) {
+   function getLoggedUserAddress($options=[]) {
       global $DB;
 
       if (isset($options['tasks_id'])) {
@@ -134,7 +134,7 @@ function getEvents() {
       }
    }
    
-   function getItemGroupAddress ($options=array()) {
+   function getItemGroupAddress ($options=[]) {
       global $DB;
 
       if (isset($options['groups_id'])
@@ -154,7 +154,7 @@ function getEvents() {
       }
    }
 
-   function getItemUserAddress ($options=array()) {
+   function getItemUserAddress ($options=[]) {
       global $DB;
 
       if (isset($options['groups_id'])
@@ -174,7 +174,7 @@ function getEvents() {
       }
    }
 
-   function addDataForTemplate($event, $options=array()) {
+   function addDataForTemplate($event, $options=[]) {
      global $LANG,$CFG_GLPI,$DB,$_SESSION;
 
 		$classinfo = explode("_",$this->raiseevent);
@@ -201,7 +201,7 @@ function getEvents() {
 						$dropdowntable = "glpi_".substr($fieldname,0,-3);
 						$this->data[$tagname] = Html::clean(Dropdown::getDropdownName($dropdowntable, $this->obj->getField($fieldname)));
 					} else {
-						$this->data[$tagname] = Html::clean(stripslashes(str_replace(array('\r\n', '\n', '\r'), "<br/>",$this->obj->getField($fieldname))));
+						$this->data[$tagname] = Html::clean(stripslashes(str_replace(['\r\n', '\n', '\r'], "<br/>",$this->obj->getField($fieldname))));
 					}
 				}
 			}
@@ -228,7 +228,7 @@ function getEvents() {
 		$this->data['##statecheck.id##'] = $this->obj->getField("id");
 		$this->data['##statecheck.loggeduser##'] = $_SESSION['glpiname'];
 		$this->data['##lang.statecheck.errormessage##'] = __('On failure message', 'statecheck');
-		$this->data['##statecheck.errormessage##'] = Html::clean(stripslashes(str_replace(array('\r\n', '\n', '\r', ';'), "<br/>",$this->obj->getField('hookmessage'))));
+		$this->data['##statecheck.errormessage##'] = Html::clean(stripslashes(str_replace(['\r\n', '\n', '\r', ';'], "<br/>",$this->obj->getField('hookmessage'))));
 
          
       $this->getTags();
@@ -243,19 +243,19 @@ function getEvents() {
    function getTags() {
       global $LANG;
 
-      $tags = array('statecheck.name'           => __('Name', 'statecheck'),
-                    'statecheck.entity'         => __('Entity', 'statecheck'));
+      $tags = ['statecheck.name'           => __('Name', 'statecheck'),
+                    'statecheck.entity'         => __('Entity', 'statecheck')];
 
       foreach ($tags as $tag => $label) {
-         $this->addTagToList(array('tag'   => $tag,
+         $this->addTagToList(['tag'   => $tag,
                                    'label' => $label,
-                                   'value' => true));
+                                   'value' => true]);
       }
 
-/*      $this->addTagToList(array('tag'     => 'statechecks',
+/*      $this->addTagToList(['tag'     => 'statechecks',
                                 'label'   => $LANG['reports'][57],
                                 'value'   => false,
-                                'foreach' => true));
+                                'foreach' => true]);
 */
       asort($this->tag_descriptions);
    }

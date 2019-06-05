@@ -73,6 +73,6 @@ if (isset($_POST["add_action"])) {
 Html::header(PluginStatecheckRule::getTypeName(Session::getPluralNumber()), $_SERVER['PHP_SELF'], 'admin',
              'pluginstatecheckmenu');
 
-$rule->display(array('id' => $_GET["id"]));
+$rule->display(['id' => $_GET["id"])];
 Html::footer();
 ?>

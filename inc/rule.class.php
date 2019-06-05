@@ -41,9 +41,9 @@ class PluginStatecheckRule extends Rule {
 
    // Specific ones
    ///Actions affected to this rule
-   public $actions               = array();
+   public $actions               = [];
    ///Criterias affected to this rule
-   public $criterias             = array();
+   public $criterias             = [];
    /// Rules can be sorted ?
    public $can_sort              = false;
    /// field used to order rules
@@ -58,8 +58,8 @@ class PluginStatecheckRule extends Rule {
 
    public $specific_parameters   = false;
 
-   public $regex_results         = array();
-   public $criterias_results     = array();
+   public $regex_results         = [];
+   public $criterias_results     = [];
 
    static $rightname             = 'config';
 
@@ -127,7 +127,7 @@ class PluginStatecheckRule extends Rule {
     *  @return array of conditions
    **/
    static function getConditionsArray() {
-      return array();
+      return [];
    }
 
    /**
@@ -145,7 +145,7 @@ class PluginStatecheckRule extends Rule {
     *
     * @param $options      array of parameters
    **/
-   static function dropdownConditions($options=array()) {
+   static function dropdownConditions($options=[]) {
 
       $p['name']      = 'condition';
       $p['value']     = 0;
@@ -278,14 +278,14 @@ class PluginStatecheckRule extends Rule {
                Entity::dropdown();
             }
             echo "<br><br>".Html::submit(_x('button', 'Duplicate'),
-                                         array('name' => 'massiveaction'));
+                                         ['name' => 'massiveaction']);
             return true;
 
          case 'move_rule' :
             $input = $ma->getInput();
-            $values = array('after'  => __('After', 'statecheck'),
-                            'before' => __('Before', 'statecheck'));
-            Dropdown::showFromArray('move_type', $values, array('width' => '20%'));
+            $values = ['after'  => __('After', 'statecheck'),
+                            'before' => __('Before', 'statecheck')];
+            Dropdown::showFromArray('move_type', $values, ['width' => '20%']);
 
             if (isset($input['entity'])) {
                $entity = $input['entity'];
@@ -298,13 +298,13 @@ class PluginStatecheckRule extends Rule {
             } else {
                $condition = 0;
             }
-            echo Html::hidden('rule_class_name', array('value' => $input['rule_class_name']));
+            echo Html::hidden('rule_class_name', ['value' => $input['rule_class_name']]);
 
-            StatecheckRule::dropdown(array('sub_type'        => $input['rule_class_name'],
+            StatecheckRule::dropdown(['sub_type'        => $input['rule_class_name'],
                                  'name'            => "ranking",
                                  'condition'       => $condition,
                                  'entity'          => $entity,
-                                 'width'           => '50%'));
+                                 'width'           => '50%']);
             echo "<br><br><input type='submit' name='massiveaction' class='submit' value='".
                            _sx('button', 'Move')."'>\n";
             return true;
@@ -379,7 +379,7 @@ class PluginStatecheckRule extends Rule {
 
    function getSearchOptions() {
 
-      $tab                       = array();
+      $tab                       = [];
       if (version_compare(GLPI_VERSION,'9.3','ge')) return $tab;
 
       $tab[1]['table']           = $this->getTable();
@@ -520,10 +520,10 @@ class PluginStatecheckRule extends Rule {
     *
     * @return string
    **/
-   static function getSpecificValueToDisplay($field, $values, array $options=array()) {
+   static function getSpecificValueToDisplay($field, $values, array $options=[]) {
 
       if (!is_array($values)) {
-         $values = array($field => $values);
+         $values = [$field => $values];
       }
       switch ($field) {
          case 'match' :
@@ -549,10 +549,10 @@ class PluginStatecheckRule extends Rule {
     * @param  $values            (default '')
     * @param  $options   array
    **/
-   static function getSpecificValueToSelect($field, $name='', $values='', array $options=array()) {
+   static function getSpecificValueToSelect($field, $name='', $values='', array $options=[]) {
 
       if (!is_array($values)) {
-         $values = array($field => $values);
+         $values = [$field => $values];
       }
       $options['display'] = false;
       switch ($field) {
@@ -579,7 +579,7 @@ class PluginStatecheckRule extends Rule {
     *
     * @return nothing
    **/
-   function showForm($ID, $options=array()) {
+   function showForm($ID, $options=[]) {
       global $CFG_GLPI;
       if (!$this->isNewID($ID)) {
          $this->check($ID, READ);
@@ -607,7 +607,7 @@ class PluginStatecheckRule extends Rule {
       //table of class to be checked
       echo "<td>".__('Table', 'statecheck')."</td>";
       echo "<td>";
-      Dropdown::show('PluginStatecheckTable', array('value' => $this->fields["plugin_statecheck_tables_id"]));
+      Dropdown::show('PluginStatecheckTable', ['value' => $this->fields["plugin_statecheck_tables_id"]]);
       echo "</td>";
       //state to be checked
       echo "<td>".__('Target State ("----"=All)', 'statecheck')."</td>";
@@ -617,14 +617,14 @@ class PluginStatecheckRule extends Rule {
 /*      ajaxUpdateItemOnSelectEvent("dropdown_itemtype$rand", "show_events",
                                   $CFG_GLPI["root_doc"]."/ajax/dropdownNotificationEvent.php",
                                   $params);
-*/		Dropdown::show($this->statefield($this), array('value' => $this->fields["plugin_statecheck_targetstates_id"],'name' => "plugin_statecheck_targetstates_id"));
+*/		Dropdown::show($this->statefield($this), ['value' => $this->fields["plugin_statecheck_targetstates_id"],'name' => "plugin_statecheck_targetstates_id"]);
       echo "</td>";
       echo "</tr>";
 
       echo "<tr class='tab_bg_1'>";
       echo "<td>".__('Logical operator', 'statecheck')."</td>";
       echo "<td>";
-      $this->dropdownStatecheckRulesMatch(array('value' => $this->fields["match"]));
+      $this->dropdownStatecheckRulesMatch(['value' => $this->fields["match"]]);
       echo "</td>";
       echo "<td>".__('Active', 'statecheck')."</td>";
       echo "<td>";
@@ -635,7 +635,7 @@ class PluginStatecheckRule extends Rule {
          echo "<tr class='tab_bg_1'>";
          echo "<td>".__('Use rule for', 'statecheck')."</td>";
          echo "<td>";
-         $this->dropdownConditions(array('value' => $this->fields["condition"]));
+         $this->dropdownConditions(['value' => $this->fields["condition"]]);
          echo "</td>";
          echo "<td colspan='2'>";
          echo "</td></tr>\n";
@@ -671,7 +671,7 @@ class PluginStatecheckRule extends Rule {
     *
     * @param $options      array of parameters
    **/
-   function dropdownStatecheckRulesMatch($options=array()) {
+   function dropdownStatecheckRulesMatch($options=[]) {
 
       $p['name']     = 'match';
       $p['value']    = '';
@@ -764,7 +764,7 @@ class PluginStatecheckRule extends Rule {
     * @param $rules_id        rule ID
     * @param $options   array of options : may be readonly
    **/
-   function showActionsList($rules_id, $options=array()) {
+   function showActionsList($rules_id, $options=[]) {
       global $CFG_GLPI;
 
       $rand = mt_rand();
@@ -796,10 +796,10 @@ class PluginStatecheckRule extends Rule {
 
          echo "<script type='text/javascript' >\n";
          echo "function viewAddAction" . $rules_id . "$rand() {\n";
-         $params = array('type'                => $this->ruleactionclass,
+         $params = ['type'                => $this->ruleactionclass,
                          'parenttype'          => $this->getType(),
                          $this->rules_id_field => $rules_id,
-                         'id'                  => -1);
+                         'id'                  => -1];
          Ajax::updateItemJsCode("viewaction" . $rules_id . "$rand",
                                 $CFG_GLPI["root_doc"]."/ajax/viewsubitem.php", $params);
          echo "};";
@@ -814,12 +814,12 @@ class PluginStatecheckRule extends Rule {
       echo "<div class='spaced'>";
       if ($canedit && $nb) {
          Html::openMassiveActionsForm('mass'.$this->ruleactionclass.$rand);
-         $massiveactionparams = array('num_displayed'  => min($_SESSION['glpilist_limit'], $nb),
+         $massiveactionparams = ['num_displayed'  => min($_SESSION['glpilist_limit'], $nb),
                                       'check_itemtype' => get_class($this),
                                       'check_items_id' => $rules_id,
                                       'container'      => 'mass'.$this->ruleactionclass.$rand,
-                                      'extraparams'    => array('rule_class_name'
-                                                                    => $this->getType()));
+                                      'extraparams'    => ['rule_class_name'
+                                                                    => $this->getType()]];
          Html::showMassiveActions($massiveactionparams);
       }
 
@@ -873,7 +873,7 @@ class PluginStatecheckRule extends Rule {
     * @param $rules_id
     * @param $options   array of options : may be readonly
    **/
-   function showCriteriasList($rules_id, $options=array()) {
+   function showCriteriasList($rules_id, $options=[]) {
       global $CFG_GLPI;
 
       $rand = mt_rand();
@@ -898,10 +898,10 @@ class PluginStatecheckRule extends Rule {
 
          echo "<script type='text/javascript' >\n";
          echo "function viewAddCriteria" . $rules_id . "$rand() {\n";
-         $params = array('type'                => $this->rulecriteriaclass,
+         $params = ['type'                => $this->rulecriteriaclass,
                          'parenttype'          => $this->getType(),
                          $this->rules_id_field => $rules_id,
-                         'id'                  => -1);
+                         'id'                  => -1];
          Ajax::updateItemJsCode("viewcriteria" . $rules_id . "$rand",
                                 $CFG_GLPI["root_doc"]."/ajax/viewsubitem.php", $params);
          echo "};";
@@ -917,12 +917,12 @@ class PluginStatecheckRule extends Rule {
 
       if ($canedit && $nb) {
          Html::openMassiveActionsForm('mass'.$this->rulecriteriaclass.$rand);
-         $massiveactionparams = array('num_displayed'  => min($_SESSION['glpilist_limit'], $nb),
+         $massiveactionparams = ['num_displayed'  => min($_SESSION['glpilist_limit'], $nb),
                                       'check_itemtype' => get_class($this),
                                       'check_items_id' => $rules_id,
                                       'container'      => 'mass'.$this->rulecriteriaclass.$rand,
-                                      'extraparams'    => array('rule_class_name'
-                                                                    => $this->getType()));
+                                      'extraparams'    => ['rule_class_name'
+                                                                    => $this->getType()]];
          Html::showMassiveActions($massiveactionparams);
       }
 
@@ -979,7 +979,7 @@ class PluginStatecheckRule extends Rule {
     *
     * @return the initial value (first)
    **/
-   function dropdownCriteria($options=array()) {
+   function dropdownCriteria($options=[]) {
       global $CFG_GLPI;
 
       $p['name']                = 'criteria';
@@ -993,7 +993,7 @@ class PluginStatecheckRule extends Rule {
          }
       }
 
-      $group      = array();
+      $group      = [];
       $groupname  = _n('Criterion', 'Criteria', Session::getPluralNumber(), 'statecheck');
       foreach ($this->getAllCriteria() as $ID => $crit) {
          // Manage group system
@@ -1002,7 +1002,7 @@ class PluginStatecheckRule extends Rule {
                asort($group);
                $items[$groupname] = $group;
             }
-            $group     = array();
+            $group     = [];
             $groupname = $crit;
          } else {
             $group[$ID] = $crit['name'];
@@ -1023,12 +1023,12 @@ class PluginStatecheckRule extends Rule {
     *
     * @return the initial value (first non used)
    **/
-   function dropdownActions($options=array()) {
+   function dropdownActions($options=[]) {
       global $CFG_GLPI;
 
       $p['name']                = 'field';
       $p['display']             = true;
-      $p['used']                = array();
+      $p['used']                = [];
       $p['value']               = '';
       $p['display_emptychoice'] = true;
 
@@ -1090,7 +1090,7 @@ class PluginStatecheckRule extends Rule {
       if (isset($criterias[$ID])) {
          return $criterias[$ID];
       }
-      return array();
+      return [];
    }
 
 
@@ -1107,7 +1107,7 @@ class PluginStatecheckRule extends Rule {
       if (isset($actions[$ID])) {
          return $actions[$ID];
       }
-      return array();
+      return [];
    }
 
 
@@ -1158,17 +1158,17 @@ class PluginStatecheckRule extends Rule {
     * @return the output array updated by actions.
     *         If rule matched add field _rule_process to return value
    **/
-   function process(&$input, &$output, &$params, &$options=array()) {
+   function process(&$input, &$output, &$params, &$options=[]) {
 
       if ($this->validateCriterias($options)) {
-         $this->regex_results     = array();
-         $this->criterias_results = array();
+         $this->regex_results     = [];
+         $this->criterias_results = [];
          $input = $this->prepareInputDataForProcess($input, $params);
 
          if ($this->checkCriterias($input)) {
             unset($output["_no_rule_matches"]);
             $refoutput = $output;
-            $output = $this->executeActions($output, $params);
+            $output = $this->executeActions($output, $params, []);
 
             $this->updateOnlyCriteria($options, $refoutput, $output);
             //Hook
@@ -1212,7 +1212,7 @@ class PluginStatecheckRule extends Rule {
                   if (isset($crit['linked_criteria'])) {
                      $tmp = $crit['linked_criteria'];
                      if (!is_array($crit['linked_criteria'])) {
-                        $tmp = array($tmp);
+                        $tmp = [$tmp];
                      }
                      foreach ($tmp as $toadd) {
                         if (!in_array($toadd, $options['only_criteria'])) {
@@ -1335,7 +1335,7 @@ class PluginStatecheckRule extends Rule {
    **/
    function checkCriteria(&$criteria, &$input) {
 
-      $partial_regex_result = array();
+      $partial_regex_result = [];
       // Undefine criteria field : set to blank
       if (!isset($input[$criteria->fields["criteria"]])) {
          $input[$criteria->fields["criteria"]] = '';
@@ -1353,10 +1353,10 @@ class PluginStatecheckRule extends Rule {
 
          //If the value is, in fact, an array of values
          // Negative condition : Need to match all condition (never be)
-         if (in_array($criteria->fields["condition"], array(self::PATTERN_IS_NOT,
+         if (in_array($criteria->fields["condition"], [self::PATTERN_IS_NOT,
                                                             self::PATTERN_NOT_CONTAIN,
                                                             self::REGEX_NOT_MATCH,
-                                                            self::PATTERN_DOES_NOT_EXISTS))) {
+                                                            self::PATTERN_DOES_NOT_EXISTS])) {
             $res = true;
             foreach ($input[$criteria->fields["criteria"]] as $tmp) {
                $value = $this->getCriteriaValue($criteria->fields["criteria"],
@@ -1389,7 +1389,7 @@ class PluginStatecheckRule extends Rule {
             $this->regex_results = $partial_regex_result;
 
          } else { // Already existing regex : append found values
-            $temp_result = array();
+            $temp_result = [];
             foreach ($partial_regex_result as $new) {
 
                foreach ($this->regex_results as $old) {
@@ -1443,8 +1443,8 @@ class PluginStatecheckRule extends Rule {
          foreach ($PLUGIN_HOOKS['use_rules'] as $plugin => $val) {
             if (is_array($val) && in_array($this->getType(), $val)) {
                $results = Plugin::doOneHook($plugin, "rulePrepareInputDataForProcess",
-                                            array('input'  => $input,
-                                                  'params' => $params));
+                                            ['input'  => $input,
+                                                  'params' => $params]);
                if (is_array($results)) {
                   foreach ($results as $result) {
                      $input[] = $result;
@@ -1501,7 +1501,7 @@ class PluginStatecheckRule extends Rule {
     *
     * @return the $output array modified
    **/
-   function executeActions($output, $params) {
+   function executeActions($output, $params, $input = []) {
 
       if (count($this->actions)) {
          foreach ($this->actions as $action) {
@@ -1600,7 +1600,7 @@ class PluginStatecheckRule extends Rule {
       $link = $this->getLink();
       if (!empty($this->fields["comment"])) {
          $link = sprintf(__('%1$s %2$s'), $link,
-                         Html::showToolTip($this->fields["comment"], array('display' => false)));
+                         Html::showToolTip($this->fields["comment"], ['display' => false]));
       }
       echo "<td>".$link."</td>";
       echo "<td>".$this->fields["description"]."</td>";
@@ -1624,10 +1624,10 @@ class PluginStatecheckRule extends Rule {
              && !$first
              && $canedit) {
             echo "<td>";
-            Html::showSimpleForm($target, array('action' => 'up',
-                                                'condition' => $active_condition), '',
-                                 array('type' => $this->fields["sub_type"],
-                                       'id'   => $this->fields["id"],),
+            Html::showSimpleForm($target, ['action' => 'up',
+                                                'condition' => $active_condition], '',
+                                 ['type' => $this->fields["sub_type"],
+                                       'id'   => $this->fields["id"],],
                                  $CFG_GLPI["root_doc"]."/pics/deplier_up.png");
             echo "</td>";
          } else {
@@ -1640,10 +1640,10 @@ class PluginStatecheckRule extends Rule {
              && !$last
              && $canedit) {
             echo "<td>";
-            Html::showSimpleForm($target, array('action' => 'down',
-                                                'condition' => $active_condition), '',
-                                 array('type' => $this->fields["sub_type"],
-                                       'id'   => $this->fields["id"]),
+            Html::showSimpleForm($target, ['action' => 'down',
+                                                'condition' => $active_condition], '',
+                                 ['type' => $this->fields["sub_type"],
+                                       'id'   => $this->fields["id"]],
                                  $CFG_GLPI["root_doc"]."/pics/deplier_down.png");
             echo "</td>";
          } else {
@@ -1708,10 +1708,10 @@ class PluginStatecheckRule extends Rule {
          Html::showMassiveActionCheckBox($this->ruleactionclass, $fields["id"]);
          echo "\n<script type='text/javascript' >\n";
          echo "function viewEditAction". $fields[$this->rules_id_field].$fields["id"]."$rand() {\n";
-         $params = array('type'                => $this->ruleactionclass,
+         $params = ['type'                => $this->ruleactionclass,
                          'parenttype'          => $this->getType(),
                          $this->rules_id_field => $fields[$this->rules_id_field],
-                         'id'                  => $fields["id"]);
+                         'id'                  => $fields["id"]];
          Ajax::updateItemJsCode("viewaction" . $fields[$this->rules_id_field] . "$rand",
                                 $CFG_GLPI["root_doc"]."/ajax/viewsubitem.php", $params);
          echo "};";
@@ -1733,8 +1733,8 @@ class PluginStatecheckRule extends Rule {
    function showStatecheckRulePreviewResultsForm($target, $input, $params) {
 
       $actions       = $this->getAllActions();
-      $check_results = array();
-      $output        = array();
+      $check_results = [];
+      $output        = [];
 
       //Test all criterias, without stopping at the first good one
       $this->testCriterias($input, $check_results);
@@ -1832,10 +1832,10 @@ class PluginStatecheckRule extends Rule {
          Html::showMassiveActionCheckBox($this->rulecriteriaclass, $fields["id"]);
          echo "\n<script type='text/javascript' >\n";
          echo "function viewEditCriteria". $fields[$this->rules_id_field].$fields["id"]."$rand() {\n";
-         $params = array('type'               => $this->rulecriteriaclass,
+         $params = ['type'               => $this->rulecriteriaclass,
                         'parenttype'          => $this->getType(),
                         $this->rules_id_field => $fields[$this->rules_id_field],
-                        'id'                  => $fields["id"]);
+                        'id'                  => $fields["id"]];
          Ajax::updateItemJsCode("viewcriteria" . $fields[$this->rules_id_field] . "$rand",
                               $CFG_GLPI["root_doc"]."/ajax/viewsubitem.php", $params);
          echo "};";
@@ -1897,8 +1897,8 @@ class PluginStatecheckRule extends Rule {
           || ($condition == self::PATTERN_FIND)) {
           return __('Yes');
 
-      } else if (in_array($condition, array(self::PATTERN_IS, self::PATTERN_IS_NOT,
-                                            self::PATTERN_NOT_UNDER, self::PATTERN_UNDER))) {
+      } else if (in_array($condition, [self::PATTERN_IS, self::PATTERN_IS_NOT,
+                                            self::PATTERN_NOT_UNDER, self::PATTERN_UNDER])) {
          $crit = $this->getCriteria($ID);
 
          if (isset($crit['type'])) {
@@ -1990,8 +1990,8 @@ class PluginStatecheckRule extends Rule {
 
       if (isset($crit['type'])
           && ($test
-              || in_array($condition, array(self::PATTERN_IS, self::PATTERN_IS_NOT,
-                                            self::PATTERN_NOT_UNDER, self::PATTERN_UNDER)))) {
+              || in_array($condition, [self::PATTERN_IS, self::PATTERN_IS_NOT,
+                                            self::PATTERN_NOT_UNDER, self::PATTERN_UNDER]))) {
 
          switch ($crit['type']) {
             case "yesonly" :
@@ -2005,8 +2005,8 @@ class PluginStatecheckRule extends Rule {
                break;
 
             case "dropdown" :
-               $param = array('name'  => $name,
-                              'value' => $value);
+               $param = ['name'  => $name,
+                              'value' => $value];
                if (isset($crit['condition'])) {
                   $param['condition'] = $crit['condition'];
                }
@@ -2016,9 +2016,9 @@ class PluginStatecheckRule extends Rule {
                break;
 
             case "dropdown_users" :
-               User::dropdown(array('value'  => $value,
+               User::dropdown(['value'  => $value,
                                     'name'   => $name,
-                                    'right'  => 'all'));
+                                    'right'  => 'all']);
                $display = true;
                break;
 
@@ -2028,31 +2028,31 @@ class PluginStatecheckRule extends Rule {
                break;
 
             case "dropdown_urgency" :
-               Ticket::dropdownUrgency(array('name'  => $name,
-                                             'value' => $value));
+               Ticket::dropdownUrgency(['name'  => $name,
+                                             'value' => $value]);
                $display = true;
                break;
 
             case "dropdown_impact" :
-               Ticket::dropdownImpact(array('name'  => $name,
-                                            'value' => $value));
+               Ticket::dropdownImpact(['name'  => $name,
+                                            'value' => $value]);
                $display = true;
                break;
 
             case "dropdown_priority" :
-               Ticket::dropdownPriority(array('name'  => $name,
-                                              'value' => $value));
+               Ticket::dropdownPriority(['name'  => $name,
+                                              'value' => $value]);
                $display = true;
                break;
 
             case "dropdown_status" :
-               Ticket::dropdownStatus(array('name'  => $name,
-                                            'value' => $value));
+               Ticket::dropdownStatus(['name'  => $name,
+                                            'value' => $value]);
                $display = true;
                break;
 
             case "dropdown_tickettype" :
-               Ticket::dropdownType($name, array('value' => $value));
+               Ticket::dropdownType($name, ['value' => $value]);
                $display = true;
                break;
          }
@@ -2071,9 +2071,9 @@ class PluginStatecheckRule extends Rule {
 
       if (!$display
           && ($rc = getItemForItemtype($this->rulecriteriaclass))) {
-         Html::autocompletionTextField($rc, "pattern", array('name'  => $name,
+         Html::autocompletionTextField($rc, "pattern", ['name'  => $name,
                                                              'value' => $value,
-                                                             'size'  => 70));
+                                                             'size'  => 70]);
       }
    }
 
@@ -2175,9 +2175,9 @@ class PluginStatecheckRule extends Rule {
    **/
    function getCriteriaValue($ID, $condition, $value) {
 
-      if (!in_array($condition, array(self::PATTERN_DOES_NOT_EXISTS, self::PATTERN_EXISTS,
+      if (!in_array($condition, [self::PATTERN_DOES_NOT_EXISTS, self::PATTERN_EXISTS,
                                       self::PATTERN_IS, self::PATTERN_IS_NOT,
-                                      self::PATTERN_NOT_UNDER, self::PATTERN_UNDER))) {
+                                      self::PATTERN_NOT_UNDER, self::PATTERN_UNDER])) {
          $crit = $this->getCriteria($ID);
          if (isset($crit['type'])) {
 
@@ -2251,7 +2251,7 @@ class PluginStatecheckRule extends Rule {
          echo "<tr><th colspan='3'>" . _n('Criterion', 'Criteria', Session::getPluralNumber(), 'statecheck') . "</th></tr>";
 
          $type_match        = (($this->fields["match"] == self::AND_MATCHING) ?__('and') :__('or'));
-         $already_displayed = array();
+         $already_displayed = [];
          $first             = true;
 
          //Brower all criterias
@@ -2312,8 +2312,8 @@ class PluginStatecheckRule extends Rule {
          foreach ($PLUGIN_HOOKS['use_rules'] as $plugin => $val) {
             if (is_array($val) && in_array($this->getType(), $val)) {
                $results = Plugin::doOneHook($plugin, "preProcessStatecheckRulePreviewResults",
-                                            array('output' => $output,
-                                                  'params' => $params));
+                                            ['output' => $output,
+                                                  'params' => $params]);
                if (is_array($results)) {
                   foreach ($results as $id => $result) {
                      $output[$id] = $result;
@@ -2333,7 +2333,7 @@ class PluginStatecheckRule extends Rule {
     *    - name : string / name of the select (default is depending itemtype)
     *    - sub_type : integer / sub_type of rule
    **/
-   static function dropdown($options=array()) {
+   static function dropdown($options=[]) {
       global $DB, $CFG_GLPI;
 
       $p['sub_type']        = '';
@@ -2372,12 +2372,12 @@ class PluginStatecheckRule extends Rule {
 
 
 /*   function getCriterias() {
-      return array();
+      return [];
    }
 */   function getCriterias($table_id = -1) {
 	global $DB;
 
-	$criterias = array();
+	$criterias = [];
 
 	if ($table_id == -1
 	&& $this->fields
@@ -2390,7 +2390,8 @@ class PluginStatecheckRule extends Rule {
 		$data=$DB->fetch_assoc($result);
 		$class = new $data['class'];
 		// get the table of searchable fields ('field'), containing the field description in current language ('name')
-		$tab = $class->getsearchOptions();
+//		$tab = $class->getsearchOptions();
+		$tab = $class->rawSearchOptions();
 		$tablename = $data['name'];
 		$query = "SHOW COLUMNS FROM ".$tablename;
 
@@ -2415,8 +2416,8 @@ class PluginStatecheckRule extends Rule {
 							$criterias[$data['Field']]['field'] = $data['Field'];
 							$criterias[$data['Field']]['type']  = 'text';
 						}
-//						$criterias[$data['Field']]['allow_condition'] = array(Rule::PATTERN_IS, Rule::PATTERN_IS_NOT,
-//																				self::PATTERN_IS_EMPTY, Rule::PATTERN_FIND);
+//						$criterias[$data['Field']]['allow_condition'] = [Rule::PATTERN_IS, Rule::PATTERN_IS_NOT,
+//																				self::PATTERN_IS_EMPTY, Rule::PATTERN_FIND];
 					}
 				}
 			}
@@ -2447,11 +2448,11 @@ class PluginStatecheckRule extends Rule {
 
 
 /*   function getActions() {
-      return array();
+      return [];
    }
 */   function getActions() {
 
-      $actions = array();
+      $actions = [];
 	  $actions = $this->getCriterias();
       return $actions;
    }
@@ -2468,7 +2469,7 @@ class PluginStatecheckRule extends Rule {
     *
     * @return input parameters merged with hook parameters
    **/
-   static function doHookAndMergeResults($hook, $params=array(), $itemtype='') {
+   static function doHookAndMergeResults($hook, $params=[], $itemtype='') {
       global $PLUGIN_HOOKS;
 
       if (empty($itemtype)) {
@@ -2480,8 +2481,8 @@ class PluginStatecheckRule extends Rule {
       if (isset($PLUGIN_HOOKS['use_rules'])) {
          foreach ($PLUGIN_HOOKS['use_rules'] as $plugin => $val) {
             if (is_array($val) && in_array($itemtype, $val)) {
-               $results = Plugin::doOneHook($plugin, $hook, array('rule_itemtype' => $itemtype,
-                                                                  'values'        => $params));
+               $results = Plugin::doOneHook($plugin, $hook, ['rule_itemtype' => $itemtype,
+                                                                  'values'        => $params]);
                if (is_array($results)) {
                   foreach ($results as $id => $result) {
                      $toreturn[$id] = $result;
@@ -2502,7 +2503,7 @@ class PluginStatecheckRule extends Rule {
       if ($rule = getItemForItemtype($sub_type)) {
          return $rule->getAllActions();
       }
-      return array();
+      return [];
    }
 
 
@@ -2516,7 +2517,7 @@ class PluginStatecheckRule extends Rule {
    function getStatecheckRulesForCriteria($crit) {
       global $DB;
 
-      $rules = array();
+      $rules = [];
 
       /// TODO : not working for SLALevels : no sub_type
 
@@ -2551,11 +2552,11 @@ class PluginStatecheckRule extends Rule {
       echo "<tr><th colspan='7'>" . $this->getTitle() . "</th></tr>\n";
       echo "<tr class='tab_bg_1'>";
       echo "<td>".__('Name', 'statecheck') . "</td><td>";
-      Html::autocompletionTextField($this, "name", array('value' => '',
-                                                         'size'  => 33));
+      Html::autocompletionTextField($this, "name", ['value' => '',
+                                                         'size'  => 33]);
       echo "</td><td>".__('Description', 'statecheck') . "</td><td>";
-      Html::autocompletionTextField($this, "description", array('value' => '',
-                                                                'size'  => 33));
+      Html::autocompletionTextField($this, "description", ['value' => '',
+                                                                'size'  => 33]);
       echo "</td><td>".__('Logical operator', 'statecheck') . "</td><td>";
       $this->dropdownStatecheckRulesMatch();
       echo "</td><td class='tab_bg_2 center'>";
@@ -2584,8 +2585,8 @@ class PluginStatecheckRule extends Rule {
       }
 
          //Get all rules and actions
-      $crit = array('field' => getForeignKeyFieldForTable($item->getTable()),
-                    'value' => $item->getField('id'));
+      $crit = ['field' => getForeignKeyFieldForTable($item->getTable()),
+                    'value' => $item->getField('id')];
 
       $rules = $this->getStatecheckRulesForCriteria($crit);
       $nb    = count($rules);
@@ -2601,13 +2602,13 @@ class PluginStatecheckRule extends Rule {
          if ($canedit) {
             Html::openMassiveActionsForm('mass'.get_called_class().$rand);
             $massiveactionparams
-               = array('num_displayed'
+               = ['num_displayed'
                            => min($_SESSION['glpilist_limit'], $nb),
                        'specific_actions'
-                           => array('update' => _x('button', 'Update'),
-                                    'purge'  => _x('button', 'Delete permanently')));
+                           => ['update' => _x('button', 'Update'),
+                                    'purge'  => _x('button', 'Delete permanently')]];
                   //     'extraparams'
-                //           => array('rule_class_name' => $this->getStatecheckRuleClassName()));
+                //           => ['rule_class_name' => $this->getStatecheckRuleClassName())];
             Html::showMassiveActions($massiveactionparams);
          }
          echo "<table class='tab_cadre_fixehov'>";
@@ -2668,9 +2669,9 @@ class PluginStatecheckRule extends Rule {
    /**
     * @see CommonGLPI::defineTabs()
    **/
-   function defineTabs($options=array()) {
+   function defineTabs($options=[]) {
 
-      $ong = array();
+      $ong = [];
       $this->addDefaultFormTab($ong);
       $this->addStandardTab(__CLASS__, $ong, $options);
       $this->addStandardTab('Log', $ong, $options);
@@ -2683,7 +2684,7 @@ class PluginStatecheckRule extends Rule {
     * Add more criteria specific to this type of rule
    **/
    static function addMoreCriteria() {
-      return array();
+      return [];
    }
 
 
@@ -2807,7 +2808,7 @@ class PluginStatecheckRule extends Rule {
          switch ($item->getType()) {
             case 'Entity' :
                if ($_SESSION['glpishow_count_on_tabs']) {
-                  $types      = array();
+                  $types      = [];
                   $collection = new StatecheckRuleRightCollection();
                   if ($collection->canList()) {
                      $types[] = 'StatecheckRuleRight';
@@ -2821,7 +2822,7 @@ class PluginStatecheckRule extends Rule {
                      $types[] = 'StatecheckRuleMailCollector';
                   }
                   if (count($types)) {
-                     $nb = $dbu->countElementsInTable(array('glpi_rules', 'glpi_ruleactions'),
+                     $nb = $dbu->countElementsInTable(['glpi_rules', 'glpi_ruleactions'],
                                                 "`glpi_ruleactions`.`rules_id` = `glpi_rules`.`id`
                                                   AND `glpi_rules`.`sub_type`
                                                          IN ('".implode("','",$types)."')
@@ -2842,7 +2843,7 @@ class PluginStatecheckRule extends Rule {
 
             default:
                if ($item instanceof PluginStatecheckRule) {
-                  $ong    = array();
+                  $ong    = [];
                   $nbcriteria = 0;
                   $nbaction   = 0;
                   if ($_SESSION['glpishow_count_on_tabs']) {
@@ -2953,7 +2954,7 @@ function plugin_statecheck_renderfields($classname) {
 							and is_active = true";
 			if ($resultfields=$DB->query($queryfields)) {
 //				get the list of fields on which the statecheck rules depend :
-				$statefields = array();
+				$statefields = [];
 				$mainstatefield = "";
 				while ($datafields=$DB->fetch_assoc($resultfields)) {
 //					the state field for the table
@@ -2973,6 +2974,7 @@ function plugin_statecheck_renderfields($classname) {
 //				test whether classList call is supported by the browser
 //				echo "<script type='text/javascript' src='".GLPI_ROOT."/plugins/statecheck/js/classList.js'></script>\n";
 				echo "<script type='text/javascript' >\n";
+//				echo "Components.utils.import('resource://gre/modules/Console.jsm');";
 				echo 'function getstatecheckfields() {';
 				echo 'var statefields = [];';
 //				add the list of rule fieldnames as array of parameters
@@ -3000,16 +3002,16 @@ function plugin_statecheck_renderfields($classname) {
 				echo '$.each(response, function(i, row){';
 				echo 'var element = document.getElementsByName(row.field)[0];';
 //				but for dropdown,
-				switch(substr(GLPI_VERSION, 0, 3)) {
-					case "9.2":
+//				switch(substr(GLPI_VERSION, 0, 3)) {
+//					case "9.2":
 //						take the "a" html element just before
-						echo 'if (element && element.getAttribute("type") != "text") {element = element.previousSibling.getElementsByTagName("a")[0]};';
-						break;
-					case "9.3":
+//						echo 'if (element && element.getAttribute("type") != "text") {element = element.previousSibling.getElementsByTagName("a")[0]};';
+//						break;
+//					case "9.3":
 //						take the "span" html element just after, with role "combobox"
-						echo 'if (element && element.getAttribute("type") != "text") {element = element.nextSibling.querySelectorAll("[role=combobox]")[0]};';
-						break;
-				}
+						echo 'if (element && element.getAttribute("type") != "text") {element = element.nextSibling.querySelectorAll("[role=combobox]")[0];};';
+//						break;
+//				}
 ///				change css class of "statechecked" fields
 				echo 'if (element) {element.className += " statecheck-warning";}';
 				echo '})';
@@ -3025,16 +3027,16 @@ function plugin_statecheck_renderfields($classname) {
 				echo '$.each(response, function(i, row){';
 				echo 'var element = document.getElementsByName(row.field)[0];';
 //				but for dropdown,
-				switch(substr(GLPI_VERSION, 0, 3)) {
-					case "9.2":
+//				switch(substr(GLPI_VERSION, 0, 3)) {
+//					case "9.2":
 //						take the "a" html element just before
-						echo 'if (element && element.getAttribute("type") != "text") {element = element.previousSibling.getElementsByTagName("a")[0]};';
-						break;
-					case "9.3":
+//						echo 'if (element && element.getAttribute("type") != "text") {element = element.previousSibling.getElementsByTagName("a")[0]};';
+//						break;
+//					case "9.3":
 //						take the "span" html element just after, with role "combobox"
 						echo 'if (element && element.getAttribute("type") != "text") {element = element.nextSibling.querySelectorAll("[role=combobox]")[0]};';
-						break;
-				}
+//						break;
+//				}
 //				add the class "statecheck-warning" (defined in style.css file) to change the display of the field
 				echo 'if (element) {element.className += " statecheck-warning";}';
 				echo '});';

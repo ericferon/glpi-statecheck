@@ -35,7 +35,7 @@ function plugin_statecheck_install() {
 		$DB->runFile(GLPI_ROOT ."/plugins/statecheck/sql/empty-1.0.0.sql");
 	}
 	else {
-/*		if ($DB->TableExists("glpi_plugin_statecheck_rules") && !FieldExists("glpi_plugin_statecheck_rules","plugin_statecheck_indicators_id")) {
+/*		if ($DB->TableExists("glpi_plugin_statecheck_rules") && !!$DB->FieldExists("glpi_plugin_statecheck_rules","plugin_statecheck_indicators_id")) {
 			$update=true;
 			$DB->runFile(GLPI_ROOT ."/plugins/statecheck/sql/update-1.0.1.sql");
 		}
@@ -44,11 +44,11 @@ function plugin_statecheck_install() {
    
    if ($DB->TableExists("glpi_plugin_statecheck_profiles")) {
    
-      $notepad_tables = array('glpi_plugin_statecheck_rules');
+      $notepad_tables = ['glpi_plugin_statecheck_rules'];
 
       foreach ($notepad_tables as $t) {
          // Migrate data
-         if (FieldExists($t, 'notepad')) {
+         if (!$DB->FieldExists($t, 'notepad')) {
             $query = "SELECT id, notepad
                       FROM `$t`
                       WHERE notepad IS NOT NULL
@@ -86,10 +86,10 @@ function plugin_statecheck_install() {
       $result=$DB->query($query);
 
       Plugin::migrateItemType(
-         array(2400=>'PluginStatecheckRule'),
-         array("glpi_savedsearches", "glpi_savedsearches_users", "glpi_displaypreferences",
-               "glpi_documents_items", "glpi_infocoms", "glpi_logs", "glpi_items_tickets"),
-         array("glpi_plugin_statecheck_rules_items"));
+         [2400=>'PluginStatecheckRule'],
+         ["glpi_savedsearches", "glpi_savedsearches_users", "glpi_displaypreferences",
+               "glpi_documents_items", "glpi_infocoms", "glpi_logs", "glpi_items_tickets"],
+         ["glpi_plugin_statecheck_rules_items"]);
 
    }
 
@@ -107,20 +107,20 @@ function plugin_statecheck_uninstall() {
 	include_once (GLPI_ROOT."/plugins/statecheck/inc/profile.class.php");
 	include_once (GLPI_ROOT."/plugins/statecheck/inc/menu.class.php");
    
-	$tables = array("glpi_plugin_statecheck_rules",
+	$tables = ["glpi_plugin_statecheck_rules",
 					"glpi_plugin_statecheck_tables",
 					"glpi_plugin_statecheck_targetstates",
 					"glpi_plugin_statecheck_rulecriterias",
 					"glpi_plugin_statecheck_ruleactions",
-					"glpi_plugin_statecheck_profiles");
+					"glpi_plugin_statecheck_profiles"];
 
 	foreach($tables as $table)
       $DB->query("DROP TABLE IF EXISTS `$table`;");
 
-	$tables_glpi = array("glpi_displaypreferences",
+	$tables_glpi = ["glpi_displaypreferences",
 					"glpi_documents_items",
 					"glpi_savedsearches",
-					"glpi_logs");
+					"glpi_logs"];
 
 	foreach($tables_glpi as $table_glpi)
       $DB->query("DELETE FROM `$table_glpi` WHERE `itemtype` LIKE 'PluginStatecheck%' ;");
@@ -128,26 +128,26 @@ function plugin_statecheck_uninstall() {
 	//notifications
 		$notif = new Notification();
    
-	$options = array('itemtype' => 'PluginStatecheckRule',
+	$options = ['itemtype' => 'PluginStatecheckRule',
                     'event'    => 'success',
-					'FIELDS'   => 'id');
+					'FIELDS'   => 'id'];
 	foreach ($DB->request('glpi_notifications', $options) as $data) {
 		$notif->delete($data);
 	}
-	$options = array('itemtype' => 'PluginStatecheckRule',
+	$options = ['itemtype' => 'PluginStatecheckRule',
                     'event'    => 'failure',
-                    'FIELDS'   => 'id');
+                    'FIELDS'   => 'id'];
 	foreach ($DB->request('glpi_notifications', $options) as $data) {
 		$notif->delete($data);
 	}
 	//templates
 	$template = new NotificationTemplate();
 	$translation = new NotificationTemplateTranslation();
-	$options = array('itemtype' => 'PluginStatecheckRule',
-                    'FIELDS'   => 'id');
+	$options = ['itemtype' => 'PluginStatecheckRule',
+                    'FIELDS'   => 'id'];
 	foreach ($DB->request('glpi_notificationtemplates', $options) as $data) {
-		$options_template = array('notificationtemplates_id' => $data['id'],
-                    'FIELDS'   => 'id');
+		$options_template = ['notificationtemplates_id' => $data['id'],
+                    'FIELDS'   => 'id'];
    
 		foreach ($DB->request('glpi_notificationtemplatetranslations', $options_template) as $data_template) {
             $translation->delete($data_template);
@@ -155,12 +155,12 @@ function plugin_statecheck_uninstall() {
 		$template->delete($data);
 	}
 	if (class_exists('PluginDatainjectionModel')) {
-      PluginDatainjectionModel::clean(array('itemtype'=>'PluginStatecheckRule'));
+      PluginDatainjectionModel::clean(['itemtype'=>'PluginStatecheckRule']);
    }
    //Delete rights associated with the plugin
    $profileRight = new ProfileRight();
    foreach (PluginStatecheckProfile::getAllRights() as $right) {
-      $profileRight->deleteByCriteria(array('name' => $right['field']));
+      $profileRight->deleteByCriteria(['name' => $right['field']]);
    }
    PluginStatecheckMenu::removeRightsFromSession();
    PluginStatecheckProfile::removeRightsFromSession();
@@ -174,16 +174,16 @@ function plugin_statecheck_getDatabaseRelations() {
 
    $plugin = new Plugin();
    if ($plugin->isActivated("statecheck"))
-		return array("glpi_plugin_statecheck_rules"=>array("glpi_plugin_statecheck_rulecriterias"=>"plugin_statecheck_rules_id"),
-					"glpi_plugin_statecheck_rules"=>array("glpi_plugin_statecheck_ruleactions"=>"plugin_statecheck_rules_id"),
-					 "glpi_plugin_statecheck_tables"=>array("glpi_plugin_statecheck_rules"=>"plugin_statecheck_tables_id"),
-					 "glpi_plugin_statecheck_targetstates"=>array("glpi_plugin_statecheck_rules"=>"plugin_statecheck_targetstates_id"),
-					 "glpi_entities"=>array("glpi_plugin_statecheck_rules"=>"entities_id"),
-					 "glpi_groups"=>array("glpi_plugin_statecheck_rules"=>"groups_id"),
-					 "glpi_users"=>array("glpi_plugin_statecheck_rules"=>"users_id")
-					 );
+		return ["glpi_plugin_statecheck_rules"=>["glpi_plugin_statecheck_rulecriterias"=>"plugin_statecheck_rules_id"],
+					"glpi_plugin_statecheck_rules"=>["glpi_plugin_statecheck_ruleactions"=>"plugin_statecheck_rules_id"],
+					 "glpi_plugin_statecheck_tables"=>["glpi_plugin_statecheck_rules"=>"plugin_statecheck_tables_id"],
+					 "glpi_plugin_statecheck_targetstates"=>["glpi_plugin_statecheck_rules"=>"plugin_statecheck_targetstates_id"],
+					 "glpi_entities"=>["glpi_plugin_statecheck_rules"=>"entities_id"],
+					 "glpi_groups"=>["glpi_plugin_statecheck_rules"=>"groups_id"],
+					 "glpi_users"=>["glpi_plugin_statecheck_rules"=>"users_id"]
+					 ];
    else
-      return array();
+      return [];
 }
 
 // Define Dropdown tables to be manage in GLPI :
@@ -191,17 +191,17 @@ function plugin_statecheck_getDropdown() {
 
    $plugin = new Plugin();
    if ($plugin->isActivated("statecheck"))
-		return array('PluginStatecheckTable'=>_n('Table', 'Tables', Session::getPluralNumber())
-                );
+		return ['PluginStatecheckTable'=>_n('Table', 'Tables', Session::getPluralNumber())
+                ];
    else
-      return array();
+      return [];
 }
 
 ////// SEARCH FUNCTIONS ///////() {
 
 function plugin_statecheck_getAddSearchOptions($itemtype) {
 
-   $sopt=array();
+   $sopt=[];
 
    return $sopt;
 }
@@ -217,10 +217,10 @@ function plugin_statecheck_giveItem($type,$ID,$data,$num) {
 /*function plugin_statecheck_MassiveActions($type) {
 
    if (in_array($type,PluginStatecheckRule::getTypes(true))) {
-      return array('PluginStatecheckRule'.MassiveAction::CLASS_ACTION_SEPARATOR.'plugin_statecheck__add_item' =>
-                                                              __('Associate to the statecheck rule', 'statecheck'));
+      return ['PluginStatecheckRule'.MassiveAction::CLASS_ACTION_SEPARATOR.'plugin_statecheck__add_item' =>
+                                                              __('Associate to the statecheck rule', 'statecheck')];
    }
-   return array();
+   return [];
 }
 */
 

@@ -97,7 +97,7 @@ class PluginStatecheckRuleAction extends RuleAction {
       if ($item->getType()=='PluginStatecheckRule') {
          $self = new self();
 
-         $self->showForm($item->getID(), array('parent'=>$item));
+         $self->showForm($item->getID(), ['parent'=>$item]);
       }
       return true;
    }
@@ -124,8 +124,8 @@ class PluginStatecheckRuleAction extends RuleAction {
       parent::post_addItem();
       if (isset($this->input['plugin_statecheck_rules_id'])
           && ($realrule = PluginStatecheckRule::getRuleObjectByID($this->input['plugin_statecheck_rules_id']))) {
-         $realrule->update(array('id'       => $this->input['plugin_statecheck_rules_id'],
-                                 'date_mod' => $_SESSION['glpi_currenttime']));
+         $realrule->update(['id'       => $this->input['plugin_statecheck_rules_id'],
+                                 'date_mod' => $_SESSION['glpi_currenttime']]);
       }
    }
 
@@ -140,8 +140,8 @@ class PluginStatecheckRuleAction extends RuleAction {
       parent::post_purgeItem();
       if (isset($this->fields['plugin_statecheck_rules_id'])
           && ($realrule = PluginStatecheckRule::getRuleObjectByID($this->fields['plugin_statecheck_rules_id']))) {
-         $realrule->update(array('id'       => $this->fields['plugin_statecheck_rules_id'],
-                                 'date_mod' => $_SESSION['glpi_currenttime']));
+         $realrule->update(['id'       => $this->fields['plugin_statecheck_rules_id'],
+                                 'date_mod' => $_SESSION['glpi_currenttime']]);
       }
    }
 
@@ -160,28 +160,28 @@ class PluginStatecheckRuleAction extends RuleAction {
 
    function getSearchOptions() {
 
-      $tab                        = array();
+      $tab                        = [];
 
       $tab[1]['table']            = $this->getTable();
       $tab[1]['field']            = 'action_type';
       $tab[1]['name']             = self::getTypeName(1);
       $tab[1]['massiveaction']    = false;
       $tab[1]['datatype']         = 'specific';
-      $tab[1]['additionalfields'] = array('plugin_statecheck_rules_id');
+      $tab[1]['additionalfields'] = ['plugin_statecheck_rules_id'];
 
       $tab[2]['table']            = $this->getTable();
       $tab[2]['field']            = 'field';
       $tab[2]['name']             = _n('Field', 'Fields', Session::getPluralNumber(), 'statecheck');
       $tab[2]['massiveaction']    = false;
       $tab[2]['datatype']         = 'specific';
-      $tab[2]['additionalfields'] = array('plugin_statecheck_rules_id');
+      $tab[2]['additionalfields'] = ['plugin_statecheck_rules_id'];
 
       $tab[3]['table']            = $this->getTable();
       $tab[3]['field']            = 'value';
       $tab[3]['name']             = __('Value', 'statecheck');
       $tab[3]['massiveaction']    = false;
       $tab[3]['datatype']         = 'specific';
-      $tab[3]['additionalfields'] = array('plugin_statecheck_rules_id');
+      $tab[3]['additionalfields'] = ['plugin_statecheck_rules_id'];
 
       return $tab;
    }
@@ -194,10 +194,10 @@ class PluginStatecheckRuleAction extends RuleAction {
     * @param $values
     * @param $options   array
    **/
-   static function getSpecificValueToDisplay($field, $values, array $options=array()) {
+   static function getSpecificValueToDisplay($field, $values, array $options=[]) {
 
       if (!is_array($values)) {
-         $values = array($field => $values);
+         $values = [$field => $values];
       }
       switch ($field) {
          case 'field' :
@@ -241,11 +241,11 @@ class PluginStatecheckRuleAction extends RuleAction {
     * @param $values             (default '')
     * @param $options      array
    **/
-   static function getSpecificValueToSelect($field, $name='', $values='', array $options=array()) {
+   static function getSpecificValueToSelect($field, $name='', $values='', array $options=[]) {
       global $DB;
 
       if (!is_array($values)) {
-         $values = array($field => $values);
+         $values = [$field => $values];
       }
       $options['display'] = false;
       switch ($field) {
@@ -267,11 +267,11 @@ class PluginStatecheckRuleAction extends RuleAction {
             if (isset($values['plugin_statecheck_rules_id'])
                 && !empty($values['plugin_statecheck_rules_id'])
                 && $generic_rule->getFromDB($values['plugin_statecheck_rules_id'])) {
-               return self::dropdownActions(array('subtype'     => $generic_rule->fields["sub_type"],
+               return self::dropdownActions(['subtype'     => $generic_rule->fields["sub_type"],
                                                   'name'        => $name,
                                                   'value'       => $values[$field],
                                                   'alreadyused' => false,
-                                                  'display'     => false));
+                                                  'display'     => false]);
             }
             break;
 
@@ -310,7 +310,7 @@ class PluginStatecheckRuleAction extends RuleAction {
               ORDER BY `id`";
       $result = $DB->query($sql);
 
-      $rules_actions = array();
+      $rules_actions = [];
       while ($rule = $DB->fetch_assoc($result)) {
          $tmp             = new self();
          $tmp->fields     = $rule;
@@ -349,7 +349,7 @@ class PluginStatecheckRuleAction extends RuleAction {
     *    - alreadyused
     *    - display
    **/
-   static function dropdownActions($options=array()) {
+   static function dropdownActions($options=[]) {
 
       $p['subtype']     = '';
       $p['name']        = '';
@@ -366,7 +366,7 @@ class PluginStatecheckRuleAction extends RuleAction {
 
       if ($rule = getItemForItemtype($p['subtype'])) {
          $actions_options = $rule->getAllActions();
-         $actions         = array("is","isnot","isempty","isnotempty","regex_check");
+         $actions         = ["is","isnot","isempty","isnotempty","regex_check"];
          // Manage permit several.
          $field = $p['field'];
          if ($p['alreadyused']) {
@@ -381,20 +381,20 @@ class PluginStatecheckRuleAction extends RuleAction {
             }
          }
 
-         $elements = array();
+         $elements = [];
          foreach ($actions as $action) {
             $elements[$action] = self::getActionByID($action);
          }
 
-         return Dropdown::showFromArray($p['name'], $elements, array('value'   => $p['value'],
-                                                                     'display' => $p['display']));
+         return Dropdown::showFromArray($p['name'], $elements, ['value'   => $p['value'],
+                                                                     'display' => $p['display']]);
       }
    }
 
 
    static function getActions() {
 
-      return array('assign'              => __('Assign', 'statecheck'),
+      return ['assign'              => __('Assign', 'statecheck'),
                    'append'              => __('Add', 'statecheck'),
                    'regex_result'        => __('Assign the value from regular expression', 'statecheck'),
                    'append_regex_result' => __('Add the result of regular expression', 'statecheck'),
@@ -412,7 +412,7 @@ class PluginStatecheckRuleAction extends RuleAction {
 				   'isuser'				 => __('is the user', 'statecheck'),
 				   'ismemberof'			 => __('is member of the group', 'statecheck'),
                    'fromuser'            => __('Copy from user', 'statecheck'),
-                   'fromitem'            => __('Copy from item', 'statecheck'));
+                   'fromitem'            => __('Copy from item', 'statecheck')];
    }
 
 
@@ -443,7 +443,7 @@ class PluginStatecheckRuleAction extends RuleAction {
    **/
    static function getRegexResultById($action, $regex_result) {
 
-      $results = array();
+      $results = [];
 
       if (count($regex_result) > 0) {
          if (preg_match_all("/#([0-9])/", $action, $results) > 0) {
@@ -468,7 +468,7 @@ class PluginStatecheckRuleAction extends RuleAction {
       if ($rule = getItemForItemtype($sub_type)) {
          $actions_options = $rule->getAllActions();
 
-         $actions = array();
+         $actions = [];
          $res     = $DB->query("SELECT `field`
                                 FROM `".$this->getTable()."`
                                 WHERE `".static::$items_id."` = '".$plugin_statecheck_rules_id."'");
@@ -489,7 +489,7 @@ class PluginStatecheckRuleAction extends RuleAction {
    /**
     * @param $options   array
    **/
-   function displayActionSelectPattern($options=array()) {
+   function displayActionSelectPattern($options=[]) {
 
       $display = false;
 
@@ -597,7 +597,7 @@ class PluginStatecheckRuleAction extends RuleAction {
                      break;
 
                   case "dropdown_users_validate" :
-                     $used = array();
+                     $used = [];
                      if ($item = getItemForItemtype($options["sub_type"])) {
                         $rule_data = getAllDatasFromTable('glpi_ruleactions',
                                                           "`action_type` = 'add_validation'
@@ -610,14 +610,14 @@ class PluginStatecheckRuleAction extends RuleAction {
                         }
                      }
                      $param['name']  = 'value';
-                     $param['right'] = array('validate_incident', 'validate_request');
+                     $param['right'] = ['validate_incident', 'validate_request'];
                      $param['used']  = $used;
                      User::dropdown($param);
                      $display        = true;
                      break;
 
                   case "dropdown_groups_validate" :
-                     $used = array();
+                     $used = [];
                      if ($item = getItemForItemtype($options["sub_type"])) {
                         $rule_data = getAllDatasFromTable('glpi_ruleactions',
                                                           "`action_type` = 'add_validation'
@@ -635,7 +635,7 @@ class PluginStatecheckRuleAction extends RuleAction {
                                     WHERE `groups_id` = `glpi_groups`.`id`)";
                      $param['name']      = 'value';
                      $param['condition'] = $condition;
-                     $param['right']     = array('validate_incident', 'validate_request');
+                     $param['right']     = ['validate_incident', 'validate_request'];
                      $param['used']      = $used;
                      Group::dropdown($param);
                      $display            = true;
@@ -669,7 +669,7 @@ class PluginStatecheckRuleAction extends RuleAction {
     * @param $options array of possible options:
     *     - rule Object : the rule
    **/
-   function showForm($ID, $options=array()) {
+   function showForm($ID, $options=[]) {
       global $CFG_GLPI;
 
       // Yllen: you always have parent for action
@@ -698,14 +698,14 @@ class PluginStatecheckRuleAction extends RuleAction {
           && isset($used[$this->fields['field']])) {
          unset($used[$this->fields['field']]);
       }
-      $rand   = $rule->dropdownActions(array('value' => $this->fields['field'],
-                                             'used'  => $used));
-      $params = array('field'                 => '__VALUE__',
+      $rand   = $rule->dropdownActions(['value' => $this->fields['field'],
+                                             'used'  => $used]);
+      $params = ['field'                 => '__VALUE__',
                       'sub_type'              => $rule->getType(),
                       'ruleactions_id'        => $this->getID(),
                       $rule->getStatecheckRuleIdField() => $this->fields[static::$items_id],
 					  'plugin_statecheck_tables_id' => $this->input["parent"]->fields["plugin_statecheck_tables_id"]
-					  );
+					  ];
 
       Ajax::updateItemOnSelectEvent("dropdown_field$rand", "action_span",
                                     $CFG_GLPI["root_doc"]."/plugins/statecheck/ajax/ruleaction.php", $params);

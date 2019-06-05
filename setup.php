@@ -29,7 +29,7 @@ function plugin_init_statecheck() {
    global $PLUGIN_HOOKS, $DB;
 
    $PLUGIN_HOOKS['csrf_compliant']['statecheck'] = true;
-   $PLUGIN_HOOKS['change_profile']['statecheck'] = array('PluginStatecheckProfile', 'initProfile');
+   $PLUGIN_HOOKS['change_profile']['statecheck'] = ['PluginStatecheckProfile', 'initProfile'];
 //   $PLUGIN_HOOKS['assign_to_ticket']['statecheck'] = true;
    
 // display a warning message, before item display on form : highlighted fields are controlled
@@ -37,9 +37,9 @@ function plugin_init_statecheck() {
 // highlight controlled fields, after item display on form
    $PLUGIN_HOOKS['post_item_form']['statecheck'] = 'hook_post_item_form';
    //$PLUGIN_HOOKS['assign_to_ticket_dropdown']['statecheck'] = true;
-   //$PLUGIN_HOOKS['assign_to_ticket_itemtype']['statecheck'] = array('PluginStatecheckRule_Item');
+   //$PLUGIN_HOOKS['assign_to_ticket_itemtype']['statecheck'] = ['PluginStatecheckRule_Item'];
    
-   Plugin::registerClass('PluginStatecheckRule', array(
+   Plugin::registerClass('PluginStatecheckRule', [
 //         'linkgroup_tech_types'   => true,
 //         'linkuser_tech_types'    => true,
          'notificationtemplates_types' => true,
@@ -47,14 +47,14 @@ function plugin_init_statecheck() {
 //         'ticket_types'           => true,
          'helpdesk_visible_types' => true//,
 //         'addtabon'               => 'Supplier'
-   ));
+   ]);
    Plugin::registerClass('PluginStatecheckProfile',
-                         array('addtabon' => 'Profile'));
+                         ['addtabon' => 'Profile']);
                          
 	if ($DB->TableExists("glpi_plugin_statecheck_tables")) {
 		$query = "select * from glpi_plugin_statecheck_tables";
 		if ($result=$DB->query($query)) {
-			$checkitems = array();
+			$checkitems = [];
 			while ($data=$DB->fetch_assoc($result)) {
 				$itemtype = $data['class'];
 				if (substr($data['name'],0,12) == "glpi_plugin_") {
@@ -73,7 +73,7 @@ function plugin_init_statecheck() {
 
       if (Session::haveRight("plugin_statecheck", READ)) {
 
-         $PLUGIN_HOOKS['menu_toadd']['statecheck'] = array('admin'   => 'PluginStatecheckMenu');
+         $PLUGIN_HOOKS['menu_toadd']['statecheck'] = ['admin'   => 'PluginStatecheckMenu'];
       }
 
       if (Session::haveRight("plugin_statecheck", UPDATE)) {
@@ -95,21 +95,21 @@ function plugin_init_statecheck() {
 // Get the name and the version of the plugin - Needed
 function plugin_version_statecheck() {
 
-   return array (
+   return [
       'name' => _n('Statecheck Rule', 'Statecheck Rules', 2, 'statecheck'),
-      'version' => '2.0.14',
+      'version' => '2.1.0',
       'author'  => "Eric Feron",
       'license' => 'GPLv2+',
       'homepage'=> 'https://github.com/ericferon/glpi-statecheck',
-      'minGlpiVersion' => '9.2',
-   );
+      'minGlpiVersion' => '9.4',
+   ];
 
 }
 
 // Optional : check prerequisites before install : may print errors or add to message after redirect
 function plugin_statecheck_check_prerequisites() {
-   if (version_compare(GLPI_VERSION,'9.2','lt') || version_compare(GLPI_VERSION,'9.5','ge')) {
-      _e('This plugin requires GLPI >= 9.2 and < 9.5', 'statecheck');
+   if (version_compare(GLPI_VERSION,'9.4','lt') || version_compare(GLPI_VERSION,'9.5','ge')) {
+      _e('This plugin requires GLPI >= 9.4 and < 9.5', 'statecheck');
       return false;
    }
    return true;
@@ -132,12 +132,10 @@ function hook_pre_item_form(array $params) {
 		$start = strpos($_SERVER['HTTP_REFERER'],'/front') + 7;
 		$end = strpos($_SERVER['HTTP_REFERER'],'.',$start);
 		$frontname = substr($_SERVER['HTTP_REFERER'],$start,$end-$start);
-		$query = "select * from glpi_plugin_statecheck_tables where frontname = '".$frontname."'";
-		if ($result=$DB->query($query)) {
-			if ($DB->fetch_assoc($result)) {
-				Session::addMessageAfterRedirect('<font color="red"><b>'.__('!! Highlighted fields are controlled !!').'</b></font>');
-				Html::displayMessageAfterRedirect();
-			}
+        $dbu = new DbUtils();
+		if ($dbu->countElementsInTable('glpi_plugin_statecheck_tables', ['frontname' => $frontname])) {
+            Session::addMessageAfterRedirect('<font color="red"><b>'.__('!! Highlighted fields are controlled !!').'</b></font>');
+            Html::displayMessageAfterRedirect();
 		}
 	}
 }
@@ -315,7 +313,7 @@ function plugin_pre_item_statecheck($item)
 									$comparisonoperation = $dataaction['action_type'];
 									break 1;
 								case "session_groups_id":
-									$arraytocheck = array();
+									$arraytocheck = [];
 									$arraytocheck = $_SESSION['glpigroups'];
 									$comparisonoperation = $dataaction['action_type']."inarray";
 									break 1;

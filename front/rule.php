@@ -67,12 +67,12 @@ if (isset($_POST["action"])) {
 
    if (!isset($_GET['offset'])) {
       // First run
-      $offset       = $rule->replayRulesOnExistingDB(0, $max, array(), $_POST);
+      $offset       = $rule->replayRulesOnExistingDB(0, $max, [], $_POST);
       $manufacturer = (isset($_POST["manufacturer"]) ? $_POST["manufacturer"] : 0);
 
    } else {
       // Next run
-      $offset       = $rule->replayRulesOnExistingDB($_GET['offset'], $max, array(),
+      $offset       = $rule->replayRulesOnExistingDB($_GET['offset'], $max, [],
                                                                $_GET);
       $manufacturer = $_GET["manufacturer"];
 

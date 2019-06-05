@@ -39,7 +39,7 @@ if (isset($_GET['mainstatefield'])) {
 } else {
     die("No 'mainstatefield' parameter");
 }
-$fields = array();
+$fields = [];
 if (isset($_GET['statefields'])) {
 	$statefields = $_GET['statefields'];
 	if (is_array($statefields)) {
@@ -50,7 +50,7 @@ if (isset($_GET['statefields'])) {
 } else {
     die("No 'statefields' parameter");
 }
-$values = array();
+$values = [];
 if (isset($_GET['statefieldvalues'])) {
 	$statefieldvalues = $_GET['statefieldvalues'];
 	if (is_array($statefieldvalues)) {
@@ -61,7 +61,7 @@ if (isset($_GET['statefieldvalues'])) {
 } else {
     die("No 'statefieldvalues' parameter");
 }
-$checkedfield = array();
+$checkedfield = [];
 $imainstatefield = array_search($mainstatefield,$fields);
 $queryrule = "select glpi_plugin_statecheck_rules.id, glpi_plugin_statecheck_rules.plugin_statecheck_targetstates_id,
 glpi_plugin_statecheck_rulecriterias.criteria, glpi_plugin_statecheck_rulecriterias.condition, glpi_plugin_statecheck_rulecriterias.pattern
