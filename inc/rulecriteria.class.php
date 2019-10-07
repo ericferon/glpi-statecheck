@@ -639,7 +639,7 @@ class PluginStatecheckRuleCriteria extends CommonDBChild {
                 onClick=\"".Html::jsGetElementbyID('addcriterion'.$rand).".dialog('open');\">";
          Ajax::createIframeModalWindow('addcriterion'.$rand,
                                        Toolbox::getItemTypeFormURL($itemtype),
-                                       ['reloadonclose' => true]];
+                                       ['reloadonclose' => true]);
       }
 
       echo "</td></tr>";

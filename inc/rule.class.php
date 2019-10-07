@@ -2822,13 +2822,12 @@ class PluginStatecheckRule extends Rule {
                      $types[] = 'StatecheckRuleMailCollector';
                   }
                   if (count($types)) {
-                     $nb = $dbu->countElementsInTable(['glpi_rules', 'glpi_ruleactions'],
-                                                "`glpi_ruleactions`.`rules_id` = `glpi_rules`.`id`
-                                                  AND `glpi_rules`.`sub_type`
-                                                         IN ('".implode("','",$types)."')
-                                                  AND `glpi_ruleactions`.`field` = 'entities_id'
-                                                  AND `glpi_ruleactions`.`value`
-                                                            = '".$item->getID()."'");
+                     $nb = $dbu->countElementsInTable(['glpi_rules', 'glpi_ruleactions'],[
+                           'glpi_ruleactions.rules_id'   => new \QueryExpression(Db::quoteName('glpi_rules.id')),
+                           'glpi_rules.sub_type'         => $types,
+                           'glpi_ruleactions.field'      => 'entities_id',
+                           'glpi_ruleactions.value'      => $item->getID()
+                        ]);
                   }
                }
                return self::createTabEntry(self::getTypeName(Session::getPluralNumber()), $nb);
@@ -2836,8 +2835,8 @@ class PluginStatecheckRule extends Rule {
             case 'SLA' :
                if ($_SESSION['glpishow_count_on_tabs']) {
                   $nb = $dbu->countElementsInTable('glpi_ruleactions',
-                                             "`field` = 'slas_id'
-                                                AND `value` = '".$item->getID()."'");
+                                             ['field' => 'slas_id',
+                                            'value' => $item->getID()]);
                }
                return self::createTabEntry(self::getTypeName(Session::getPluralNumber()), $nb);
 
@@ -2848,9 +2847,9 @@ class PluginStatecheckRule extends Rule {
                   $nbaction   = 0;
                   if ($_SESSION['glpishow_count_on_tabs']) {
                      $nbcriteria = $dbu->countElementsInTable(getTableForItemType($item->getStatecheckRuleCriteriaClass()),
-                                                        "`".$item->getStatecheckRuleIdField()."` = '".$item->getID()."'");
+                                                        [$item->getStatecheckRuleIdField() => $item->getID()]);
                      $nbaction   = $dbu->countElementsInTable(getTableForItemType($item->getStatecheckRuleActionClass()),
-                                                        "`".$item->getStatecheckRuleIdField()."` = '".$item->getID()."'");
+                                                        [$item->getStatecheckRuleIdField() => $item->getID()]);
 
                   }
 
