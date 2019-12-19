@@ -1,0 +1,29 @@
+
+-- -------------------------------------------------------------------------------------
+-- Insert 1 notification template for successful and failed check, per 'Dataflow' status
+-- -------------------------------------------------------------------------------------
+INSERT INTO `glpi_plugin_statecheck_tables` ( `id` , `name` , `comment`, `statetable`, `stateclass`, `class`, `frontname` )  
+		VALUES (3,'glpi_plugin_dataflows_dataflows','Dataflows','glpi_plugin_dataflows_states','PluginDataflowsState','PluginDataflowsDataflow','dataflow');
+INSERT INTO `glpi_notificationtemplates` (`id` , `name` , `itemtype`, `date_mod` , `comment` , `css`)
+SELECT NULL,CONCAT('Statecheck ',glpi_plugin_statecheck_tables.comment,' ',glpi_plugin_dataflows_states.name,' ','succeeded (',glpi_plugin_statecheck_tables.class,'_',cast(glpi_plugin_dataflows_states.id as char),'_success)') as name,'PluginStatecheckRule',NOW(),'',NULL 
+FROM glpi_plugin_statecheck_tables, glpi_plugin_dataflows_states
+WHERE glpi_plugin_statecheck_tables.class = 'PluginDataflowsDataflow'
+ORDER BY name;
+INSERT INTO `glpi_notificationtemplates` (`id` , `name` , `itemtype`, `date_mod` , `comment` , `css`)
+SELECT NULL,CONCAT('Statecheck ',glpi_plugin_statecheck_tables.comment,' ',glpi_plugin_dataflows_states.name,' ','failed (',glpi_plugin_statecheck_tables.class,'_',cast(glpi_plugin_dataflows_states.id as char),'_failure)') as name,'PluginStatecheckRule',NOW(),'',NULL 
+FROM glpi_plugin_statecheck_tables, glpi_plugin_dataflows_states
+WHERE glpi_plugin_statecheck_tables.class = 'PluginDataflowsDataflow'
+ORDER BY name;
+
+INSERT INTO `glpi_notificationtemplatetranslations`
+SELECT NULL, id, '','From ##statecheck.loggeduser## : ##statecheck.action## (##statecheck.entity##)','##statecheck.classname## : ##statecheck.id##\n##lang.statecheck.dataflow.plugin_dataflows_states_id## : ##statecheck.dataflow.plugin_dataflows_states_id##\n##lang.statecheck.dataflow.name## : ##statecheck.dataflow.name##\n##lang.statecheck.dataflow.shortdescription## : ##statecheck.dataflow.shortdescription##\n##lang.statecheck.dataflow.plugin_dataflows_fromswcomponents_id## : ##statecheck.dataflow.plugin_dataflows_fromswcomponents_id##\n##lang.statecheck.dataflow.plugin_dataflows_toswcomponents_id## : ##statecheck.dataflow.plugin_dataflows_toswcomponents_id##\n##lang.statecheck.dataflow.plugin_dataflows_transferprotocols_id## : ##statecheck.dataflow.plugin_dataflows_transferprotocols_id##\n##lang.statecheck.dataflow.users_id## : ##statecheck.dataflow.users_id##\n##lang.statecheck.dataflow.groups_id## : ##statecheck.dataflow.groups_id##','##statecheck.classname## : ##statecheck.id##&lt;br/&gt;##lang.statecheck.dataflow.plugin_dataflows_states_id## : ##statecheck.dataflow.plugin_dataflows_states_id##&lt;br/&gt;##lang.statecheck.dataflow.name## : ##statecheck.dataflow.name##&lt;br/&gt;##lang.statecheck.dataflow.shortdescription## : ##statecheck.dataflow.shortdescription##&lt;br/&gt;##lang.statecheck.dataflow.plugin_dataflows_fromswcomponents_id## : ##statecheck.dataflow.plugin_dataflows_fromswcomponents_id##&lt;br/&gt;##lang.statecheck.dataflow.plugin_dataflows_toswcomponents_id## : ##statecheck.dataflow.plugin_dataflows_toswcomponents_id##&lt;br/&gt;##lang.statecheck.dataflow.plugin_dataflows_transferprotocols_id## : ##statecheck.dataflow.plugin_dataflows_transferprotocols_id##&lt;br/&gt;##lang.statecheck.dataflow.users_id## : ##statecheck.dataflow.users_id##&lt;br/&gt;##lang.statecheck.dataflow.groups_id## : ##statecheck.dataflow.groups_id##'
+FROM `glpi_notificationtemplates`
+WHERE `itemtype` = 'PluginStatecheckRule'
+AND `name` like '%(PluginDataflowsDataflow_%_success)'
+ORDER BY id;
+INSERT INTO `glpi_notificationtemplatetranslations`
+SELECT NULL, id, '','From ##statecheck.loggeduser## : ##statecheck.action## (##statecheck.entity##)','##statecheck.classname## : ##statecheck.id##\n##lang.statecheck.dataflow.plugin_dataflows_states_id## : ##statecheck.dataflow.plugin_dataflows_states_id##\n##lang.statecheck.dataflow.name## : ##statecheck.dataflow.name##\n##lang.statecheck.dataflow.shortdescription## : ##statecheck.dataflow.shortdescription##\n##lang.statecheck.dataflow.plugin_dataflows_fromswcomponents_id## : ##statecheck.dataflow.plugin_dataflows_fromswcomponents_id##\n##lang.statecheck.dataflow.plugin_dataflows_toswcomponents_id## : ##statecheck.dataflow.plugin_dataflows_toswcomponents_id##\n##lang.statecheck.dataflow.plugin_dataflows_transferprotocols_id## : ##statecheck.dataflow.plugin_dataflows_transferprotocols_id##\n##lang.statecheck.dataflow.users_id## : ##statecheck.dataflow.users_id##\n##lang.statecheck.dataflow.groups_id## : ##statecheck.dataflow.groups_id##\n##lang.statecheck.errormessage## : ##statecheck.errormessage##','##statecheck.classname## : ##statecheck.id##&lt;br/&gt;##lang.statecheck.dataflow.plugin_dataflows_states_id## : ##statecheck.dataflow.plugin_dataflows_states_id##&lt;br/&gt;##lang.statecheck.dataflow.name## : ##statecheck.dataflow.name##&lt;br/&gt;##lang.statecheck.dataflow.shortdescription## : ##statecheck.dataflow.shortdescription##&lt;br/&gt;##lang.statecheck.dataflow.plugin_dataflows_fromswcomponents_id## : ##statecheck.dataflow.plugin_dataflows_fromswcomponents_id##&lt;br/&gt;##lang.statecheck.dataflow.plugin_dataflows_toswcomponents_id## : ##statecheck.dataflow.plugin_dataflows_toswcomponents_id##&lt;br/&gt;##lang.statecheck.dataflow.plugin_dataflows_transferprotocols_id## : ##statecheck.dataflow.plugin_dataflows_transferprotocols_id##&lt;br/&gt;##lang.statecheck.dataflow.users_id## : ##statecheck.dataflow.users_id##&lt;br/&gt;##lang.statecheck.dataflow.groups_id## : ##statecheck.dataflow.groups_id##&lt;br/&gt;##lang.statecheck.errormessage## : ##statecheck.errormessage##'
+FROM `glpi_notificationtemplates`
+WHERE `itemtype` = 'PluginStatecheckRule'
+AND `name` like '%(PluginDataflowsDataflow_%_failure)'
+ORDER BY id;

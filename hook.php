@@ -33,6 +33,27 @@ function plugin_statecheck_install() {
    if (!$DB->TableExists("glpi_plugin_statecheck_rules")) {
 
 		$DB->runFile(GLPI_ROOT ."/plugins/statecheck/sql/empty-1.0.0.sql");
+   
+//      insert notification template for archisw, if installed
+        $query = "select * from glpi_plugins where directory = 'archisw' and state = 1";
+        $result_query = $DB->query($query);
+        if($DB->numRows($result_query) == 1) {
+            $DB->runFile(GLPI_ROOT ."/plugins/statecheck/sql/archisw-1.0.0.sql");
+        }
+
+//      insert notification template for dataflows, if installed
+        $query = "select * from glpi_plugins where directory = 'dataflows' and state = 1";
+        $result_query = $DB->query($query);
+        if($DB->numRows($result_query) == 1) {
+            $DB->runFile(GLPI_ROOT ."/plugins/statecheck/sql/dataflows-1.0.0.sql");
+        }
+
+//      insert notification template for databases, if installed
+        $query = "select * from glpi_plugins where directory = 'databases' and state = 1";
+        $result_query = $DB->query($query);
+        if($DB->numRows($result_query) == 1) {
+            $DB->runFile(GLPI_ROOT ."/plugins/statecheck/sql/databases-1.0.0.sql");
+        }
 	}
 	else {
 /*		if ($DB->TableExists("glpi_plugin_statecheck_rules") && !!$DB->FieldExists("glpi_plugin_statecheck_rules","plugin_statecheck_indicators_id")) {
@@ -41,31 +62,7 @@ function plugin_statecheck_install() {
 		}
 */	}
 
-   
-   if ($DB->TableExists("glpi_plugin_statecheck_profiles")) {
-   
-      $notepad_tables = ['glpi_plugin_statecheck_rules'];
 
-      foreach ($notepad_tables as $t) {
-         // Migrate data
-         if (!$DB->FieldExists($t, 'notepad')) {
-            $query = "SELECT id, notepad
-                      FROM `$t`
-                      WHERE notepad IS NOT NULL
-                            AND notepad <>'';";
-            foreach ($DB->request($query) as $data) {
-               $iq = "INSERT INTO `glpi_notepads`
-                             (`itemtype`, `items_id`, `content`, `date`, `date_mod`)
-                      VALUES ('PluginStatecheckRule', '".$data['id']."',
-                              '".addslashes($data['notepad'])."', NOW(), NOW())";
-               $DB->queryOrDie($iq, "0.85 migrate notepad data");
-            }
-            $query = "ALTER TABLE `glpi_plugin_statecheck_rules` DROP COLUMN `notepad`;";
-            $DB->query($query);
-         }
-      }
-   }
-   
    if ($update) {
       $query_="SELECT *
             FROM `glpi_plugin_statecheck_profiles` ";

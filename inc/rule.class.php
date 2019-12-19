@@ -3012,7 +3012,7 @@ function plugin_statecheck_renderfields($classname) {
 //						break;
 //				}
 ///				change css class of "statechecked" fields
-				echo 'if (element) {element.className += " statecheck-warning";}';
+				echo 'if (element) {if(element.className) {element.className += " statecheck-warning";} else {element.className = "statecheck-warning";}}';
 				echo '})';
 				echo '}';
 				echo ');';
@@ -3037,7 +3037,7 @@ function plugin_statecheck_renderfields($classname) {
 //						break;
 //				}
 //				add the class "statecheck-warning" (defined in style.css file) to change the display of the field
-				echo 'if (element) {element.className += " statecheck-warning";}';
+				echo 'if (element) {if(element.className) {element.className += " statecheck-warning";} else {element.className = "statecheck-warning";}}';
 				echo '});';
 				echo '})';
 				echo '}';
