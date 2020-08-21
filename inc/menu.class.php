@@ -41,8 +41,13 @@ class PluginStatecheckMenu extends CommonGLPI {
       if (PluginStatecheckRule::canCreate()) {
          $menu['links']['add']                        = PluginStatecheckRule::getFormURL(false);
       }
+      $menu['icon'] = self::getIcon();
 
       return $menu;
+   }
+
+   static function getIcon() {
+      return "fas fa-check-square";
    }
 
    static function removeRightsFromSession() {

@@ -101,15 +101,23 @@ function plugin_version_statecheck() {
       'author'  => "Eric Feron",
       'license' => 'GPLv2+',
       'homepage'=> 'https://github.com/ericferon/glpi-statecheck',
-      'minGlpiVersion' => '9.4',
+      'requirements' => [
+         'glpi' => [
+            'min' => '9.5',
+            'dev' => false
+         ]
+      ]
    ];
 
 }
 
 // Optional : check prerequisites before install : may print errors or add to message after redirect
 function plugin_statecheck_check_prerequisites() {
-   if (version_compare(GLPI_VERSION,'9.4','lt') || version_compare(GLPI_VERSION,'9.5','ge')) {
-      _e('This plugin requires GLPI >= 9.4 and < 9.5', 'statecheck');
+   if (version_compare(GLPI_VERSION, '9.5', 'lt')
+       || version_compare(GLPI_VERSION, '9.6', 'ge')) {
+      if (method_exists('Plugin', 'messageIncompatible')) {
+         echo Plugin::messageIncompatible('core', '9.5');
+      }
       return false;
    }
    return true;
