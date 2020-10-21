@@ -72,7 +72,7 @@ where  class = '".$classname."'
 and is_active = true
 and (plugin_statecheck_targetstates_id = 0 or plugin_statecheck_targetstates_id = ".$values[$imainstatefield].")";
 if ($resultrule=$DB->query($queryrule)) {
-	while ($datarule=$DB->fetch_assoc($resultrule)) {
+	while ($datarule=$DB->fetchAssoc($resultrule)) {
 		$rules_id = $datarule['id'];
 		$criteriacheck = true;
 //		get the index of this criteria in fields/values arrays and get the value from the form
@@ -125,7 +125,7 @@ if ($resultrule=$DB->query($queryrule)) {
 				$queryaction = "select field, action_type, value from glpi_plugin_statecheck_ruleactions ".
 							"where plugin_statecheck_rules_id = $rules_id ";
 				if ($resultaction=$DB->query($queryaction)) {
-					while ($dataaction=$DB->fetch_assoc($resultaction)) {
+					while ($dataaction=$DB->fetchAssoc($resultaction)) {
 						$checkedfield[] = $dataaction;
 				}
 			}

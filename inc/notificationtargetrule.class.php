@@ -42,11 +42,11 @@ function getEvents() {
 	$events = [];
 	$queryclass = "select * from glpi_plugin_statecheck_tables";
 	if ($resultclass=$DB->query($queryclass)) {
-		while ($dataclass=$DB->fetch_assoc($resultclass)) {
+		while ($dataclass=$DB->fetchAssoc($resultclass)) {
 			$statetable = $dataclass['statetable'];
 			$querystate = "select * from $statetable";
 			if ($resultstate=$DB->query($querystate)) {
-				while ($datastate=$DB->fetch_assoc($resultstate)) {
+				while ($datastate=$DB->fetchAssoc($resultstate)) {
 					$events[$dataclass['class'].'_'.$datastate['id'].'_success'] = $dataclass['comment']." ".__('Statecheck succeeded for ', 'statecheck')."'".$datastate['name']."'";
 					$events[$dataclass['class'].'_'.$datastate['id'].'_failure'] = $dataclass['comment']." ".__('Statecheck failed for ', 'statecheck')."'".$datastate['name']."'";
 				}
@@ -67,7 +67,7 @@ function getEvents() {
 	$itemtype = $eventparts[0];
 	$queryclass = "select * from glpi_plugin_statecheck_tables where class = '$itemtype'";
 	if ($resultclass=$DB->query($queryclass)) {
-		$dataclass=$DB->fetch_assoc($resultclass);
+		$dataclass=$DB->fetchAssoc($resultclass);
 		$frontname = $dataclass['frontname'];
 		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_GROUP_MANAGER,__("Manager", 'statecheck').' '.__("Group responsible of the ", 'statecheck').$frontname,Notification::SUPERVISOR_GROUP_TYPE);
 		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_USER,__("User responsible of the ", 'statecheck').$frontname);
@@ -184,7 +184,7 @@ function getEvents() {
 
 		$queryclass = "select * from glpi_plugin_statecheck_tables where class = '".$classinfo[0]."'";
 		if ($resultclass=$DB->query($queryclass)) {
-			$dataclass=$DB->fetch_assoc($resultclass);
+			$dataclass=$DB->fetchAssoc($resultclass);
 			$statetable = $dataclass['statetable'];
 			$this->data['##statecheck.classname##'] = $dataclass['comment'];
 			$this->data['##lang.statecheck.status##'] = __('Mail to user', 'statecheck');
@@ -194,7 +194,7 @@ function getEvents() {
 			$tableid = $dataclass['id'];
 			$queryfield = "show columns from $tablename";
 			if ($resultfield=$DB->query($queryfield)) {
-				while ($datafield=$DB->fetch_assoc($resultfield)) {
+				while ($datafield=$DB->fetchAssoc($resultfield)) {
 					$fieldname = $datafield['Field'];
 					$tagname = "##statecheck.".$frontname.".".$fieldname."##";
 					if (substr($fieldname,-3) == '_id') {
