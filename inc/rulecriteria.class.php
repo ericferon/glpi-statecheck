@@ -325,7 +325,7 @@ class PluginStatecheckRuleCriteria extends CommonDBChild {
 
       $result     = $DB->query($sql);
       $rules_list = [];
-      while ($rule = $DB->fetch_assoc($result)) {
+      while ($rule = $DB->fetchAssoc($result)) {
          $tmp          = new self();
          $tmp->fields  = $rule;
          $rules_list[] = $tmp;

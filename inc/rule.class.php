@@ -1682,7 +1682,7 @@ class PluginStatecheckRule extends Rule {
       $result = $DB->query($sql);
 
       if ($DB->numrows($result) > 0) {
-         $datas = $DB->fetch_assoc($result);
+         $datas = $DB->fetchAssoc($result);
          return $datas["rank"] + 1;
       }
       return 0;
@@ -2160,7 +2160,7 @@ class PluginStatecheckRule extends Rule {
 	  $query = "select * from glpi_plugin_statecheck_tables where id = ".$rule->fields["plugin_statecheck_tables_id"];
 
       if ($result=$DB->query($query)) {
-		$data=$DB->fetch_assoc($result);
+		$data=$DB->fetchAssoc($result);
 		return $data['stateclass'];
       }
       return 0;
@@ -2387,7 +2387,7 @@ class PluginStatecheckRule extends Rule {
 
 	if ($table_id > -1 
 	&& $result=$DB->query($query)) {
-		$data=$DB->fetch_assoc($result);
+		$data=$DB->fetchAssoc($result);
 		$class = new $data['class'];
 		// get the table of searchable fields ('field'), containing the field description in current language ('name')
 //		$tab = $class->getsearchOptions();
@@ -2396,7 +2396,7 @@ class PluginStatecheckRule extends Rule {
 		$query = "SHOW COLUMNS FROM ".$tablename;
 
 		if ($result=$DB->query($query)) {
-			while ($data=$DB->fetch_assoc($result)) {
+			while ($data=$DB->fetchAssoc($result)) {
 				// only searchable fields can be used
 				foreach ($tab as $index => $tabelem) {
 					if ((isset($tabelem['table']) && isset($tabelem['field']) && isset($data['Field']) 
@@ -2756,7 +2756,7 @@ class PluginStatecheckRule extends Rule {
             if ($DB->numrows($result) > 0) {
                $input['is_active'] = 0;
 
-               while ($data = $DB->fetch_assoc($result)) {
+               while ($data = $DB->fetchAssoc($result)) {
                   $input['id'] = $data[$fieldid];
                   $ruleitem->update($input);
                }
@@ -2955,7 +2955,7 @@ function plugin_statecheck_renderfields($classname) {
 //				get the list of fields on which the statecheck rules depend :
 				$statefields = [];
 				$mainstatefield = "";
-				while ($datafields=$DB->fetch_assoc($resultfields)) {
+				while ($datafields=$DB->fetchAssoc($resultfields)) {
 //					the state field for the table
 					$statefield = substr($datafields['statetable'],5)."_id";
 					if (!in_array($statefield, $statefields)) {

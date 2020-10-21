@@ -311,7 +311,7 @@ class PluginStatecheckRuleAction extends RuleAction {
       $result = $DB->query($sql);
 
       $rules_actions = [];
-      while ($rule = $DB->fetch_assoc($result)) {
+      while ($rule = $DB->fetchAssoc($result)) {
          $tmp             = new self();
          $tmp->fields     = $rule;
          $rules_actions[] = $tmp;
@@ -473,7 +473,7 @@ class PluginStatecheckRuleAction extends RuleAction {
                                 FROM `".$this->getTable()."`
                                 WHERE `".static::$items_id."` = '".$plugin_statecheck_rules_id."'");
 
-         while ($action = $DB->fetch_assoc($res)) {
+         while ($action = $DB->fetchAssoc($res)) {
             if (isset($actions_options[$action["field"]])
                  && ($action["field"] != 'groups_id_validate')
                  && ($action["field"] != 'users_id_validate')

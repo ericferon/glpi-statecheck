@@ -55,7 +55,7 @@ function plugin_init_statecheck() {
 		$query = "select * from glpi_plugin_statecheck_tables";
 		if ($result=$DB->query($query)) {
 			$checkitems = [];
-			while ($data=$DB->fetch_assoc($result)) {
+			while ($data=$DB->fetchAssoc($result)) {
 				$itemtype = $data['class'];
 				if (substr($data['name'],0,12) == "glpi_plugin_") {
 					$type = substr($data['name'],12,strrpos($data['name'],"_")-12);
@@ -97,7 +97,7 @@ function plugin_version_statecheck() {
 
    return [
       'name' => _n('Statecheck Rule', 'Statecheck Rules', 2, 'statecheck'),
-      'version' => '2.2.1',
+      'version' => '2.2.2',
       'author'  => "Eric Feron",
       'license' => 'GPLv2+',
       'homepage'=> 'https://github.com/ericferon/glpi-statecheck',
@@ -159,7 +159,7 @@ function hook_post_item_form(array $params) {
 			$frontname = substr($_SERVER['HTTP_REFERER'],$start,$end-$start);
 			$query = "select * from glpi_plugin_statecheck_tables where frontname = '".$frontname."'";
 			if ($result=$DB->query($query)) {
-				if ($DB->fetch_assoc($result)) {
+				if ($DB->fetchAssoc($result)) {
 					$classname = get_class($params['item']);
 					$statecheckrule = new PluginStatecheckRule;
 					$statecheckrule->plugin_statecheck_renderfields($classname);
@@ -183,7 +183,7 @@ function plugin_pre_item_statecheck($item)
 	$targetstates_id = 0;
 	$querystate = "select statetable from glpi_plugin_statecheck_tables";
 	if ($resultstate=$DB->query($querystate)) {
-		while ($datastate=$DB->fetch_assoc($resultstate)) {
+		while ($datastate=$DB->fetchAssoc($resultstate)) {
 			$statefield = substr($datastate['statetable'],5)."_id";
 			if (is_array($item)) {
 				if (isset($item[$statefield])) {
@@ -218,7 +218,7 @@ function plugin_pre_item_statecheck($item)
 				unset($item->hookmessage);
 		}
 		$itemtype = "";
-		while ($datarule=$DB->fetch_assoc($resultrule)) {
+		while ($datarule=$DB->fetchAssoc($resultrule)) {
 			$rules_id = $datarule['id'];
 			$rules_name = $datarule['rulename'];
 			$table_name = $datarule['tablename'];
@@ -229,7 +229,7 @@ function plugin_pre_item_statecheck($item)
 			$querycriteria = "select * from glpi_plugin_statecheck_rulecriterias ".
 							"where plugin_statecheck_rules_id = $rules_id ";
 			if ($resultcriteria=$DB->query($querycriteria)) {
-				while ($datacriteria=$DB->fetch_assoc($resultcriteria)) {
+				while ($datacriteria=$DB->fetchAssoc($resultcriteria)) {
 					switch ($datacriteria['condition']) {
 						case Rule::PATTERN_IS :
 							if (is_array($item)) {
@@ -313,7 +313,7 @@ function plugin_pre_item_statecheck($item)
 					$ruleaction = new PluginStatecheckRuleAction;
 					$fields = $ruleaction->getActionFields($table_id);
 //					check values against rules
-					while ($dataaction=$DB->fetch_assoc($resultaction)) {
+					while ($dataaction=$DB->fetchAssoc($resultaction)) {
 						if (substr($dataaction['field'],0,8) == 'session_') {
 							switch ($dataaction['field']) {
 								case "session_users_id":
