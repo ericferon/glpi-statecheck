@@ -3008,7 +3008,7 @@ function plugin_statecheck_renderfields($classname) {
 //						break;
 //					case "9.3":
 //						take the "span" html element just after, with role "combobox"
-						echo 'if (element && element.getAttribute("type") != "text") {element = element.nextSibling.querySelectorAll("[role=combobox]")[0];};';
+						echo 'if (element && element.type != "text" && element.type != "textarea") {element = element.nextSibling.querySelectorAll("[role=combobox]")[0];};';
 //						break;
 //				}
 ///				change css class of "statechecked" fields
@@ -3033,7 +3033,7 @@ function plugin_statecheck_renderfields($classname) {
 //						break;
 //					case "9.3":
 //						take the "span" html element just after, with role "combobox"
-						echo 'if (element && element.getAttribute("type") != "text") {element = element.nextSibling.querySelectorAll("[role=combobox]")[0]};';
+						echo 'if (element && element.type != "text" && element.type != "textarea") {element = element.nextSibling.querySelectorAll("[role=combobox]")[0]};';
 //						break;
 //				}
 //				add the class "statecheck-warning" (defined in style.css file) to change the display of the field
