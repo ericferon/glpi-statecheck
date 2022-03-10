@@ -2968,10 +2968,8 @@ function plugin_statecheck_renderfields($classname) {
 						$statefields[] = $statefield;
 					}
 				}
-				$url = $CFG_GLPI['root_doc']."/plugins/statecheck/ajax/statecheckfields.php?classname=".urlencode($classname)."&mainstatefield=".urlencode($mainstatefield);
-				echo "<link rel='stylesheet' type='text/css' href='".$CFG_GLPI['root_doc']."/plugins/statecheck/style.css' media=''>\n";
-//				test whether classList call is supported by the browser
-//				echo "<script type='text/javascript' src='".GLPI_ROOT."/plugins/statecheck/js/classList.js'></script>\n";
+				$url = Plugin::getWebDir('statecheck')."/ajax/statecheckfields.php?classname=".urlencode($classname)."&mainstatefield=".urlencode($mainstatefield);
+				echo "<link rel='stylesheet' type='text/css' href='".Plugin::getWebDir('statecheck')."/style.css' media=''>\n";
 				echo "<script type='text/javascript' >\n";
 //				echo "Components.utils.import('resource://gre/modules/Console.jsm');";
 				echo 'function getstatecheckfields() {';

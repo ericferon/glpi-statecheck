@@ -27,38 +27,38 @@
 function plugin_statecheck_install() {
    global $DB;
 
-   include_once (GLPI_ROOT."/plugins/statecheck/inc/profile.class.php");
+   include_once (Plugin::getPhpDir("statecheck")."/inc/profile.class.php");
 
    $update=false;
    if (!$DB->TableExists("glpi_plugin_statecheck_rules")) {
 
-		$DB->runFile(GLPI_ROOT ."/plugins/statecheck/sql/empty-1.0.0.sql");
+		$DB->runFile(Plugin::getPhpDir("statecheck")."/sql/empty-1.0.0.sql");
    
 //      insert notification template for archisw, if installed
         $query = "select * from glpi_plugins where directory = 'archisw' and state = 1";
         $result_query = $DB->query($query);
         if($DB->numRows($result_query) == 1) {
-            $DB->runFile(GLPI_ROOT ."/plugins/statecheck/sql/archisw-1.0.0.sql");
+            $DB->runFile(Plugin::getPhpDir("statecheck")."/sql/archisw-1.0.0.sql");
         }
 
 //      insert notification template for dataflows, if installed
         $query = "select * from glpi_plugins where directory = 'dataflows' and state = 1";
         $result_query = $DB->query($query);
         if($DB->numRows($result_query) == 1) {
-            $DB->runFile(GLPI_ROOT ."/plugins/statecheck/sql/dataflows-1.0.0.sql");
+            $DB->runFile(Plugin::getPhpDir("statecheck")."/sql/dataflows-1.0.0.sql");
         }
 
 //      insert notification template for databases, if installed
         $query = "select * from glpi_plugins where directory = 'databases' and state = 1";
         $result_query = $DB->query($query);
         if($DB->numRows($result_query) == 1) {
-            $DB->runFile(GLPI_ROOT ."/plugins/statecheck/sql/databases-1.0.0.sql");
+            $DB->runFile(Plugin::getPhpDir("statecheck")."/sql/databases-1.0.0.sql");
         }
 	}
 	else {
 /*		if ($DB->TableExists("glpi_plugin_statecheck_rules") && !!$DB->FieldExists("glpi_plugin_statecheck_rules","plugin_statecheck_indicators_id")) {
 			$update=true;
-			$DB->runFile(GLPI_ROOT ."/plugins/statecheck/sql/update-1.0.1.sql");
+			$DB->runFile(Plugin::getPhpDir("statecheck")."/sql/update-1.0.1.sql");
 		}
 */	}
 
@@ -101,8 +101,8 @@ function plugin_statecheck_install() {
 function plugin_statecheck_uninstall() {
 	global $DB;
    
-	include_once (GLPI_ROOT."/plugins/statecheck/inc/profile.class.php");
-	include_once (GLPI_ROOT."/plugins/statecheck/inc/menu.class.php");
+	include_once (Plugin::getPhpDir("statecheck")."/inc/profile.class.php");
+	include_once (Plugin::getPhpDir("statecheck")."/inc/menu.class.php");
    
 	$tables = ["glpi_plugin_statecheck_rules",
 					"glpi_plugin_statecheck_tables",

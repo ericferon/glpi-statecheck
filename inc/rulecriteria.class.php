@@ -619,7 +619,7 @@ class PluginStatecheckRuleCriteria extends CommonDBChild {
 					  'plugin_statecheck_tables_id' => $this->input["parent"]->fields["plugin_statecheck_tables_id"]];
 
       Ajax::updateItemOnSelectEvent("dropdown_criteria$rand", "criteria_span",
-                                    $CFG_GLPI["root_doc"]."/plugins/statecheck/ajax/rulecriteria.php", $params);
+                                    Plugin::getWebDir('statecheck')."/ajax/rulecriteria.php", $params);
 
       if (isset($this->fields['criteria']) && !empty($this->fields['criteria'])) {
          $params['criteria']  = $this->fields['criteria'];
@@ -627,7 +627,7 @@ class PluginStatecheckRuleCriteria extends CommonDBChild {
          $params['pattern']   = $this->fields['pattern'];
          echo "<script type='text/javascript' >\n";
          Ajax::updateItemJsCode("criteria_span",
-                                 $CFG_GLPI["root_doc"]."/plugins/statecheck/ajax/rulecriteria.php",
+                                 Plugin::getWebDir('statecheck')."/ajax/rulecriteria.php",
                                  $params);
          echo '</script>';
       }

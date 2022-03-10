@@ -36,7 +36,7 @@ class PluginStatecheckMenu extends CommonGLPI {
 
       $menu                                           = [];
       $menu['title']                                  = self::getMenuName();
-      $menu['page']                                   = "/plugins/statecheck/front/rule.php";
+      $menu['page']                                   = "/".Plugin::getWebDir('statecheck', false)."/front/rule.php";
       $menu['links']['search']                        = PluginStatecheckRule::getSearchURL(false);
       if (PluginStatecheckRule::canCreate()) {
          $menu['links']['add']                        = PluginStatecheckRule::getFormURL(false);

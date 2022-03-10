@@ -708,7 +708,7 @@ class PluginStatecheckRuleAction extends RuleAction {
 					  ];
 
       Ajax::updateItemOnSelectEvent("dropdown_field$rand", "action_span",
-                                    $CFG_GLPI["root_doc"]."/plugins/statecheck/ajax/ruleaction.php", $params);
+                                    Plugin::getWebDir('statecheck')."/ajax/ruleaction.php", $params);
 
       if (isset($this->fields['field']) && !empty($this->fields['field'])) {
          $params['field']       = $this->fields['field'];
@@ -716,7 +716,7 @@ class PluginStatecheckRuleAction extends RuleAction {
          $params['value']       = $this->fields['value'];
          echo "<script type='text/javascript' >\n";
          Ajax::updateItemJsCode("action_span",
-                                 $CFG_GLPI["root_doc"]."/plugins/statecheck/ajax/ruleaction.php",
+                                 Plugin::getWebDir('statecheck')."/ajax/ruleaction.php",
                                  $params);
          echo '</script>';
       }

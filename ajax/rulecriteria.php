@@ -72,7 +72,7 @@ if (isset($_POST["sub_type"]) && ($rule = getItemForItemtype($_POST["sub_type"])
 							  'plugin_statecheck_tables_id'	  => $_POST["plugin_statecheck_tables_id"]];
 
       Ajax::updateItemOnSelectEvent("dropdown_condition$randcrit", "condition_span$randcrit",
-                                    $CFG_GLPI["root_doc"]."/plugins/statecheck/ajax/rulecriteriavalue.php",
+                                    Plugin::getWebDir('statecheck')."/ajax/rulecriteriavalue.php",
                                     $paramscriteria);
 
       if (isset($_POST['pattern'])) {
@@ -80,7 +80,7 @@ if (isset($_POST["sub_type"]) && ($rule = getItemForItemtype($_POST["sub_type"])
       }
 
       Ajax::updateItem("condition_span$randcrit",
-                       $CFG_GLPI["root_doc"]."/plugins/statecheck/ajax/rulecriteriavalue.php", $paramscriteria,
+                       Plugin::getWebDir('statecheck')."/ajax/rulecriteriavalue.php", $paramscriteria,
                        "dropdown_condition$randcrit");
       echo "</td>";
 	  echo "</tr></table>";

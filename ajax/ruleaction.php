@@ -84,13 +84,13 @@ if (isset($_POST["sub_type"]) && class_exists($_POST["sub_type"])) {
 						 'plugin_statecheck_tables_id'	  => $_POST["plugin_statecheck_tables_id"]];
 
    Ajax::updateItemOnSelectEvent("dropdown_action_type$randaction", "action_type_span$randaction",
-                                 $CFG_GLPI["root_doc"]."/plugins/statecheck/ajax/ruleactionvalue.php", $paramsaction);
+                                 Plugin::getWebDir('statecheck')."/ajax/ruleactionvalue.php", $paramsaction);
 
    if (isset($_POST['value'])) {
       $paramsaction['value'] = stripslashes($_POST['value']);
    }
 
-   Ajax::updateItem("action_type_span$randaction", $CFG_GLPI["root_doc"]."/plugins/statecheck/ajax/ruleactionvalue.php",
+   Ajax::updateItem("action_type_span$randaction", Plugin::getWebDir('statecheck')."/ajax/ruleactionvalue.php",
                     $paramsaction, "dropdown_action_type$randaction");
    echo "</td></tr></table>";
 }
