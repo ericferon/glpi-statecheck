@@ -25,104 +25,109 @@
 	</authors>
 	<versions>
 		<version>
+			<num>2.3.1</num>
+			<compatibility>~9.5.0</compatibility>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.3.1/statecheck-2.3.1.tar.gz</download_url>
+		</version>
+		<version>
 			<num>2.3.0</num>
 			<compatibility>~9.5.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.3.0/statecheck-2.3.0.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.3.0/statecheck-2.3.0.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.2.3</num>
 			<compatibility>~9.5.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.2.3/statecheck-2.2.3.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.2.3/statecheck-2.2.3.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.2.2</num>
 			<compatibility>~9.5.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.2.2/statecheck-2.2.2.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.2.2/statecheck-2.2.2.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.2.1</num>
 			<compatibility>~9.5.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.2.1/statecheck-2.2.1.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.2.1/statecheck-2.2.1.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.2.0</num>
 			<compatibility>~9.5.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.2.0/statecheck-2.2.0.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.2.0/statecheck-2.2.0.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.1.2</num>
 			<compatibility>~9.4.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.1.2/statecheck-2.1.2.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.1.2/statecheck-2.1.2.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.1.1</num>
 			<compatibility>~9.4.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.1.1/statecheck-2.1.1.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.1.1/statecheck-2.1.1.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.1.0</num>
 			<compatibility>~9.4.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.1.0/statecheck-2.1.0.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.1.0/statecheck-2.1.0.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.0.14</num>
 			<compatibility>~9.3.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.0.14/statecheck-2.0.14.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.0.14/statecheck-2.0.14.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.0.13</num>
 			<compatibility>~9.3.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.0.13/statecheck-2.0.13.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.0.13/statecheck-2.0.13.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.0.12</num>
 			<compatibility>~9.3.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.0.12/statecheck-2.0.12.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.0.12/statecheck-2.0.12.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.0.11</num>
 			<compatibility>~9.3.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.0.11/statecheck-2.0.11.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.0.11/statecheck-2.0.11.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.0.10</num>
 			<compatibility>~9.3.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.0.10/statecheck-2.0.10.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.0.10/statecheck-2.0.10.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.0.9</num>
 			<compatibility>~9.3.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.0.9/statecheck-2.0.9.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.0.9/statecheck-2.0.9.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.0.8</num>
 			<compatibility>~9.3.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.0.8/statecheck-2.0.8.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.0.8/statecheck-2.0.8.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.0.7</num>
 			<compatibility>~9.3.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.0.7/statecheck-2.0.7.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.0.7/statecheck-2.0.7.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.0.6</num>
 			<compatibility>~9.3.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.0.6/statecheck-2.0.6.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.0.6/statecheck-2.0.6.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.0.5</num>
 			<compatibility>~9.2.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.0.5/statecheck-2.0.5.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.0.5/statecheck-2.0.5.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.0.2</num>
 			<compatibility>~9.2.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.0.2/statecheck-2.0.2.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.0.2/statecheck-2.0.2.tar.gz</download_url>
 		</version>
 		<version>
 			<num>2.0.1</num>
 			<compatibility>~9.2.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/2.0.1/statecheck-2.0.1.tar.gz</download_url>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.0.1/statecheck-2.0.1.tar.gz</download_url>
 		</version>
 	</versions>
 	<langs>
