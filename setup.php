@@ -97,7 +97,7 @@ function plugin_version_statecheck() {
 
    return [
       'name' => _n('Statecheck Rule', 'Statecheck Rules', 2, 'statecheck'),
-      'version' => '2.3.2',
+      'version' => '2.3.3',
       'author'  => "Eric Feron",
       'license' => 'GPLv2+',
       'homepage'=> 'https://github.com/ericferon/glpi-statecheck',
@@ -193,6 +193,8 @@ function plugin_pre_item_statecheck($item)
 				if (isset($item->input[$statefield])) {
 					$targetstates_id = $item->input[$statefield];
 				}
+				else if (isset($item->fields[$statefield]))
+					$targetstates_id = $item->fields[$statefield];
 			}
 		}
 	}
@@ -234,16 +236,26 @@ function plugin_pre_item_statecheck($item)
 						case Rule::PATTERN_IS :
 							if (is_array($item)) {
 								$criteriacheck &= ($item[$datacriteria['criteria']]==$datacriteria['pattern']?true:false);
-							} else {
-								$criteriacheck &= ($item->input[$datacriteria['criteria']]==$datacriteria['pattern']?true:false);
-							}
+							} else if (isset($item->input[$datacriteria['criteria']]))
+								{
+									$criteriacheck &= ($item->input[$datacriteria['criteria']]==$datacriteria['pattern']?true:false);
+								}
+								else
+								{
+									$criteriacheck &= ($item->fields[$datacriteria['criteria']]==$datacriteria['pattern']?true:false);
+								}
 						break 1;
 						case Rule::PATTERN_IS_NOT :
 							if (is_array($item)) {
 								$criteriacheck &= ($item[$datacriteria['criteria']]!=$datacriteria['pattern']?true:false);
-							} else {
-								$criteriacheck &= ($item->input[$datacriteria['criteria']]!=$datacriteria['pattern']?true:false);
-							}
+							} else if (isset($item->input[$datacriteria['criteria']]))
+								{
+									$criteriacheck &= ($item->input[$datacriteria['criteria']]!=$datacriteria['pattern']?true:false);
+								}
+								else
+								{
+									$criteriacheck &= ($item->fields[$datacriteria['criteria']]!=$datacriteria['pattern']?true:false);
+								}
 						break 1;
 						case Rule::PATTERN_CONTAIN :
 						break 1;
@@ -256,45 +268,75 @@ function plugin_pre_item_statecheck($item)
 						case Rule::REGEX_MATCH :
 							if (is_array($item)) {
 								$criteriacheck &= preg_match($datacriteria['pattern'],unclean_cross_side_scripting_deep($item[$datacriteria['criteria']]));
-							} else {
-								$criteriacheck &= preg_match($datacriteria['pattern'],unclean_cross_side_scripting_deep($item->input[$datacriteria['criteria']]));
-							}
+							} else if (isset($item->input[$datacriteria['criteria']]))
+								{
+									$criteriacheck &= preg_match($datacriteria['pattern'],unclean_cross_side_scripting_deep($item->input[$datacriteria['criteria']]));
+								}
+								else
+								{
+									$criteriacheck &= preg_match($datacriteria['pattern'],unclean_cross_side_scripting_deep($item->fields[$datacriteria['criteria']]));
+								}
 						break 1;
 						case Rule::REGEX_NOT_MATCH :
 							if (is_array($item)) {
 								$criteriacheck &= (preg_match($datacriteria['pattern'],unclean_cross_side_scripting_deep($item[$datacriteria['criteria']]))?false:true);
-							} else {
-								$criteriacheck &= (preg_match($datacriteria['pattern'],unclean_cross_side_scripting_deep($item->input[$datacriteria['criteria']]))?false:true);
-							}
+							} else if (isset($item->input[$datacriteria['criteria']]))
+								{
+									$criteriacheck &= (preg_match($datacriteria['pattern'],unclean_cross_side_scripting_deep($item->input[$datacriteria['criteria']]))?false:true);
+								}
+								else
+								{
+									$criteriacheck &= (preg_match($datacriteria['pattern'],unclean_cross_side_scripting_deep($item->fields[$datacriteria['criteria']]))?false:true);
+								}
 						break 1;
 						case Rule::PATTERN_EXISTS :
 							if (substr($datacriteria['criteria'],-3) == '_id') {
 								if (is_array($item)) {
 									$criteriacheck &= ($item[$datacriteria['criteria']]!=0?true:false);
-								} else {
-									$criteriacheck &= ($item->input[$datacriteria['criteria']]!=0?true:false);
-								}
+								} else if (isset($item->input[$datacriteria['criteria']]))
+									{
+										$criteriacheck &= ($item->input[$datacriteria['criteria']]!=0?true:false);
+									}
+									else
+									{
+										$criteriacheck &= ($item->fields[$datacriteria['criteria']]!=0?true:false);
+									}
 							} else {
 								if (is_array($item)) {
 									$criteriacheck &= ($item[$datacriteria['criteria']]!=""?true:false);
-								} else {
-									$criteriacheck &= ($item->input[$datacriteria['criteria']]!=""?true:false);
-								}
+								} else if (isset($item->input[$datacriteria['criteria']]))
+									{
+										$criteriacheck &= ($item->input[$datacriteria['criteria']]!=""?true:false);
+									}
+									else
+									{
+										$criteriacheck &= ($item->fields[$datacriteria['criteria']]!=""?true:false);
+									}
 							}
 						break 1;
 						case Rule::PATTERN_DOES_NOT_EXISTS :
 							if (substr($datacriteria['criteria'],-3) == '_id') {
 								if (is_array($item)) {
 									$criteriacheck &= ($item[$datacriteria['criteria']]==0?true:false);
-								} else {
-									$criteriacheck &= ($item->input[$datacriteria['criteria']]==0?true:false);
-								}
+								} else if (isset($item->input[$datacriteria['criteria']]))
+									{
+										$criteriacheck &= ($item->input[$datacriteria['criteria']]==0?true:false);
+									}
+									else
+									{
+										$criteriacheck &= ($item->fields[$datacriteria['criteria']]==0?true:false);
+									}
 							} else {
 								if (is_array($item)) {
 									$criteriacheck &= ($item[$datacriteria['criteria']]==""?true:false);
-								} else {
-									$criteriacheck &= ($item->input[$datacriteria['criteria']]==""?true:false);
-								}
+								} else if (isset($item->input[$datacriteria['criteria']]))
+									{
+										$criteriacheck &= ($item->input[$datacriteria['criteria']]==""?true:false);
+									}
+									else
+									{
+										$criteriacheck &= ($item->fields[$datacriteria['criteria']]==""?true:false);
+									}
 							}
 						break 1;
 
@@ -330,9 +372,14 @@ function plugin_pre_item_statecheck($item)
 						} else {
 							if (is_array($item)) {
 								$valuetocheck = $item[$dataaction['field']];
-							} else {
-								$valuetocheck = $item->input[$dataaction['field']];
-							}
+							} else if (isset($item->input[$dataaction['field']]))
+								{
+									$valuetocheck = $item->input[$dataaction['field']];
+								}
+								else
+								{
+									$valuetocheck = $item->fields[$dataaction['field']];
+								}
 							$fieldtocheck = $dataaction['field'];
 							$comparisonoperation = $dataaction['action_type'];
 						}
