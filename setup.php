@@ -97,7 +97,7 @@ function plugin_version_statecheck() {
 
    return [
       'name' => _n('Statecheck Rule', 'Statecheck Rules', 2, 'statecheck'),
-      'version' => '2.3.3',
+      'version' => '2.3.4',
       'author'  => "Eric Feron",
       'license' => 'GPLv2+',
       'homepage'=> 'https://github.com/ericferon/glpi-statecheck',
@@ -114,7 +114,7 @@ function plugin_version_statecheck() {
 // Optional : check prerequisites before install : may print errors or add to message after redirect
 function plugin_statecheck_check_prerequisites() {
    if (version_compare(GLPI_VERSION, '9.5', 'lt')
-       || version_compare(GLPI_VERSION, '9.6', 'ge')) {
+       || version_compare(GLPI_VERSION, '10.1', 'ge')) {
       if (method_exists('Plugin', 'messageIncompatible')) {
          echo Plugin::messageIncompatible('core', '9.5');
       }
