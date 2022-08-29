@@ -40,6 +40,10 @@ function plugin_statecheck_install() {
         if($DB->numRows($result_query) == 1) {
             $DB->runFile(Plugin::getPhpDir("statecheck")."/sql/archisw-1.0.0.sql");
         }
+        else {
+           $query = "delete from glpi_plugin_statecheck_tables where name = 'glpi_plugin_archisw_swcomponents';";
+           $DB->query($query);
+        }
 
 //      insert notification template for dataflows, if installed
         $query = "select * from glpi_plugins where directory = 'dataflows' and state = 1";
@@ -47,12 +51,20 @@ function plugin_statecheck_install() {
         if($DB->numRows($result_query) == 1) {
             $DB->runFile(Plugin::getPhpDir("statecheck")."/sql/dataflows-1.0.0.sql");
         }
+        else {
+           $query = "delete from glpi_plugin_statecheck_tables where name = 'glpi_plugin_dataflows_dataflows';";
+           $DB->query($query);
+        }
 
 //      insert notification template for databases, if installed
         $query = "select * from glpi_plugins where directory = 'databases' and state = 1";
         $result_query = $DB->query($query);
         if($DB->numRows($result_query) == 1) {
             $DB->runFile(Plugin::getPhpDir("statecheck")."/sql/databases-1.0.0.sql");
+        }
+        else {
+           $query = "delete from glpi_plugin_statecheck_tables where name = 'glpi_plugin_databases_databases';";
+           $DB->query($query);
         }
 	}
 	else {

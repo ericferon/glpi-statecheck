@@ -206,7 +206,7 @@ function getEvents() {
 				}
 			}
 			$itemobj = new $classinfo[0];
-			$searchfields = $itemobj->getsearchOptions();
+			$searchfields = $itemobj->rawSearchOptions();
 			foreach($searchfields as $fieldlabel) {
 				if (isset($fieldlabel['table']) && isset($fieldlabel['name'])) {
 					$fieldtable = $fieldlabel['table'];
