@@ -595,13 +595,9 @@ class PluginStatecheckRule extends Rule {
       echo "<tr class='tab_bg_1'>";
       echo "<td>".__('Name', 'statecheck')."</td>";
       echo "<td>";
-      Html::autocompletionTextField($this, "name");
+      echo Html::input('name',['value' => $this->fields['name'], 'id' => "name" /*, 'size' => 50*/]);
       echo "</td>";
-/*      echo "<td>".__('Description', 'statecheck')."</td>";
-      echo "<td>";
-      Html::autocompletionTextField($this, "description");
-      echo "</td>
-*/	  echo "</tr>\n";
+	  echo "</tr>\n";
 
       echo "<tr class='tab_bg_1'>";
       //table of class to be checked
@@ -2071,9 +2067,7 @@ class PluginStatecheckRule extends Rule {
 
       if (!$display
           && ($rc = getItemForItemtype($this->rulecriteriaclass))) {
-         Html::autocompletionTextField($rc, "pattern", ['name'  => $name,
-                                                             'value' => $value,
-                                                             'size'  => 70]);
+         echo Html::input('pattern',['value' => $value, 'id' => "pattern" , 'size' => 70]);
       }
    }
 

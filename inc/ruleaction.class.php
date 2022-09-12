@@ -503,7 +503,8 @@ class PluginStatecheckRuleAction extends RuleAction {
          case "regex_result" :
          case "regex_check" :
          case "append_regex_result" :
-            Html::autocompletionTextField($this, "value", $param);
+            echo Html::input('value',['value' => $param['value'], 'id' => "value"]);
+//            Html::autocompletionTextField($this, "value", $param);
             break;
 
          case 'fromuser' :
@@ -656,7 +657,8 @@ class PluginStatecheckRuleAction extends RuleAction {
             }
 
             if (!$display) {
-               Html::autocompletionTextField($this, "value", $param);
+               echo Html::input('value',['value' => $param['value'], 'id' => "value"]);
+//               Html::autocompletionTextField($this, "value", $param);
             }
       }
    }
