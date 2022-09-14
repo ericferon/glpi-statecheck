@@ -67,13 +67,15 @@ function getEvents() {
 	$itemtype = $eventparts[0];
 	$queryclass = "select * from glpi_plugin_statecheck_tables where class = '$itemtype'";
 	if ($resultclass=$DB->query($queryclass)) {
-		$dataclass=$DB->fetchAssoc($resultclass);
-		$frontname = $dataclass['frontname'];
-		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_GROUP_MANAGER,__("Manager", 'statecheck').' '.__("Group responsible of the ", 'statecheck').$frontname,Notification::SUPERVISOR_GROUP_TYPE);
-		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_USER,__("User responsible of the ", 'statecheck').$frontname);
-		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_LOGGED_USER,__("Logged user", 'statecheck'));
-		$this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_LOGGED_GROUP,__("Logged user's group", 'statecheck'),Notification::SUPERVISOR_GROUP_TYPE);
+      $dataclass=$DB->fetchAssoc($resultclass);
+      if (isset($dataclass['frontname'])) {
+         $frontname = $dataclass['frontname'];
+         $this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_GROUP_MANAGER,__("Manager", 'statecheck').' '.__("Group responsible of the ", 'statecheck').$frontname,Notification::SUPERVISOR_GROUP_TYPE);
+         $this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_ITEM_USER,__("User responsible of the ", 'statecheck').$frontname);
       }
+      $this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_LOGGED_USER,__("Logged user", 'statecheck'));
+      $this->addTarget(PluginStatecheckNotificationTargetRule::STATECHECK_LOGGED_GROUP,__("Logged user's group", 'statecheck'),Notification::SUPERVISOR_GROUP_TYPE);
+   }
 
    }
 
