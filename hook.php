@@ -32,7 +32,7 @@ function plugin_statecheck_install() {
    $update=false;
    if (!$DB->TableExists("glpi_plugin_statecheck_rules")) {
 
-		$DB->runFile(Plugin::getPhpDir("statecheck")."/sql/empty-1.0.0.sql");
+		$DB->runFile(Plugin::getPhpDir("statecheck")."/sql/empty-1.0.1.sql");
    
 //      insert notification template for archisw, if installed
         $query = "select * from glpi_plugins where directory = 'archisw' and state = 1";

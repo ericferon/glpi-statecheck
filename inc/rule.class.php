@@ -609,11 +609,8 @@ class PluginStatecheckRule extends Rule {
       echo "<td>".__('Target State ("----"=All)', 'statecheck')."</td>";
       echo "<td>";
 //	  echo "<pre>".print_r($this,true)."</pre>";
-	  if ($this->fields["plugin_statecheck_tables_id"])
-/*      ajaxUpdateItemOnSelectEvent("dropdown_itemtype$rand", "show_events",
-                                  $CFG_GLPI["root_doc"]."/ajax/dropdownNotificationEvent.php",
-                                  $params);
-*/		Dropdown::show($this->statefield($this), ['value' => $this->fields["plugin_statecheck_targetstates_id"],'name' => "plugin_statecheck_targetstates_id"]);
+	  if ($this->fields["plugin_statecheck_tables_id"] && $this->statefield($this))  // show only if a state class has been defined in Dropdown->Statecheck->Tables
+		Dropdown::show($this->statefield($this), ['value' => $this->fields["plugin_statecheck_targetstates_id"],'name' => "plugin_statecheck_targetstates_id"]);
       echo "</td>";
       echo "</tr>";
 
