@@ -36,9 +36,9 @@ if (isset($_GET['classname'])) {
 }
 if (isset($_GET['mainstatefield'])) {
 	$mainstatefield = $DB->escape(utf8_decode($_GET['mainstatefield']));
-} else {
+}/* else {
     die("No 'mainstatefield' parameter");
-}
+}*/
 $fields = [];
 if (isset($_GET['statefields'])) {
 	$statefields = $_GET['statefields'];
@@ -47,9 +47,9 @@ if (isset($_GET['statefields'])) {
 			$fields[] = $DB->escape(utf8_decode($statefield));
 		}
 	}
-} else {
+}/* else {
     die("No 'statefields' parameter");
-}
+}*/
 $values = [];
 if (isset($_GET['statefieldvalues'])) {
 	$statefieldvalues = $_GET['statefieldvalues'];
@@ -58,9 +58,9 @@ if (isset($_GET['statefieldvalues'])) {
 			$values[] = $DB->escape(utf8_decode($statefieldvalue));
 		}
 	}
-} else {
+}/* else {
     die("No 'statefieldvalues' parameter");
-}
+}*/
 $checkedfield = [];
 $imainstatefield = array_search($mainstatefield,$fields);
 $queryrule = "select glpi_plugin_statecheck_rules.id, glpi_plugin_statecheck_rules.plugin_statecheck_targetstates_id,
@@ -70,54 +70,61 @@ inner join glpi_plugin_statecheck_tables on glpi_plugin_statecheck_rules.plugin_
 left join glpi_plugin_statecheck_rulecriterias on glpi_plugin_statecheck_rules.id = glpi_plugin_statecheck_rulecriterias.plugin_statecheck_rules_id
 where  class = '".$classname."' 
 and is_active = true
-and (plugin_statecheck_targetstates_id = 0 or plugin_statecheck_targetstates_id = ".$values[$imainstatefield].")";
+and (plugin_statecheck_targetstates_id = 0";
+if (!$imainstatefield && !empty($values) && !empty($values[$imainstatefield]))
+	$queryrule .= " or plugin_statecheck_targetstates_id = ".$values[$imainstatefield].")";
+else
+	$queryrule .= ")";
 if ($resultrule=$DB->query($queryrule)) {
 	while ($datarule=$DB->fetchAssoc($resultrule)) {
 		$rules_id = $datarule['id'];
 		$criteriacheck = true;
 //		get the index of this criteria in fields/values arrays and get the value from the form
-		if ($datarule['criteria']) {
+		if (!empty($datarule['criteria'])) {
 			$istatefield = array_search($datarule['criteria'],$fields);
 			if ($istatefield) {
-				$formvalue = $values[$istatefield];
-			}
-			switch ($datarule['condition']) {
-				case Rule::PATTERN_IS :
-					$criteriacheck &= ($formvalue==$datarule['pattern']?true:false);
-				break 1;
-				case Rule::PATTERN_IS_NOT :
-					$criteriacheck &= ($formvalue!=$datarule['pattern']?true:false);
-				break 1;
-				case Rule::PATTERN_CONTAIN :
-				break 1;
-				case Rule::PATTERN_NOT_CONTAIN :
-				break 1;
-				case Rule::PATTERN_BEGIN :
-				break 1;
-				case Rule::PATTERN_END :
-				break 1;
-				case Rule::REGEX_MATCH :
-					$criteriacheck &= preg_match($datarule['pattern'],unclean_cross_side_scripting_deep($formvalue));
-				break 1;
-				case Rule::REGEX_NOT_MATCH :
-					$criteriacheck &= (preg_match($datarule['pattern'],unclean_cross_side_scripting_deep($formvalue))?false:true);
-				break 1;
-				case Rule::PATTERN_EXISTS :
-					if (substr($datarule['criteria'],-3) == '_id') {
+				$formvalue = '';
+				if ($istatefield) {
+					$formvalue = $values[$istatefield];
+				}
+				switch ($datarule['condition']) {
+					case Rule::PATTERN_IS :
+						$criteriacheck &= ($formvalue==$datarule['pattern']?true:false);
+					break 1;
+					case Rule::PATTERN_IS_NOT :
+						$criteriacheck &= ($formvalue!=$datarule['pattern']?true:false);
+					break 1;
+					case Rule::PATTERN_CONTAIN :
+					break 1;
+					case Rule::PATTERN_NOT_CONTAIN :
+					break 1;
+					case Rule::PATTERN_BEGIN :
+					break 1;
+					case Rule::PATTERN_END :
+					break 1;
+					case Rule::REGEX_MATCH :
+						$criteriacheck &= preg_match($datarule['pattern'],unclean_cross_side_scripting_deep($formvalue));
+					break 1;
+					case Rule::REGEX_NOT_MATCH :
+						$criteriacheck &= (preg_match($datarule['pattern'],unclean_cross_side_scripting_deep($formvalue))?false:true);
+					break 1;
+					case Rule::PATTERN_EXISTS :
+						if (substr($datarule['criteria'],-3) == '_id') {
 							$criteriacheck &= ($formvalue!=0?true:false);
-					} else {
+						} else {
 							$criteriacheck &= ($formvalue!=""?true:false);
-					}
-				break 1;
-				case Rule::PATTERN_DOES_NOT_EXISTS :
-					if (substr($datarule['criteria'],-3) == '_id') {
+						}
+					break 1;
+					case Rule::PATTERN_DOES_NOT_EXISTS :
+						if (substr($datarule['criteria'],-3) == '_id') {
 							$criteriacheck &= ($formvalue==0?true:false);
-					} else {
+						} else {
 							$criteriacheck &= ($formvalue==""?true:false);
-					}
-				break 1;
-				default:
-				break 1;
+						}
+					break 1;
+					default:
+					break 1;
+				}
 			}
 		}
 //		if rule applies

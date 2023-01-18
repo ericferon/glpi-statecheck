@@ -97,7 +97,7 @@ function plugin_version_statecheck() {
 
    return [
       'name' => _n('Statecheck Rule', 'Statecheck Rules', 2, 'statecheck'),
-      'version' => '2.3.8',
+      'version' => '2.3.9',
       'author'  => "Eric Feron",
       'license' => 'GPLv2+',
       'homepage'=> 'https://github.com/ericferon/glpi-statecheck',
@@ -399,19 +399,19 @@ function plugin_pre_item_statecheck($item)
 								}
 							break 1;
 							case "is":
-								$actioncheck = ($valuetocheck==$dataaction['value']?true:false);
+								$actioncheck = ($valuetocheck==html_entity_decode($dataaction['value'])?true:false);
 							break 1;
 							case "isnot":
-								$actioncheck = ($valuetocheck!=$dataaction['value']?true:false);
+								$actioncheck = ($valuetocheck!=html_entity_decode($dataaction['value'])?true:false);
 							break 1;
 							case "isinarray":
-								$actioncheck = in_array($dataaction['value'],$arraytocheck);
+								$actioncheck = in_array(html_entity_decode($dataaction['value']),$arraytocheck);
 							break 1;
 							case "isnotinarray":
-								$actioncheck = !in_array($dataaction['value'],$arraytocheck);
+								$actioncheck = !in_array(html_entity_decode($dataaction['value']),$arraytocheck);
 							break 1;
 							case "regex_check":
-								$actioncheck = preg_match($dataaction['value'],$valuetocheck);
+								$actioncheck = preg_match(html_entity_decode($dataaction['value']),$valuetocheck);
 							break 1;
 							default:
 							break 1;

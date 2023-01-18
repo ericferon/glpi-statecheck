@@ -2947,17 +2947,19 @@ function plugin_statecheck_renderfields($classname) {
 				$statefields = [];
 				$mainstatefield = "";
 				while ($datafields=$DB->fetchAssoc($resultfields)) {
-//					the state field for the table
-					$statefield = substr($datafields['statetable'],5)."_id";
-					if (!in_array($statefield, $statefields)) {
+//				the state field for the table
+                  if (!empty($datafields['statetable'])) {
+                     $statefield = substr($datafields['statetable'],5)."_id";
+                     if (!in_array($statefield, $statefields)) {
 						$statefields[] = $statefield;
 						$mainstatefield = $statefield;
-					}
-//					the criteria fields for the rule
-					$statefield = $datafields['criteria'];
-					if (!in_array($statefield, $statefields)) {
+                     }
+                  }
+//				the criteria fields for the rule
+                  $statefield = $datafields['criteria'];
+                  if (!in_array($statefield, $statefields)) {
 						$statefields[] = $statefield;
-					}
+                  }
 				}
 				$url = Plugin::getWebDir('statecheck')."/ajax/statecheckfields.php?classname=".urlencode($classname)."&mainstatefield=".urlencode($mainstatefield);
 				echo "<link rel='stylesheet' type='text/css' href='".Plugin::getWebDir('statecheck')."/style.css' media=''>\n";
