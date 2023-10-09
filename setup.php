@@ -97,7 +97,7 @@ function plugin_version_statecheck() {
 
    return [
       'name' => _n('Statecheck Rule', 'Statecheck Rules', 2, 'statecheck'),
-      'version' => '2.3.9',
+      'version' => '2.4.0',
       'author'  => "Eric Feron",
       'license' => 'GPLv2+',
       'homepage'=> 'https://github.com/ericferon/glpi-statecheck',
@@ -135,32 +135,69 @@ function plugin_datainjection_migratetypes_statecheck($types) {
 
 function hook_pre_item_form(array $params) {
 	global $DB, $_SERVER;
-// check that the current form is listed for statecheck
+	$plugin = new Plugin();
+
+    // check that the current form is listed for statecheck
 	if (isset($_SERVER['HTTP_REFERER'])) {
 		$start = strpos($_SERVER['HTTP_REFERER'],'/front') + 7;
 		$end = strpos($_SERVER['HTTP_REFERER'],'.',$start);
 		$frontname = substr($_SERVER['HTTP_REFERER'],$start,$end-$start);
+
+        if ($plugin->isInstalled('genericobject') && $plugin->isActivated('genericobject')) {
+            if($frontname == 'object') {
+                parse_str(parse_url($_SERVER['HTTP_REFERER'])['query'], $output);
+                $classname = $output['itemtype'];
+                if (isset($classname)) {
+                    $frontname = $classname;
+                }
+            }
+        }
+
         $dbu = new DbUtils();
 		if ($dbu->countElementsInTable('glpi_plugin_statecheck_tables', ['frontname' => $frontname])) {
-            Session::addMessageAfterRedirect('<font color="red"><b>'.__('!! Highlighted fields are controlled !!').'</b></font>');
-            Html::displayMessageAfterRedirect();
+
+            $query = "SELECT `glpi_plugin_statecheck_tables`.`id`, `glpi_plugin_statecheck_rules`.`plugin_statecheck_tables_id`, `glpi_plugin_statecheck_rules`.`is_active_warn_popup` as isActiveWarnPopup FROM `glpi_plugin_statecheck_tables`, `glpi_plugin_statecheck_rules` WHERE `glpi_plugin_statecheck_tables`.`id` = `glpi_plugin_statecheck_rules`.`plugin_statecheck_tables_id` AND `glpi_plugin_statecheck_tables`.`frontname` = '".$frontname."'";
+
+		    if ($resultstate=$DB->query($query)) {
+                while ($datastate=$DB->fetchAssoc($resultstate)) {
+                    $isActiveWarnPopup = $datastate['isActiveWarnPopup'];
+                    if (isset($isActiveWarnPopup) && $isActiveWarnPopup) {
+                        Session::addMessageAfterRedirect('<font color="red"><b>'.__('!! Highlighted fields are controlled !!').'</b></font>');
+                        Html::displayMessageAfterRedirect();
+                        break;
+                    }
+                }
+            }
+
 		}
 	}
 }
 
 function hook_post_item_form(array $params) {
 	global $DB, $_SERVER;
+
+	$plugin = new Plugin();
+
 	if ($params['item']->canCreate())
 	{
-// check that the current form is listed for statecheck
+        // check that the current form is listed for statecheck
 		if (isset($_SERVER['HTTP_REFERER'])) {
 			$start = strpos($_SERVER['HTTP_REFERER'],'/front') + 7;
 			$end = strpos($_SERVER['HTTP_REFERER'],'.',$start);
 			$frontname = substr($_SERVER['HTTP_REFERER'],$start,$end-$start);
+
+            $classname = get_class($params['item']);
+
+            if ($plugin->isInstalled('genericobject') && $plugin->isActivated('genericobject')) {
+                if ($frontname == 'object') {
+                    $frontname = $classname;
+                }
+            }
+
 			$query = "select * from glpi_plugin_statecheck_tables where frontname = '".$frontname."'";
 			if ($result=$DB->query($query)) {
 				if ($DB->fetchAssoc($result)) {
-					$classname = get_class($params['item']);
+					//$classname = get_class($params['item']);
 					$statecheckrule = new PluginStatecheckRule;
 					$statecheckrule->plugin_statecheck_renderfields($classname);
 				}
@@ -172,6 +209,8 @@ function hook_post_item_form(array $params) {
 function plugin_pre_item_statecheck($item)
 {
 	global $CFG_GLPI, $DB, $_SESSION;
+	$plugin = new Plugin();
+
 //	$table_id = 3;
 	$actioncheck = true;
 //	if (isset($item['id'])) $item_id = $item['id'];
@@ -179,6 +218,17 @@ function plugin_pre_item_statecheck($item)
 	$start = strpos($_SERVER['HTTP_REFERER'],'/front') + 7;
 	$end = strpos($_SERVER['HTTP_REFERER'],'.',$start);//"glpi_plugin_dataflows_dataflows";
 	$frontname = substr($_SERVER['HTTP_REFERER'],$start,$end-$start);
+
+    if ($plugin->isInstalled('genericobject') && $plugin->isActivated('genericobject')) {
+        if($frontname == 'object') {
+            parse_str(parse_url($_SERVER['HTTP_REFERER'])['query'], $output);
+            $classname = $output['itemtype'];
+            if (isset($classname)) {
+                $frontname = $classname;
+            }
+        }
+    }
+
 //	retrieve the value of item's state
 	$targetstates_id = 0;
 	$querystate = "select statetable from glpi_plugin_statecheck_tables";
