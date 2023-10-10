@@ -45,7 +45,7 @@ function getEvents() {
 		while ($dataclass=$DB->fetchAssoc($resultclass)) {
 			$statetable = $dataclass['statetable'];
 			$querystate = "select * from $statetable";
-			if ($resultstate=$DB->query($querystate)) {
+			if (!empty($statetable) && $resultstate=$DB->query($querystate)) {
 				while ($datastate=$DB->fetchAssoc($resultstate)) {
 					$events[$dataclass['class'].'_'.$datastate['id'].'_success'] = $dataclass['comment']." ".__('Statecheck succeeded for ', 'statecheck')."'".$datastate['name']."'";
 					$events[$dataclass['class'].'_'.$datastate['id'].'_failure'] = $dataclass['comment']." ".__('Statecheck failed for ', 'statecheck')."'".$datastate['name']."'";

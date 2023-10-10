@@ -62,7 +62,7 @@ if (isset($_POST["add_action"])) {
 
 } else if (isset($_POST["purge"])) {
    $rule->check($_POST['id'], PURGE);
-   $rule->deleteRuleOrder($_POST["ranking"]);
+//   $rule->deleteRuleOrder($_POST["ranking"]);
    $rule->delete($_POST, 1);
 
    Event::log($_POST["id"], "rules", 4, "setup",

@@ -24,10 +24,6 @@ msgid_plural "Statecheck Rules"
 msgstr[0] ""
 msgstr[1] ""
 
-#: setup.php:112
-msgid "This plugin requires GLPI >= 9.2 and < 9.4"
-msgstr ""
-
 #: inc/notificationtargetrule.class.php:50
 msgid "Statecheck succeeded for "
 msgstr ""

@@ -42,4 +42,5 @@ So,
 - step 2 is not very different than example2 (you change only the name and the comment)
 - in step 4, you create 2 actions : "Protocol" is not empty and "Description" is not empty.
 
-The final result, applying both rules, is shown in [example5](https://raw.githubusercontent.com/ericferon/glpi-statecheck/master/statecheck-example5.png) : the mandatory fields are highlighted in red
+The final result, applying both rules, is shown in [example5](https://raw.githubusercontent.com/ericferon/glpi-statecheck/master/statecheck-example5.png) : the mandatory fields are highlighted in red<br/>
+Contributions for translation in your language are welcome to https://explore.transifex.com/ericferon/glpi-statecheck/
