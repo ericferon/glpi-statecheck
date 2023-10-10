@@ -405,6 +405,11 @@ class PluginStatecheckRule extends Rule {
       $tab[8]['name']            = __('Active', 'statecheck');
       $tab[8]['datatype']        = 'bool';
 
+      $tab[9]['table']           = $this->getTable();
+      $tab[9]['field']           = 'is_active_warn_popup';
+      $tab[9]['name']            = __('Warn Popup', 'statecheck');
+      $tab[9]['datatype']        = 'bool';
+
       $tab[16]['table']          = $this->getTable();
       $tab[16]['field']          = 'comment';
       $tab[16]['name']           = __('Comments', 'statecheck');
@@ -473,6 +478,14 @@ class PluginStatecheckRule extends Rule {
          'table'    => $this->getTable(),
          'field'    => 'is_active',
          'name'     => __('Active', 'statecheck'),
+         'datatype' => 'bool'
+      ];
+
+      $tab[] = [
+         'id'       => '9',
+         'table'    => $this->getTable(),
+         'field'    => 'is_active_warn_popup',
+         'name'     => __('Warn Popup', 'statecheck'),
          'datatype' => 'bool'
       ];
 
@@ -622,6 +635,12 @@ class PluginStatecheckRule extends Rule {
       echo "<td>".__('Active', 'statecheck')."</td>";
       echo "<td>";
       Dropdown::showYesNo("is_active", $this->fields["is_active"]);
+      echo "</td></tr>\n";
+
+      echo "<tr class='tab_bg_1'>";
+      echo "<td>".__('Warn Popup', 'statecheck')."</td>";
+      echo "<td>";
+      Dropdown::showYesNo("is_active_warn_popup", $this->fields["is_active_warn_popup"]);
       echo "</td></tr>\n";
 
       if ($this->useConditions()) {
