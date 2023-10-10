@@ -44,3 +44,8 @@ So,
 
 The final result, applying both rules, is shown in [example5](https://raw.githubusercontent.com/ericferon/glpi-statecheck/master/statecheck-example5.png) : the mandatory fields are highlighted in red<br/>
 Contributions for translation in your language are welcome to https://explore.transifex.com/ericferon/glpi-statecheck/
+
+## Plugins Integrations
+- Statecheck provides an hook that can be called from other plugins to checks its own rules and fire them. It returns an object with the result.
+- Statecheck provides an integration with Custom Object Plugin: if the Custom Object Plugin is installed and active, if the frontname is *object*, then Statecheck reads the classname provided in the *itemtype* parameter.
+
