@@ -72,8 +72,11 @@ function plugin_statecheck_install() {
 			$update=true;
 			$DB->runFile(Plugin::getPhpDir("statecheck")."/sql/update-1.0.1.sql");
 		}
-*/	}
-
+*/
+        if (!$DB->FieldExists("glpi_plugin_statecheck_rules", "is_active_warn_popup")) {
+			$DB->runFile(Plugin::getPhpDir("statecheck")."/sql/update-1.0.2.sql");
+        }
+    }
 
    if ($update) {
       $query_="SELECT *
