@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Eric Feron
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Statecheck 2.0.2\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-20 15:06+0200\n"
+"POT-Creation-Date: 2023-10-12 14:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,75 +18,52 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: setup.php:99 inc/menu.class.php:31
-msgid "Statecheck Rule"
-msgid_plural "Statecheck Rules"
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/notificationtargetrule.class.php:50
-msgid "Statecheck succeeded for "
+#: setup.php:542 setup.php:549
+msgid " Record not inserted or updated"
 msgstr ""
 
-#: inc/notificationtargetrule.class.php:51
-msgid "Statecheck failed for "
+#: setup.php:178
+msgid "!! Highlighted fields are controlled !!"
 msgstr ""
 
-#: inc/notificationtargetrule.class.php:72
-msgid "Manager"
+#: inc/rule.class.php:1614 inc/rule.class.php:1628
+#, php-format
+msgid "%1$s %2$s"
 msgstr ""
 
-#: inc/notificationtargetrule.class.php:72
-msgid "Group responsible of the "
+#: inc/rule.class.php:1930
+#, php-format
+msgid "%1$s (%2$s)"
 msgstr ""
 
-#: inc/notificationtargetrule.class.php:73
-msgid "User responsible of the "
+#. TRANS: %1$s is the itemtype name,
+#. %2$s is the name of the item (used for headings of a list)
+#: inc/rule.class.php:2644
+#, php-format
+msgid "%1$s = %2$s"
 msgstr ""
 
-#: inc/notificationtargetrule.class.php:74 inc/rule.class.php:2354
-msgid "Logged user"
-msgid_plural "Logged users"
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/notificationtargetrule.class.php:75 inc/rule.class.php:2360
-msgid "Logged user's group"
-msgid_plural "Logged user's groups"
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/notificationtargetrule.class.php:190
-msgid "Mail to user"
+#: front/rule.form.php:60
+#, php-format
+msgid "%1$s adds the item %2$s"
 msgstr ""
 
-#: inc/notificationtargetrule.class.php:230
-msgid "On failure message"
+#: inc/rule.class.php:2949
+#, php-format
+msgid "%1$s: %2$s"
 msgstr ""
 
-#: inc/notificationtargetrule.class.php:246 inc/rule.class.php:386
-#: inc/rule.class.php:525 inc/rule.class.php:2482
-#: inc/rulecriteria.class.php:170
-msgid "Name"
+#. TRANS: %s is the user login
+#: front/rule.form.php:70
+#, php-format
+msgid "%s purges an item"
 msgstr ""
 
-#: inc/notificationtargetrule.class.php:247 inc/rule.class.php:419
-msgid "Entity"
+#. TRANS: %s is the user login
+#: front/rule.form.php:52
+#, php-format
+msgid "%s updates an item"
 msgstr ""
-
-#: inc/profile.class.php:116
-msgid "Helpdesk"
-msgstr ""
-
-#: inc/profile.class.php:120 inc/profile.class.php:148
-msgid "Associable items to a ticket"
-msgstr ""
-
-#: inc/profile.class.php:141
-msgid "Dataflow"
-msgid_plural "Statecheck"
-msgstr[0] ""
-msgstr[1] ""
 
 #: inc/ruleaction.class.php:82
 msgid "Action"
@@ -94,62 +71,409 @@ msgid_plural "Actions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/ruleaction.class.php:174 inc/rule.class.php:771
-msgid "Field"
-msgid_plural "Fields"
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/ruleaction.class.php:181 inc/rule.class.php:773 inc/rule.class.php:1731
-msgid "Value"
-msgstr ""
-
-#: inc/ruleaction.class.php:397
-msgid "Assign"
+#: inc/rule.class.php:409 inc/rule.class.php:558 inc/rule.class.php:2555
+#: inc/rule.class.php:405 inc/rule.class.php:480 inc/rule.class.php:635
+#: inc/rule.class.php:2637
+msgid "Active"
 msgstr ""
 
 #: inc/ruleaction.class.php:398
 msgid "Add"
 msgstr ""
 
-#: inc/ruleaction.class.php:399
-msgid "Assign the value from regular expression"
+#: inc/rule.class.php:738 inc/rule.class.php:821
+msgid "Add a new check"
+msgstr ""
+
+#: inc/rule.class.php:840 inc/rule.class.php:923
+msgid "Add a new criteria"
 msgstr ""
 
 #: inc/ruleaction.class.php:400
 msgid "Add the result of regular expression"
 msgstr ""
 
-#: inc/ruleaction.class.php:401
-msgid "Assign: equipment by IP address"
+#: inc/rule.class.php:286
+msgid "After"
 msgstr ""
 
-#: inc/ruleaction.class.php:402
-msgid "Assign: equipment by name + domain"
+#: inc/ruleaction.class.php:397
+msgid "Assign"
+msgstr ""
+
+#: inc/ruleaction.class.php:399
+msgid "Assign the value from regular expression"
+msgstr ""
+
+#: inc/ruleaction.class.php:401
+msgid "Assign: equipment by IP address"
 msgstr ""
 
 #: inc/ruleaction.class.php:403
 msgid "Assign: equipment by MAC address"
 msgstr ""
 
+#: inc/ruleaction.class.php:402
+msgid "Assign: equipment by name + domain"
+msgstr ""
+
+#: inc/profile.class.php:120 inc/profile.class.php:148
+#: inc/profile.class.php:124 inc/profile.class.php:152
+msgid "Associable items to a ticket"
+msgstr ""
+
+#: front/rule.php:89
+msgid "Back"
+msgstr ""
+
+#: inc/rule.class.php:287
+msgid "Before"
+msgstr ""
+
+#: inc/rule.class.php:772 inc/rule.class.php:855
+msgid "Check type"
+msgstr ""
+
+#: inc/ruleaction.class.php:692 inc/rule.class.php:757 inc/rule.class.php:840
+msgid "Check value of"
+msgid_plural "Check values of"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/rule.class.php:425 inc/rule.class.php:426 inc/rule.class.php:522
+msgid "Child entities"
+msgstr ""
+
+#: inc/table.class.php:45 inc/table.class.php:74
+msgid "Class"
+msgstr ""
+
+#: inc/rule.class.php:414 inc/rule.class.php:574 inc/rule.class.php:415
+#: inc/rule.class.php:496 inc/rule.class.php:657
+msgid "Comments"
+msgstr ""
+
+#: inc/rule.class.php:877 inc/rule.class.php:1682
+#: inc/rulecriteria.class.php:177 inc/rule.class.php:960
+#: inc/rule.class.php:1765
+msgid "Condition"
+msgstr ""
+
+#: inc/ruleaction.class.php:415
+msgid "Copy from item"
+msgstr ""
+
+#: inc/ruleaction.class.php:414
+msgid "Copy from user"
+msgstr ""
+
+#: inc/rule.class.php:437
+msgid "Creation date"
+msgstr ""
+
+#: inc/rule.class.php:860 inc/rule.class.php:926 inc/rule.class.php:1681
+#: inc/rule.class.php:2180 inc/rulecriteria.class.php:85
+#: inc/rulecriteria.class.php:611
+msgid "Criterion"
+msgid_plural "Criteria"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/profile.class.php:141
+msgid "Dataflow"
+msgid_plural "Statecheck"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/rule.class.php:2485 inc/rule.class.php:2554 inc/rule.class.php:2567
+#: inc/rule.class.php:2636
+msgid "Description"
+msgstr ""
+
+#: inc/notificationtargetrule.class.php:247 inc/rule.class.php:419
+#: inc/notificationtargetrule.class.php:249 inc/rule.class.php:420
+#: inc/rule.class.php:513
+msgid "Entity"
+msgstr ""
+
+#: inc/ruleaction.class.php:174 inc/rule.class.php:771 hook.php:468
+#: hook.php:471 hook.php:483 hook.php:486 setup.php:491 setup.php:494
+#: setup.php:506 setup.php:509 inc/rule.class.php:854
+msgid "Field"
+msgid_plural "Fields"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/table.class.php:63
+msgid "Frontname"
+msgstr ""
+
+#: inc/rule.class.php:1863 inc/profile.class.php:117 inc/rule.class.php:1946
+msgid "General"
+msgstr ""
+
+#: inc/notificationtargetrule.class.php:72
+#: inc/notificationtargetrule.class.php:73
+msgid "Group responsible of the "
+msgstr ""
+
+#: inc/profile.class.php:116 inc/profile.class.php:120
+msgid "Helpdesk"
+msgstr ""
+
+#: inc/rule.class.php:670 inc/rule.class.php:753
+msgid ""
+"It is possible to affect the result of a regular expression using the string "
+"#0"
+msgstr ""
+
+#: inc/rule.class.php:1731 inc/rule.class.php:1814
+msgid "Key"
+msgstr ""
+
+#: inc/rule.class.php:431 inc/rule.class.php:432 inc/rule.class.php:505
+msgid "Last update"
+msgstr ""
+
+#: inc/rule.class.php:581 inc/rule.class.php:664
+#, php-format
+msgid "Last update on %s"
+msgstr ""
+
+#: inc/notificationtargetrule.class.php:74 inc/rule.class.php:2354
+#: inc/notificationtargetrule.class.php:76
+msgid "Logged user"
+msgid_plural "Logged users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/notificationtargetrule.class.php:75 inc/rule.class.php:2360
+#: inc/notificationtargetrule.class.php:77
+msgid "Logged user's group"
+msgid_plural "Logged user's groups"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/rule.class.php:403 inc/rule.class.php:554 inc/rule.class.php:2488
+#: inc/rule.class.php:399 inc/rule.class.php:472 inc/rule.class.php:631
+#: inc/rule.class.php:2570
+msgid "Logical operator"
+msgstr ""
+
+#: inc/notificationtargetrule.class.php:190
+#: inc/notificationtargetrule.class.php:192
+msgid "Mail to user"
+msgstr ""
+
+#: inc/notificationtargetrule.class.php:72
+#: inc/notificationtargetrule.class.php:73
+msgid "Manager"
+msgstr ""
+
+#: inc/rule.class.php:250
+msgid "Move"
+msgstr ""
+
+#: inc/notificationtargetrule.class.php:246 inc/rule.class.php:386
+#: inc/rule.class.php:525 inc/rule.class.php:2482
+#: inc/rulecriteria.class.php:170 inc/notificationtargetrule.class.php:248
+#: inc/rule.class.php:387 inc/rule.class.php:455 inc/rule.class.php:609
+#: inc/rule.class.php:2564
+msgid "Name"
+msgstr ""
+
+#: inc/rule.class.php:2525 inc/rule.class.php:2607
+msgid "No item found"
+msgstr ""
+
+#: inc/notificationtargetrule.class.php:230
+#: inc/notificationtargetrule.class.php:232
+msgid "On failure message"
+msgstr ""
+
+#: inc/rule.class.php:392 inc/rule.class.php:393 inc/rule.class.php:464
+msgid "Position"
+msgstr ""
+
+#: inc/rule.class.php:1628
+msgid "R"
+msgstr ""
+
+#: inc/rule.class.php:878 inc/rule.class.php:1683
+#: inc/rulecriteria.class.php:184 inc/rule.class.php:961
+#: inc/rule.class.php:1766
+msgid "Reason"
+msgstr ""
+
 #: inc/ruleaction.class.php:404
 msgid "Recalculate"
+msgstr ""
+
+#: front/rule.php:62
+msgid "Replay the rules dictionary"
+msgstr ""
+
+#: inc/rule.class.php:1678 inc/rule.class.php:1761
+msgid "Result details"
+msgstr ""
+
+#: inc/rule.class.php:1727 inc/rule.class.php:1810
+msgid "Result of the regular expression"
+msgstr ""
+
+#: hook.php:468 hook.php:471 hook.php:483 hook.php:486 setup.php:491
+#: setup.php:494 setup.php:506 setup.php:509
+msgid "Rule"
 msgstr ""
 
 #: inc/ruleaction.class.php:405 inc/ruleaction.class.php:406
 msgid "Send"
 msgstr ""
 
+#: inc/table.class.php:57 inc/table.class.php:84
+msgid "State class"
+msgstr ""
+
+#: inc/table.class.php:51 inc/table.class.php:79
+msgid "State table"
+msgstr ""
+
+#: setup.php:494 setup.php:509
+msgid "StateCheck Rules"
+msgstr ""
+
+#: setup.php:99 inc/menu.class.php:31
+msgid "Statecheck Rule"
+msgid_plural "Statecheck Rules"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/notificationtargetrule.class.php:51
+msgid "Statecheck failed for "
+msgstr ""
+
+#: inc/notificationtargetrule.class.php:50
+msgid "Statecheck succeeded for "
+msgstr ""
+
+#: inc/rule.class.php:97
+msgid "StatecheckRule"
+msgid_plural "StatecheckRules"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/rule.class.php:1703 inc/rule.class.php:1786
+msgid "StatecheckRule results"
+msgstr ""
+
+#: inc/rule.class.php:224
+msgid "StatecheckRules management"
+msgstr ""
+
+#: inc/rule.class.php:2691 inc/rule.class.php:2773
+msgid "StatecheckRules using the object have been disabled."
+msgstr ""
+
+#. table of class to be checked
+#: inc/rule.class.php:537 inc/rule.class.php:617
+msgid "Table"
+msgstr ""
+
+#: inc/targetstate.class.php:35
+msgid "Target State"
+msgid_plural "Target States"
+msgstr[0] ""
+msgstr[1] ""
+
+#. state to be checked
+#: inc/rule.class.php:542 inc/rule.class.php:622
+msgid "Target State (\"----\"=All)"
+msgstr ""
+
+#: front/rule.php:87
+#, php-format
+msgid "Task completed in %s"
+msgstr ""
+
+#: inc/rule.class.php:1057 inc/rule.class.php:1140
+msgid "Unavailable"
+msgstr ""
+
+#: inc/rule.class.php:565 inc/rule.class.php:648
+msgid "Use rule for"
+msgstr ""
+
+#: inc/notificationtargetrule.class.php:73
+#: inc/notificationtargetrule.class.php:74
+msgid "User responsible of the "
+msgstr ""
+
+#: inc/rule.class.php:1684 inc/rule.class.php:1705 inc/rule.class.php:1767
+#: inc/rule.class.php:1788
+msgid "Validation"
+msgstr ""
+
+#: inc/ruleaction.class.php:181 inc/rule.class.php:773 inc/rule.class.php:1731
+#: inc/rule.class.php:856 inc/rule.class.php:1814
+msgid "Value"
+msgstr ""
+
+#: inc/rule.class.php:410 inc/rule.class.php:488 inc/rule.class.php:641
+msgid "Warn Popup"
+msgstr ""
+
+#: front/rule.php:64
+msgid "Work in progress..."
+msgstr ""
+
+#: inc/rule.class.php:1910
+msgid "Yes"
+msgstr ""
+
+#: inc/rule.class.php:461 inc/rule.class.php:617 inc/rule.class.php:545
+#: inc/rule.class.php:700 inc/rule.class.php:2263
+msgid "and"
+msgstr ""
+
+#: inc/rulecriteria.class.php:521
+msgid "contains"
+msgstr ""
+
+#: inc/rulecriteria.class.php:522
+msgid "does not contain"
+msgstr ""
+
+#: inc/rulecriteria.class.php:528
+msgid "does not exist"
+msgstr ""
+
+#: inc/rulecriteria.class.php:527
+msgid "exists"
+msgstr ""
+
+#: inc/rulecriteria.class.php:524
+msgid "finished by"
+msgstr ""
+
 #: inc/ruleaction.class.php:407 inc/rulecriteria.class.php:519
 msgid "is"
+msgstr ""
+
+#: inc/ruleaction.class.php:409
+msgid "is empty"
+msgstr ""
+
+#: inc/ruleaction.class.php:413
+msgid "is member of the group"
 msgstr ""
 
 #: inc/ruleaction.class.php:408 inc/rulecriteria.class.php:520
 msgid "is not"
 msgstr ""
 
-#: inc/ruleaction.class.php:409
-msgid "is empty"
+#: hook.php:468 hook.php:471 hook.php:483 hook.php:486 setup.php:491
+#: setup.php:494 setup.php:506 setup.php:509
+msgid "is not compliant with the rule"
 msgstr ""
 
 #: inc/ruleaction.class.php:410
@@ -164,233 +488,27 @@ msgstr ""
 msgid "is the user"
 msgstr ""
 
-#: inc/ruleaction.class.php:413
-msgid "is member of the group"
+#: inc/rulecriteria.class.php:546
+msgid "not under"
 msgstr ""
 
-#: inc/ruleaction.class.php:414
-msgid "Copy from user"
-msgstr ""
-
-#: inc/ruleaction.class.php:415
-msgid "Copy from item"
-msgstr ""
-
-#: inc/ruleaction.class.php:692 inc/rule.class.php:757
-msgid "Check value of"
-msgid_plural "Check values of"
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/rule.class.php:97
-msgid "StatecheckRule"
-msgid_plural "StatecheckRules"
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/rule.class.php:224
-msgid "StatecheckRules management"
-msgstr ""
-
-#: inc/rule.class.php:250
-msgid "Move"
-msgstr ""
-
-#: inc/rule.class.php:286
-msgid "After"
-msgstr ""
-
-#: inc/rule.class.php:287
-msgid "Before"
-msgstr ""
-
-#: inc/rule.class.php:392
-msgid "Position"
-msgstr ""
-
-#: inc/rule.class.php:403 inc/rule.class.php:554 inc/rule.class.php:2488
-msgid "Logical operator"
-msgstr ""
-
-#: inc/rule.class.php:409 inc/rule.class.php:558 inc/rule.class.php:2555
-msgid "Active"
-msgstr ""
-
-#: inc/rule.class.php:414 inc/rule.class.php:574
-msgid "Comments"
-msgstr ""
-
-#: inc/rule.class.php:425
-msgid "Child entities"
-msgstr ""
-
-#: inc/rule.class.php:431
-msgid "Last update"
-msgstr ""
-
-#: inc/rule.class.php:437
-msgid "Creation date"
-msgstr ""
-
-#: inc/rule.class.php:461 inc/rule.class.php:617
-msgid "and"
-msgstr ""
-
-#: inc/rule.class.php:464 inc/rule.class.php:621
+#: inc/rule.class.php:464 inc/rule.class.php:621 inc/rule.class.php:548
+#: inc/rule.class.php:704 inc/rule.class.php:2263
 msgid "or"
-msgstr ""
-
-#: inc/rule.class.php:537
-msgid "Table"
-msgstr ""
-
-#: inc/rule.class.php:542
-msgid "Target State (\"----\"=All)"
-msgstr ""
-
-#: inc/rule.class.php:565
-msgid "Use rule for"
-msgstr ""
-
-#: inc/rule.class.php:581
-#, php-format
-msgid "Last update on %s"
-msgstr ""
-
-#: inc/rule.class.php:670
-msgid ""
-"It is possible to affect the result of a regular expression using the string "
-"#0"
-msgstr ""
-
-#: inc/rule.class.php:738
-msgid "Add a new check"
-msgstr ""
-
-#: inc/rule.class.php:772
-msgid "Check type"
-msgstr ""
-
-#: inc/rule.class.php:840
-msgid "Add a new criteria"
-msgstr ""
-
-#: inc/rule.class.php:860 inc/rule.class.php:926 inc/rule.class.php:1681
-#: inc/rule.class.php:2180 inc/rulecriteria.class.php:85
-#: inc/rulecriteria.class.php:611
-msgid "Criterion"
-msgid_plural "Criteria"
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/rule.class.php:877 inc/rule.class.php:1682
-#: inc/rulecriteria.class.php:177
-msgid "Condition"
-msgstr ""
-
-#: inc/rule.class.php:878 inc/rule.class.php:1683
-#: inc/rulecriteria.class.php:184
-msgid "Reason"
-msgstr ""
-
-#: inc/rule.class.php:1057
-msgid "Unavailable"
-msgstr ""
-
-#: inc/rule.class.php:1678
-msgid "Result details"
-msgstr ""
-
-#: inc/rule.class.php:1684 inc/rule.class.php:1705
-msgid "Validation"
-msgstr ""
-
-#: inc/rule.class.php:1703
-msgid "StatecheckRule results"
-msgstr ""
-
-#: inc/rule.class.php:1727
-msgid "Result of the regular expression"
-msgstr ""
-
-#: inc/rule.class.php:1731
-msgid "Key"
-msgstr ""
-
-#: inc/rule.class.php:1863
-msgid "General"
-msgstr ""
-
-#: inc/rule.class.php:2485 inc/rule.class.php:2554
-msgid "Description"
-msgstr ""
-
-#: inc/rule.class.php:2525
-msgid "No item found"
-msgstr ""
-
-#: inc/rule.class.php:2691
-msgid "StatecheckRules using the object have been disabled."
-msgstr ""
-
-#: inc/rulecriteria.class.php:521
-msgid "contains"
-msgstr ""
-
-#: inc/rulecriteria.class.php:522
-msgid "does not contain"
-msgstr ""
-
-#: inc/rulecriteria.class.php:523
-msgid "starting with"
-msgstr ""
-
-#: inc/rulecriteria.class.php:524
-msgid "finished by"
-msgstr ""
-
-#: inc/rulecriteria.class.php:525
-msgid "regular expression matches"
 msgstr ""
 
 #: inc/rulecriteria.class.php:526
 msgid "regular expression does not match"
 msgstr ""
 
-#: inc/rulecriteria.class.php:527
-msgid "exists"
+#: inc/rulecriteria.class.php:525
+msgid "regular expression matches"
 msgstr ""
 
-#: inc/rulecriteria.class.php:528
-msgid "does not exist"
+#: inc/rulecriteria.class.php:523
+msgid "starting with"
 msgstr ""
 
 #: inc/rulecriteria.class.php:545
 msgid "under"
 msgstr ""
-
-#: inc/rulecriteria.class.php:546
-msgid "not under"
-msgstr ""
-
-#: inc/table.class.php:45 inc/table.class.php:74
-msgid "Class"
-msgstr ""
-
-#: inc/table.class.php:51 inc/table.class.php:79
-msgid "State table"
-msgstr ""
-
-#: inc/table.class.php:57 inc/table.class.php:84
-msgid "State class"
-msgstr ""
-
-#: inc/table.class.php:63
-msgid "Frontname"
-msgstr ""
-
-#: inc/targetstate.class.php:35
-msgid "Target State"
-msgid_plural "Target States"
-msgstr[0] ""
-msgstr[1] ""
