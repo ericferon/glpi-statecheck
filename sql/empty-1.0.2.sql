@@ -12,7 +12,7 @@ CREATE  TABLE `glpi_plugin_statecheck_rules` (
   `ranking` int(11) NOT NULL DEFAULT '0',
   `match` char(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'see define.php *_MATCHING constant',
   `is_active` tinyint(1) NOT NULL DEFAULT '1',
-  `is_active_warn_popup` tinyint(1) NOT NULL DEFAULT '0',
+  `is_active_warn_popup` tinyint(1) NOT NULL DEFAULT '1',
   `comment` text COLLATE utf8mb4_unicode_ci,
   `successnotifications_id` INT(11) NOT NULL default '0' COMMENT 'notification in case of success',
   `failurenotifications_id` INT(11) NOT NULL default '0' COMMENT 'notification in case of failure',

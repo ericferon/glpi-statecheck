@@ -156,17 +156,28 @@ function hook_pre_item_form(array $params) {
         $dbu = new DbUtils();
 		if ($dbu->countElementsInTable('glpi_plugin_statecheck_tables', ['frontname' => $frontname])) {
 
-            $query = "SELECT `glpi_plugin_statecheck_tables`.`id`, `glpi_plugin_statecheck_rules`.`plugin_statecheck_tables_id`, `glpi_plugin_statecheck_rules`.`is_active_warn_popup` as isActiveWarnPopup FROM `glpi_plugin_statecheck_tables`, `glpi_plugin_statecheck_rules` WHERE `glpi_plugin_statecheck_tables`.`id` = `glpi_plugin_statecheck_rules`.`plugin_statecheck_tables_id` AND `glpi_plugin_statecheck_tables`.`frontname` = '".$frontname."'";
+			// get current state (or 0 if new record)
+			$targetstates_id = 0;
+			$query = "SELECT `statetable` FROM `glpi_plugin_statecheck_tables` WHERE `frontname` = '$frontname'";
+			if ($resultstate=$DB->query($query)) {
+                while ($datastate=$DB->fetchAssoc($resultstate)) {
+					$statefield = empty($datastate['statetable'])?'':substr($datastate['statetable'], 5).'_id';
+				}
+			}
+			if(!empty($statefield) && isset($params['item']) && isset($params['item']->fields) && !empty($params['item']->fields[$statefield]))
+				$targetstates_id = $params['item']->fields[$statefield];
+			
+            $query = "SELECT `glpi_plugin_statecheck_tables`.`id`, `glpi_plugin_statecheck_rules`.`plugin_statecheck_tables_id`, `glpi_plugin_statecheck_rules`.`is_active_warn_popup` as isActiveWarnPopup FROM `glpi_plugin_statecheck_tables`, `glpi_plugin_statecheck_rules` WHERE `glpi_plugin_statecheck_tables`.`id` = `glpi_plugin_statecheck_rules`.`plugin_statecheck_tables_id` AND `glpi_plugin_statecheck_tables`.`frontname` = '".$frontname."' AND `glpi_plugin_statecheck_rules`.`plugin_statecheck_targetstates_id` = '$targetstates_id'";
 
 		    if ($resultstate=$DB->query($query)) {
+				$isActiveWarnPopup = FALSE;
                 while ($datastate=$DB->fetchAssoc($resultstate)) {
-                    $isActiveWarnPopup = $datastate['isActiveWarnPopup'];
-                    if (isset($isActiveWarnPopup) && $isActiveWarnPopup) {
-                        Session::addMessageAfterRedirect('<font color="red"><b>'.__('!! Highlighted fields are controlled !!').'</b></font>');
-                        Html::displayMessageAfterRedirect();
-                        break;
-                    }
+                    $isActiveWarnPopup = $isActiveWarnPopup || $datastate['isActiveWarnPopup'];
                 }
+				if ($isActiveWarnPopup) {
+					Session::addMessageAfterRedirect('<font color="red"><b>'.__('!! Highlighted fields are controlled !!').'</b></font>');
+					Html::displayMessageAfterRedirect();
+				}
             }
 
 		}
