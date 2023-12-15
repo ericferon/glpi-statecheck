@@ -1685,21 +1685,24 @@ class PluginStatecheckRule extends Rule {
    /**
     * Get the next ranking for a specified rule
    **/
-   function getNextRanking() {
-      global $DB;
+//    public function getNextRanking(?string $sub_type = null)
+//    {
+        /** @var \DBmysql $DB */
+/*        global $DB;
 
-      $sql = "SELECT MAX(`ranking`) AS rank
-              FROM `glpi_rules`
-              WHERE `sub_type` = '".$this->getType()."'";
-      $result = $DB->query($sql);
+        $iterator = $DB->request([
+            'SELECT' => ['MAX' => 'ranking AS rank'],
+            'FROM'   => self::getTable(),
+            'WHERE'  => ['sub_type' => $sub_type ?? static::class]
+        ]);
 
-      if ($DB->numrows($result) > 0) {
-         $datas = $DB->fetchAssoc($result);
-         return $datas["rank"] + 1;
-      }
-      return 0;
-   }
-
+        if (count($iterator)) {
+            $data = $iterator->current();
+            return $data["rank"] + 1;
+        }
+        return 0;
+    }
+*/
 
    /**
     * Show the minimal form for the action rule
