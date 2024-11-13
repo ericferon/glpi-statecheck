@@ -97,13 +97,13 @@ function plugin_version_statecheck() {
 
    return [
       'name' => _n('Statecheck Rule', 'Statecheck Rules', 2, 'statecheck'),
-      'version' => '2.4.3',
+      'version' => '2.4.4',
       'author'  => "Eric Feron",
       'license' => 'GPLv2+',
       'homepage'=> 'https://github.com/ericferon/glpi-statecheck',
       'requirements' => [
          'glpi' => [
-            'min' => '10.0',
+            'min' => '10.0.17',
             'dev' => false
          ]
       ]

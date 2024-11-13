@@ -1345,7 +1345,7 @@ class PluginStatecheckRule extends Rule {
     * @param &$criteria  criteria to check
     * @param &$input     the input data used to check criterias
    **/
-   function checkCriteria(&$criteria, &$input) {
+   function checkCriteria($criteria, &$input) {
 
       $partial_regex_result = [];
       // Undefine criteria field : set to blank
