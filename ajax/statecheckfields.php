@@ -24,7 +24,9 @@
  --------------------------------------------------------------------------
  */
 
-define('GLPI_ROOT', '../../..');
+if (!defined('GLPI_ROOT')) {
+	define('GLPI_ROOT', '../../..');
+}
 include (GLPI_ROOT . "/inc/includes.php");
 
 $DB = new DB;
@@ -63,20 +65,39 @@ if (isset($_GET['statefieldvalues'])) {
 }*/
 $checkedfield = [];
 $imainstatefield = array_search($mainstatefield,$fields);
-$queryrule = "select glpi_plugin_statecheck_rules.id, glpi_plugin_statecheck_rules.plugin_statecheck_targetstates_id,
-glpi_plugin_statecheck_rulecriterias.criteria, glpi_plugin_statecheck_rulecriterias.condition, glpi_plugin_statecheck_rulecriterias.pattern
-from glpi_plugin_statecheck_rules
-inner join glpi_plugin_statecheck_tables on glpi_plugin_statecheck_rules.plugin_statecheck_tables_id = glpi_plugin_statecheck_tables.id
-left join glpi_plugin_statecheck_rulecriterias on glpi_plugin_statecheck_rules.id = glpi_plugin_statecheck_rulecriterias.plugin_statecheck_rules_id
-where  class = '".$classname."' 
-and is_active = true
-and (plugin_statecheck_targetstates_id = 0";
+$queryrule = [
+            'SELECT' => ['glpi_plugin_statecheck_rules' => ['id', 'plugin_statecheck_targetstates_id'],
+						'glpi_plugin_statecheck_rulecriterias' => ['criteria', 'condition', 'pattern']
+						 ],
+            'FROM' => 'glpi_plugin_statecheck_rules',
+			'INNER JOIN' => ['glpi_plugin_statecheck_tables' =>
+								['ON' => ['glpi_plugin_statecheck_rules' => 'plugin_statecheck_tables_id',
+										'glpi_plugin_statecheck_tables' => 'id']
+								 ]
+							 ],
+			'LEFT JOIN' => ['glpi_plugin_statecheck_rulecriterias' =>
+								['ON' => 
+									['glpi_plugin_statecheck_rules' => 'id',
+									'glpi_plugin_statecheck_rulecriterias' =>'plugin_statecheck_rules_id']
+								]
+							]
+			];
+
 if (!$imainstatefield && !empty($values) && !empty($values[$imainstatefield]))
-	$queryrule .= " or plugin_statecheck_targetstates_id = ".$values[$imainstatefield].")";
+	$queryrule['WHERE'] = ['class' => $classname,
+						'is_active' => true,
+						'plugin_statecheck_targetstates_id' => [0,$values[$imainstatefield]]
+							];
 else
-	$queryrule .= ")";
-if ($resultrule=$DB->query($queryrule)) {
-	while ($datarule=$DB->fetchAssoc($resultrule)) {
+	$queryrule['WHERE'] = ['class' => $classname,
+						'is_active' => true,
+						'plugin_statecheck_targetstates_id' => 0
+   					];
+//Toolbox::logInFile("debug",print_r($queryrule,true));
+if ($resultrule=$DB->request($queryrule)) {
+	if (count($resultrule)>0)
+	foreach ($resultrule as $datarule) {
+//		Toolbox::logInFile("debug",print_r($datarule,true));
 		$rules_id = $datarule['id'];
 		$criteriacheck = true;
 //		get the index of this criteria in fields/values arrays and get the value from the form
@@ -129,10 +150,12 @@ if ($resultrule=$DB->query($queryrule)) {
 		}
 //		if rule applies
 		if ($criteriacheck) {
-				$queryaction = "select field, action_type, value from glpi_plugin_statecheck_ruleactions ".
-							"where plugin_statecheck_rules_id = $rules_id ";
-				if ($resultaction=$DB->query($queryaction)) {
-					while ($dataaction=$DB->fetchAssoc($resultaction)) {
+				$queryaction = ['SELECT' => ['field', 'action_type', 'value'],
+								'FROM' => 'glpi_plugin_statecheck_ruleactions',
+								'WHERE' => ['plugin_statecheck_rules_id' => $rules_id]
+								];
+				if ($resultaction=$DB->request($queryaction)) {
+					foreach ($resultaction as $dataaction) {
 						$checkedfield[] = $dataaction;
 				}
 			}

@@ -30,8 +30,8 @@ if (!defined('GLPI_ROOT')) {
 
 class PluginStatecheckTable extends CommonDropdown {
 
-   static $rightname = "plugin_statecheck";
-   var $can_be_translated  = true;
+   static string $rightname = "plugin_statecheck";
+   var bool $can_be_translated  = true;
    
    static function getTypeName($nb=0) {
 

@@ -25,7 +25,7 @@
  */
  
 class PluginStatecheckMenu extends CommonGLPI {
-   static $rightname = 'plugin_statecheck';
+   static string $rightname = 'plugin_statecheck';
 
    static function getMenuName() {
       return _n('Statecheck Rule', 'Statecheck Rules', 2, 'statecheck');
@@ -36,7 +36,7 @@ class PluginStatecheckMenu extends CommonGLPI {
 
       $menu                                           = [];
       $menu['title']                                  = self::getMenuName();
-      $menu['page']                                   = "/".Plugin::getWebDir('statecheck', false)."/front/rule.php";
+      $menu['page']                                   = $CFG_GLPI['root_doc'] . "/plugins/statecheck/front/rule.php";
       $menu['links']['search']                        = PluginStatecheckRule::getSearchURL(false);
       if (PluginStatecheckRule::canCreate()) {
          $menu['links']['add']                        = PluginStatecheckRule::getFormURL(false);

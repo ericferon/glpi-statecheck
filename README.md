@@ -1,6 +1,9 @@
 # Statecheck
 Statecheck Plugin for GLPI
 
+## This plugin will not be maintained anymore after GLPI core V12
+(as I have now been retired for 2 years :-)
+
 This plugin let you check the validity of form fields.
 For instance you can make a field mandatory or not, depending on some value in another field
 

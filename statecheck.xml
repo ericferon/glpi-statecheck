@@ -25,6 +25,26 @@
 	</authors>
 	<versions>
 		<version>
+			<num>2.4.8</num>
+			<compatibility>~12.0.0</compatibility>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.4.8/statecheck-v2.4.8.tar.gz</download_url>
+		</version>
+		<version>
+			<num>2.4.7</num>
+			<compatibility>~10.0.0 || ~11.0.0</compatibility>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.4.7/statecheck-v2.4.7.tar.gz</download_url>
+		</version>
+		<version>
+			<num>2.4.6</num>
+			<compatibility>~10.0.0 || ~11.0.0</compatibility>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.4.6/statecheck-v2.4.6.tar.gz</download_url>
+		</version>
+		<version>
+			<num>2.4.5</num>
+			<compatibility>~10.0.0 || ~11.0.0</compatibility>
+			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.4.5/statecheck-v2.4.5.tar.gz</download_url>
+		</version>
+		<version>
 			<num>2.4.4</num>
 			<compatibility>~10.0.0</compatibility>
 			<download_url>https://github.com/ericferon/glpi-statecheck/releases/download/v2.4.4/statecheck-v2.4.4.tar.gz</download_url>

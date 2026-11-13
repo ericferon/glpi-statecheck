@@ -32,39 +32,39 @@ function plugin_statecheck_install() {
    $update=false;
    if (!$DB->TableExists("glpi_plugin_statecheck_rules")) {
 
-		$DB->runFile(Plugin::getPhpDir("statecheck")."/sql/empty-1.0.2.sql");
+		$DB->runFile(Plugin::getPhpDir("statecheck")."/sql/empty-1.0.3.sql");
 
 //      insert notification template for archisw, if installed
         $query = "select * from glpi_plugins where directory = 'archisw' and state = 1";
-        $result_query = $DB->query($query);
+        $result_query = $DB->doQuery($query);
         if($DB->numRows($result_query) == 1) {
             $DB->runFile(Plugin::getPhpDir("statecheck")."/sql/archisw-1.0.0.sql");
         }
         else {
            $query = "delete from glpi_plugin_statecheck_tables where name = 'glpi_plugin_archisw_swcomponents';";
-           $DB->query($query);
+           $DB->doQuery($query);
         }
 
 //      insert notification template for dataflows, if installed
         $query = "select * from glpi_plugins where directory = 'dataflows' and state = 1";
-        $result_query = $DB->query($query);
+        $result_query = $DB->doQuery($query);
         if($DB->numRows($result_query) == 1) {
             $DB->runFile(Plugin::getPhpDir("statecheck")."/sql/dataflows-1.0.0.sql");
         }
         else {
            $query = "delete from glpi_plugin_statecheck_tables where name = 'glpi_plugin_dataflows_dataflows';";
-           $DB->query($query);
+           $DB->doQuery($query);
         }
 
 //      insert notification template for databases, if installed
         $query = "select * from glpi_plugins where directory = 'databases' and state = 1";
-        $result_query = $DB->query($query);
+        $result_query = $DB->doQuery($query);
         if($DB->numRows($result_query) == 1) {
             $DB->runFile(Plugin::getPhpDir("statecheck")."/sql/databases-1.0.0.sql");
         }
         else {
            $query = "delete from glpi_plugin_statecheck_tables where name = 'glpi_plugin_databases_databases';";
-           $DB->query($query);
+           $DB->doQuery($query);
         }
 	}
 	else {
@@ -76,26 +76,27 @@ function plugin_statecheck_install() {
         if (!$DB->FieldExists("glpi_plugin_statecheck_rules", "is_active_warn_popup")) {
 			$DB->runFile(Plugin::getPhpDir("statecheck")."/sql/update-1.0.2.sql");
         }
+        $DB->runFile(Plugin::getPhpDir("statecheck")."/sql/update-1.0.3.sql");
     }
 
    if ($update) {
       $query_="SELECT *
             FROM `glpi_plugin_statecheck_profiles` ";
-      $result_=$DB->query($query_);
+      $result_=$DB->doQuery($query_);
       if ($DB->numrows($result_)>0) {
 
          while ($data=$DB->fetch_array($result_)) {
             $query="UPDATE `glpi_plugin_statecheck_profiles`
                   SET `profiles_id` = '".$data["id"]."'
                   WHERE `id` = '".$data["id"]."';";
-            $result=$DB->query($query);
+            $result=$DB->doQuery($query);
 
          }
       }
 
       $query="ALTER TABLE `glpi_plugin_statecheck_profiles`
                DROP `name` ;";
-      $result=$DB->query($query);
+      $result=$DB->doQuery($query);
 
       Plugin::migrateItemType(
          [2400=>'PluginStatecheckRule'],
@@ -127,7 +128,7 @@ function plugin_statecheck_uninstall() {
 					"glpi_plugin_statecheck_profiles"];
 
 	foreach($tables as $table)
-      $DB->query("DROP TABLE IF EXISTS `$table`;");
+      $DB->doQuery("DROP TABLE IF EXISTS `$table`;");
 
 	$tables_glpi = ["glpi_displaypreferences",
 					"glpi_documents_items",
@@ -135,7 +136,7 @@ function plugin_statecheck_uninstall() {
 					"glpi_logs"];
 
 	foreach($tables_glpi as $table_glpi)
-      $DB->query("DELETE FROM `$table_glpi` WHERE `itemtype` LIKE 'PluginStatecheck%' ;");
+      $DB->doQuery("DELETE FROM `$table_glpi` WHERE `itemtype` LIKE 'PluginStatecheck%' ;");
 
 	//notifications
 		$notif = new Notification();
@@ -186,13 +187,13 @@ function plugin_statecheck_getDatabaseRelations() {
 
    $plugin = new Plugin();
    if ($plugin->isActivated("statecheck"))
-		return ["glpi_plugin_statecheck_rules"=>["glpi_plugin_statecheck_rulecriterias"=>"plugin_statecheck_rules_id"],
-					"glpi_plugin_statecheck_rules"=>["glpi_plugin_statecheck_ruleactions"=>"plugin_statecheck_rules_id"],
+		return ["glpi_plugin_statecheck_rules"=>["glpi_plugin_statecheck_rulecriterias"=>"plugin_statecheck_rules_id",
+                                                "glpi_plugin_statecheck_ruleactions"=>"plugin_statecheck_rules_id"],
 					 "glpi_plugin_statecheck_tables"=>["glpi_plugin_statecheck_rules"=>"plugin_statecheck_tables_id"],
 					 "glpi_plugin_statecheck_targetstates"=>["glpi_plugin_statecheck_rules"=>"plugin_statecheck_targetstates_id"],
-					 "glpi_entities"=>["glpi_plugin_statecheck_rules"=>"entities_id"],
+					 "glpi_entities"=>["glpi_plugin_statecheck_rules"=>"entities_id"]/*,
 					 "glpi_groups"=>["glpi_plugin_statecheck_rules"=>"groups_id"],
-					 "glpi_users"=>["glpi_plugin_statecheck_rules"=>"users_id"]
+					 "glpi_users"=>["glpi_plugin_statecheck_rules"=>"users_id"]*/
 					 ];
    else
       return [];
@@ -249,7 +250,7 @@ function plugin_pre_item_add_statecheck($item) {
 
     $queryrule = "SELECT `glpi_plugin_statecheck_rules`.`id`, `glpi_plugin_statecheck_rules`.`name` as rulename, `glpi_plugin_statecheck_tables`.`id` as tableid, `glpi_plugin_statecheck_tables`.`name` as tablename, `glpi_plugin_statecheck_tables`.`class` FROM `glpi_plugin_statecheck_rules`, `glpi_plugin_statecheck_tables` WHERE `glpi_plugin_statecheck_rules`.`plugin_statecheck_tables_id` = `glpi_plugin_statecheck_tables`.`id` AND `frontname` LIKE '$firstKey' AND `is_active` = true";
 
-    if ($resultrule=$DB->query($queryrule)) {
+    if ($resultrule=$DB->doQuery($queryrule)) {
         if (is_array($item)) {
             $item['hookerror'] = false;
             if (isset($item['hookmessage']))
@@ -269,7 +270,7 @@ function plugin_pre_item_add_statecheck($item) {
 //			for each rule, retrieve the pre-conditions to apply the rule
             $criteriacheck = true;
             $querycriteria = "SELECT * from `glpi_plugin_statecheck_rulecriterias` WHERE `plugin_statecheck_rules_id` = $rules_id";
-            if ($resultcriteria=$DB->query($querycriteria)) {
+            if ($resultcriteria=$DB->doQuery($querycriteria)) {
                 while ($datacriteria=$DB->fetchAssoc($resultcriteria)) {
                     switch ($datacriteria['condition']) {
                         case Rule::PATTERN_IS :
@@ -388,7 +389,7 @@ function plugin_pre_item_add_statecheck($item) {
             if ($criteriacheck) {
 //				retrieve the fields to check on behalf of this rule and check the condition of the current field value
                 $queryaction = "SELECT * from `glpi_plugin_statecheck_ruleactions` WHERE `plugin_statecheck_rules_id` = $rules_id";
-                if ($resultaction=$DB->query($queryaction)) {
+                if ($resultaction=$DB->doQuery($queryaction)) {
 //					get field name and label
                     $ruleaction = new PluginStatecheckRuleAction;
                     $fields = $ruleaction->getActionFields($table_id);

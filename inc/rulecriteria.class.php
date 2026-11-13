@@ -32,9 +32,9 @@ if (!defined('GLPI_ROOT')) {
 class PluginStatecheckRuleCriteria extends CommonDBChild {
 
    // From CommonDBChild
-   static public $items_id        = 'plugin_statecheck_rules_id';
-   public $dohistory              = true;
-   public $auto_message_on_action = false;
+   static public string $items_id        = 'plugin_statecheck_rules_id';
+   public bool $dohistory              = true;
+   public bool $auto_message_on_action = false;
 
 
 
@@ -323,7 +323,7 @@ class PluginStatecheckRuleCriteria extends CommonDBChild {
               WHERE `".static::$items_id."` = '$ID'
               ORDER BY `id`";
 
-      $result     = $DB->query($sql);
+      $result     = $DB->doQuery($sql);
       $rules_list = [];
       while ($rule = $DB->fetchAssoc($result)) {
          $tmp          = new self();
@@ -619,7 +619,7 @@ class PluginStatecheckRuleCriteria extends CommonDBChild {
 					  'plugin_statecheck_tables_id' => $this->input["parent"]->fields["plugin_statecheck_tables_id"]];
 
       Ajax::updateItemOnSelectEvent("dropdown_criteria$rand", "criteria_span",
-                                    Plugin::getWebDir('statecheck')."/ajax/rulecriteria.php", $params);
+                                    "/plugin/statecheck/ajax/rulecriteria.php", $params);
 
       if (isset($this->fields['criteria']) && !empty($this->fields['criteria'])) {
          $params['criteria']  = $this->fields['criteria'];
@@ -627,7 +627,7 @@ class PluginStatecheckRuleCriteria extends CommonDBChild {
          $params['pattern']   = $this->fields['pattern'];
          echo "<script type='text/javascript' >\n";
          Ajax::updateItemJsCode("criteria_span",
-                                 Plugin::getWebDir('statecheck')."/ajax/rulecriteria.php",
+                                 "/plugin/statecheck/ajax/rulecriteria.php",
                                  $params);
          echo '</script>';
       }

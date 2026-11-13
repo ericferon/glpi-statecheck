@@ -1,9 +1,12 @@
 .statecheck-warning,.select2-choice.statecheck-warning {
-  border-color: red !important;
+  --tblr-border-color: red !important;
+  border-color: var(--tblr-border-color);
 }
 .statecheck-error,.select2-choice.statecheck-error {
-  border-color: #f2dede !important;
+  --tblr-border-color: #f2dede !important;
+  border-color: var(--tblr-border-color);
 }
 .statecheck-success,.select2-choice.statecheck-success {
-  border-color: #dff0d8 !important;
+  --tblr-border-color: #dff0d8 !important;
+  border-color: var(--tblr-border-color);
 }
