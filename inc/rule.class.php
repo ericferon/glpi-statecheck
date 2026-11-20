@@ -37,31 +37,31 @@ if (!defined('GLPI_ROOT')) {
 **/
 class PluginStatecheckRule extends Rule {
 
-   public $dohistory             = true;
+   public bool $dohistory             = true;
 
    // Specific ones
    ///Actions affected to this rule
-   public $actions               = [];
+   public ?array $actions               = [];
    ///Criterias affected to this rule
-   public $criterias             = [];
+   public array $criterias             = [];
    /// Rules can be sorted ?
    public $can_sort              = false;
    /// field used to order rules
    public $orderby               = 'ranking';
 
    /// restrict matching to self::AND_MATCHING or self::OR_MATCHING : specify value to activate
-   public $restrict_matching     = false;
+   public string|int|bool $restrict_matching     = false;
 
-   protected $rules_id_field	 = 'plugin_statecheck_rules_id';
-   protected $ruleactionclass    = 'PluginStatecheckRuleAction';
-   protected $rulecriteriaclass  = 'PluginStatecheckRuleCriteria';
+   protected string $rules_id_field	 = 'plugin_statecheck_rules_id';
+   protected string $ruleactionclass    = 'PluginStatecheckRuleAction';
+   protected string $rulecriteriaclass  = 'PluginStatecheckRuleCriteria';
 
-   public $specific_parameters   = false;
+   public bool $specific_parameters   = false;
 
-   public $regex_results         = [];
-   public $criterias_results     = [];
+   public array $regex_results         = [];
+   public array $criterias_results     = [];
 
-   static $rightname             = 'config';
+   static string $rightname             = 'config';
 
    const RULE_NOT_IN_CACHE       = -1;
    const RULE_WILDCARD           = '*';
@@ -2396,10 +2396,12 @@ class PluginStatecheckRule extends Rule {
 	&& $this->fields
 	&& $this->fields["plugin_statecheck_tables_id"])
 		$table_id = $this->fields["plugin_statecheck_tables_id"];
-	$query = "select * from glpi_plugin_statecheck_tables where id = ".$table_id;
-
-	if ($table_id > -1 
-	&& $result=$DB->doQuery($query)) {
+	if ($table_id > -1) {
+        $result = $DB->request(['FROM' => 'glpi_plugin_statecheck_tables',
+                                'WHERE' => ['id' => $table_id]
+					  ]);
+        if (count($result) > 0)
+		foreach ($result as $data) {
 		$data=$DB->fetchAssoc($result);
 		$class = new $data['class'];
 		// get the table of searchable fields ('field'), containing the field description in current language ('name')
@@ -2436,6 +2438,7 @@ class PluginStatecheckRule extends Rule {
 			}
 		}
       }
+    }
 	$criterias['session_users_id']['name'] = _n('Logged user','Logged users', 1, 'statecheck');
 	$criterias['session_users_id']['table'] = 'glpi_users';
     $criterias['session_users_id']['field'] = 'name';
@@ -2955,6 +2958,7 @@ class PluginStatecheckRule extends Rule {
 
 function plugin_statecheck_renderfields($classname) {
 	global $CFG_GLPI, $DB, $_SESSION;
+//          Toolbox::logInFile("debug", "plugin_statecheck_renderfields : $classname");
 //			get the field that drive the statecheck
 			$queryfields = "select glpi_plugin_statecheck_rules.id, glpi_plugin_statecheck_tables.id as tableid, 
 							glpi_plugin_statecheck_tables.name as tablename, glpi_plugin_statecheck_tables.statetable,
@@ -2983,8 +2987,8 @@ function plugin_statecheck_renderfields($classname) {
 						$statefields[] = $statefield;
                   }
 				}
-				$url = Plugin::getWebDir('statecheck')."/ajax/statecheckfields.php?classname=".urlencode($classname)."&mainstatefield=".urlencode($mainstatefield);
-#				echo "<link rel='stylesheet' type='text/css' href='".Plugin::getWebDir('statecheck')."/style.css' media=''>\n";
+				$url = "/plugins/statecheck/ajax/statecheckfields.php?classname=".urlencode($classname)."&mainstatefield=".urlencode($mainstatefield);
+//				echo "<link rel='stylesheet' type='text/css' href='".Plugin::getWebDir('statecheck')."/style.css' media=''>\n";
 //              define red border style
 				echo "<style>\n";
 				echo ".statecheck-warning,.select2-choice.statecheck-warning {\n";
@@ -2994,6 +2998,7 @@ function plugin_statecheck_renderfields($classname) {
                      echo "border-color: red !important;\n";
                      break;
                   case "11":
+                  case "12":
 //				      use variable
                      echo "--tblr-border-color: red !important;\n";
                      echo "border-color: var(--tblr-border-color);\n";
@@ -3036,13 +3041,14 @@ function plugin_statecheck_renderfields($classname) {
                         echo 'if (element && element.type == "textarea") {;}';
 						break;
 					case "11":
+					case "12":
 //						take the next sibling element
                         echo 'if (element && element.type == "textarea") {element = element.nextSibling;}';
 						break;
 				}
 //				but for dropdown,
                 echo 'else if (element && element.type != "text" && element.type != "textarea") {element = element.nextSibling.querySelectorAll("[role=combobox]")[0];};';
-//				change css class of "statechecked" fields
+///				change css class of "statechecked" fields
 				echo 'if (element) {if(element.className) {element.className += " statecheck-warning";} else {element.className = "statecheck-warning";}}';
 				echo '})';
 				echo '}';
@@ -3063,6 +3069,7 @@ function plugin_statecheck_renderfields($classname) {
                         echo 'if (element && element.type == "textarea") {;}';
 						break;
 					case "11":
+					case "12":
 //						take the next sibling element
                         echo 'if (element && element.type == "textarea") {element = element.nextSibling;}';
 						break;

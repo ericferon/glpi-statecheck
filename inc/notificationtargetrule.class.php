@@ -41,11 +41,11 @@ function getEvents() {
 	global $LANG, $DB;
 	$events = [];
 	$queryclass = "select * from glpi_plugin_statecheck_tables";
-	if ($resultclass=$DB->query($queryclass)) {
+	if ($resultclass=$DB->doQuery($queryclass)) {
 		while ($dataclass=$DB->fetchAssoc($resultclass)) {
 			$statetable = $dataclass['statetable'];
 			$querystate = "select * from $statetable";
-			if (!empty($statetable) && $resultstate=$DB->query($querystate)) {
+			if (!empty($statetable) && $resultstate=$DB->doQuery($querystate)) {
 				while ($datastate=$DB->fetchAssoc($resultstate)) {
 					$events[$dataclass['class'].'_'.$datastate['id'].'_success'] = $dataclass['comment']." ".__('Statecheck succeeded for ', 'statecheck')."'".$datastate['name']."'";
 					$events[$dataclass['class'].'_'.$datastate['id'].'_failure'] = $dataclass['comment']." ".__('Statecheck failed for ', 'statecheck')."'".$datastate['name']."'";
@@ -66,7 +66,7 @@ function getEvents() {
 	$eventparts = explode("_",$event);
 	$itemtype = $eventparts[0];
 	$queryclass = "select * from glpi_plugin_statecheck_tables where class = '$itemtype'";
-	if ($resultclass=$DB->query($queryclass)) {
+	if ($resultclass=$DB->doQuery($queryclass)) {
       $dataclass=$DB->fetchAssoc($resultclass);
       if (isset($dataclass['frontname'])) {
          $frontname = $dataclass['frontname'];
@@ -185,7 +185,7 @@ function getEvents() {
 		$events = $this->getAllEvents();
 
 		$queryclass = "select * from glpi_plugin_statecheck_tables where class = '".$classinfo[0]."'";
-		if ($resultclass=$DB->query($queryclass)) {
+		if ($resultclass=$DB->doQuery($queryclass)) {
 			$dataclass=$DB->fetchAssoc($resultclass);
 			$statetable = $dataclass['statetable'];
 			$this->data['##statecheck.classname##'] = $dataclass['comment'];
@@ -195,7 +195,7 @@ function getEvents() {
 			$tablename = $dataclass['name'];
 			$tableid = $dataclass['id'];
 			$queryfield = "show columns from $tablename";
-			if ($resultfield=$DB->query($queryfield)) {
+			if ($resultfield=$DB->doQuery($queryfield)) {
 				while ($datafield=$DB->fetchAssoc($resultfield)) {
 					$fieldname = $datafield['Field'];
 					$tagname = "##statecheck.".$frontname.".".$fieldname."##";
