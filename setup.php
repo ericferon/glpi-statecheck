@@ -24,6 +24,13 @@
  --------------------------------------------------------------------------
  */
 
+define('PLUGIN_STATECHECK_VERSION', '2.4.9');
+
+// Minimal GLPI version, inclusive
+define('PLUGIN_STATECHECK_MIN_GLPI', '12.0.0');
+// Maximum GLPI version, exclusive
+define('PLUGIN_STATECHECK_MAX_GLPI', '12.0.99');
+
 // Init the hooks of the plugins -Needed
 function plugin_init_statecheck() {
    global $PLUGIN_HOOKS, $DB;
@@ -97,14 +104,14 @@ function plugin_version_statecheck() {
 
    return [
       'name' => _n('Statecheck Rule', 'Statecheck Rules', 2, 'statecheck'),
-      'version' => '2.4.8',
+      'version' => PLUGIN_STATECHECK_VERSION,
       'author'  => "Eric Feron",
       'license' => 'GPLv2+',
       'homepage'=> 'https://github.com/ericferon/glpi-statecheck',
       'requirements' => [
          'glpi' => [
-            'min' => '12.0.0',
-            'max' => '12.0.99'
+            'min' => PLUGIN_STATECHECK_MIN_GLPI,
+            'max' => PLUGIN_STATECHECK_MAX_GLPI
          ]
       ]
    ];

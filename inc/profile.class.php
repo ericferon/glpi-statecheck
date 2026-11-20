@@ -2,7 +2,7 @@
 /*
  -------------------------------------------------------------------------
  Statecheck plugin for GLPI
- Copyright (C) 2009-2018 by Eric Feron.
+ Copyright (C) 2009-2026 by Eric Feron.
  -------------------------------------------------------------------------
 
  LICENSE
@@ -179,35 +179,6 @@ class PluginStatecheckProfile extends Profile {
    }
 
    /**
-   * @since 0.85
-   * Migration rights from old system to the new one for one profile
-   * @param $profiles_id the profile ID
-   */
-/*   static function migrateOneProfile($profiles_id) {
-      global $DB;
-      //Cannot launch migration if there's nothing to migrate...
-      if (!$DB->TableExists('glpi_plugin_statecheck_profiles')) {
-      return true;
-      }
-
-      foreach ($DB->request('glpi_plugin_statecheck_profiles',
-                            "`profiles_id`='$profiles_id'") as $profile_data) {
-
-         $matching = ['statecheck'    => 'plugin_statecheck',
-                           'open_ticket' => 'plugin_statecheck_open_ticket'];
-         $current_rights = ProfileRight::getProfileRights($profiles_id, array_values($matching));
-         foreach ($matching as $old => $new) {
-            if (!isset($current_rights[$old])) {
-               $query = "UPDATE `glpi_profilerights`
-                         SET `rights`='".self::translateARight($profile_data[$old])."'
-                         WHERE `name`='$new' AND `profiles_id`='$profiles_id'";
-               $DB->doQuery($query);
-            }
-         }
-      }
-   }
-*/
-   /**
    * Initialize profiles, and migrate it necessary
    */
    static function initProfile() {
@@ -223,14 +194,16 @@ class PluginStatecheckProfile extends Profile {
          }
       }
 
-      //Migration old rights in new ones
-/*      foreach ($DB->request("SELECT `id` FROM `glpi_profiles`") as $prof) {
+/*      //Migration old rights in new ones
+      foreach ($DB->request(['SELECT'=> 'id',
+                              'FROM' => 'glpi_profiles']
+               ) as $prof) {
          self::migrateOneProfile($prof['id']);
       }
-      foreach ($DB->request("SELECT *
-                           FROM `glpi_profilerights`
-                           WHERE `profiles_id`='".$_SESSION['glpiactiveprofile']['id']."'
-                              AND `name` LIKE '%plugin_statecheck%'") as $prof) {
+      foreach ($DB->request(['FROM' =>  'glpi_profilerights',
+                              'WHERE' =>  ['profiles_id' => $_SESSION['glpiactiveprofile']['id'], 
+                                          'name' => ['LIKE', '%plugin_statecheck%']]]
+                              ) as $prof) {
          $_SESSION['glpiactiveprofile'][$prof['name']] = $prof['rights'];
       }
 */   }
